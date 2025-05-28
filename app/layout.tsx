@@ -3,6 +3,7 @@ import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { PrivyClientProvider } from '@/components/privy-client-provider'
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,8 +29,16 @@ export default function RootLayout({
         <PrivyClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             {children}
+            <footer className="py-6 md:px-8 md:py-0">
+              <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+                <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+                  © {new Date().getFullYear()} Campus on Chain. Todos los derechos reservados.
+                </p>
+              </div>
+            </footer>
           </ThemeProvider>
         </PrivyClientProvider>
+        <Toaster />
       </body>
     </html>
   )

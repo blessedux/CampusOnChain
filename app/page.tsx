@@ -14,7 +14,15 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (ready && authenticated) {
-      router.push("/profile");
+      // Check if we're coming from profile page
+      const profileState = sessionStorage.getItem('profileState');
+      if (profileState) {
+        // Clear the state since we've handled it
+        sessionStorage.removeItem('profileState');
+      } else {
+        // Only redirect to profile if not coming from there
+        router.push("/profile");
+      }
     }
   }, [ready, authenticated, router]);
 
@@ -24,7 +32,13 @@ export default function LandingPage() {
       <header className="sticky top-0 z-40 w-full border-b bg-background/95">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/campus1.webp" alt="Campus on Chain Logo" width={60} height={60} className="rounded" />
+            <Image 
+              src="/campus1.webp" 
+              alt="Campus on Chain Logo" 
+              width={60} 
+              height={60} 
+              className="rounded w-auto h-auto" 
+            />
           </Link>
           {/* Privy wallet connect */}
           <Button onClick={login} disabled={!ready}>

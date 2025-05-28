@@ -1,14 +1,20 @@
-import type React from "react"
+import type { Metadata } from "next"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { PrivyClientProvider } from '@/components/privy-client-provider'
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
-  title: "Campus on Chain - La comunidad blockchain para estudiantes universitarios",
-  description: "Connect. Learn. Build. La comunidad blockchain definitiva para estudiantes universitarios.",
-    generator: 'v0.dev'
+const privyAppId = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "fallback-app-id";
+
+export const metadata: Metadata = {
+  title: "Campus on Chain",
+  description: "El puente entre universidades y el mundo Web3",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -19,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <PrivyClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </PrivyClientProvider>
       </body>
     </html>
   )

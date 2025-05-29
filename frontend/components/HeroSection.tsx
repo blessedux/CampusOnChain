@@ -4,6 +4,7 @@ import React from 'react'
 import { ButtonColorful } from '@/components/ui/button-colorful'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ProgressiveBlur } from '@/components/ui/progressive-blur'
+import Image from 'next/image'
 
 interface HeroSectionProps {
   authenticated: boolean
@@ -51,7 +52,7 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
         <div className="group relative m-auto max-w-7xl px-6">
           <div className="flex flex-col items-center md:flex-row">
             <div className="md:max-w-44 md:pr-6">
-              <p className="text-end text-sm text-gray-400">Universidades Participantes</p>
+              <p className="text-end text-sm text-gray-400">Blockchains Participantes</p>
             </div>
             <div className="relative py-6 md:w-[calc(100%-11rem)]">
               <InfiniteSlider
@@ -59,48 +60,39 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
                 durationOnHover={120}
                 gap={112}>
                 <div className="flex">
-                  <img
-                    className="mx-auto h-12 w-fit opacity-70 hover:opacity-100 transition-opacity"
-                    src="/logos/unam.png"
-                    alt="UNAM Logo"
-                    height="48"
-                    width="auto"
+                  <Image
+                    className="mx-auto h-12 w-fit brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                    src="/logos/avalanche.svg"
+                    alt="Avalanche Logo"
+                    height={48}
+                    width={150}
                   />
                 </div>
                 <div className="flex">
-                  <img
-                    className="mx-auto h-12 w-fit opacity-70 hover:opacity-100 transition-opacity"
-                    src="/logos/tec.png"
-                    alt="Tec Logo"
-                    height="48"
-                    width="auto"
+                  <Image
+                    className="mx-auto h-12 w-fit brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                    src="/logos/stellar.svg"
+                    alt="Stellar Logo"
+                    height={48}
+                    width={150}
                   />
                 </div>
                 <div className="flex">
-                  <img
-                    className="mx-auto h-12 w-fit opacity-70 hover:opacity-100 transition-opacity"
-                    src="/logos/up.png"
-                    alt="UP Logo"
-                    height="48"
-                    width="auto"
+                  <Image
+                    className="mx-auto h-12 w-fit brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                    src="/logos/Polkadot_Logo.svg"
+                    alt="Polkadot Logo"
+                    height={48}
+                    width={150}
                   />
                 </div>
                 <div className="flex">
-                  <img
-                    className="mx-auto h-12 w-fit opacity-70 hover:opacity-100 transition-opacity"
-                    src="/logos/anahuac.png"
-                    alt="Anahuac Logo"
-                    height="48"
-                    width="auto"
-                  />
-                </div>
-                <div className="flex">
-                  <img
-                    className="mx-auto h-12 w-fit opacity-70 hover:opacity-100 transition-opacity"
-                    src="/logos/ibero.png"
-                    alt="IBERO Logo"
-                    height="48"
-                    width="auto"
+                  <Image
+                    className="mx-auto h-12 w-fit brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                    src="/logos/worldcoin 1.svg"
+                    alt="Worldcoin Logo"
+                    height={48}
+                    width={150}
                   />
                 </div>
               </InfiniteSlider>

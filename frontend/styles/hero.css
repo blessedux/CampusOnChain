@@ -1,0 +1,35 @@
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-mask {
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  --mask: "ON CHAIN";
+  --mask-type: text;
+}
+
+.masked-text {
+  position: relative;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.masked-text::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: url(/logos/innovation-pitch-m6LjWW2PEXu4bvqq.jpg_1.jpeg);
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+} 

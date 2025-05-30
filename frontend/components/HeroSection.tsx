@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { ButtonColorful } from '@/components/ui/button-colorful'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ProgressiveBlur } from '@/components/ui/progressive-blur'
@@ -15,9 +15,19 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ authenticated, ready, onCampusEntry }: HeroSectionProps) {
+  const [isZooming, setIsZooming] = useState(false);
+
+  const handleCampusEntry = useCallback(async () => {
+    setIsZooming(true);
+    // Wait for animation to complete before calling onCampusEntry
+    setTimeout(() => {
+      onCampusEntry();
+    }, 1500); // Match this with animation duration
+  }, [onCampusEntry]);
+
   return (
     <>
-      <section className="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 -mt-16">
+      <section className={`relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 -mt-16 hero-container ${isZooming ? 'zooming' : ''}`}>
         {/* Background video */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video
@@ -41,14 +51,14 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
             <div className="mb-6 relative max-w-[90%] mx-auto">
               <div className="relative flex flex-col items-center">
                 {/* CAMPUS text in white */}
-                <div className="w-full text-center text-6xl font-bold tracking-tight text-white mb-2">
+                <div className="w-full text-center text-8xl font-bold tracking-tight text-white mb-2">
                   CAMPUS
                 </div>
                 
                 {/* ON CHAIN masked text container */}
-                <div className="relative w-full">
+                <div className="relative w-full masked-text-container">
                   <div 
-                    className="masked-text text-center text-6xl font-bold tracking-tight"
+                    className="masked-text text-center text-8xl font-bold tracking-tight"
                     data-text="ON CHAIN"
                   >
                     ON CHAIN
@@ -63,8 +73,8 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
               <ButtonColorful
                 size="lg"
                 label={"Entrar al Campus"}
-                onClick={onCampusEntry}
-                disabled={!ready}
+                onClick={handleCampusEntry}
+                disabled={!ready || isZooming}
               />
             </div>
           </div>

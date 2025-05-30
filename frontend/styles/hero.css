@@ -10,6 +10,26 @@
   }
 }
 
+@keyframes zoomToFullscreen {
+  0% {
+    transform: scale(1) translateY(0);
+    clip-path: none;
+  }
+  100% {
+    transform: scale(15) translateY(-2%);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hero-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-container.zooming {
+  animation: zoomToFullscreen 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+}
+
 .text-mask {
   -webkit-mask: var(--mask);
   mask: var(--mask);
@@ -20,16 +40,25 @@
 .masked-text {
   position: relative;
   color: rgba(0, 0, 0, 0.5);
+  transform-origin: 50% 50%;
 }
 
 .masked-text::before {
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  background: url(/logos/innovation-pitch-m6LjWW2PEXu4bvqq.jpg_1.jpeg);
+  background: 
+    linear-gradient(to right, rgba(255, 107, 0, 0.7), rgba(255, 143, 0, 0.7)),
+    url(/logos/innovation-pitch-m6LjWW2PEXu4bvqq.jpg_1.jpeg);
   background-size: cover;
   background-position: center;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.masked-text-container {
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 } 

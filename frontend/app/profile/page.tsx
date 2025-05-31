@@ -204,44 +204,21 @@ export default function ProfilePage() {
   const [isNewUser, setIsNewUser] = useState(false)
 
   useEffect(() => {
-    if (ready) {
-      if (!authenticated) {
-        router.replace("/")
-      } else {
-        // Check if user has a profile
-        const hasProfile = localStorage.getItem('userProfile')
-        if (!hasProfile) {
-          setIsNewUser(true)
-        }
-      }
+    if (ready && !authenticated) {
+      router.replace("/")
     }
   }, [ready, authenticated, router])
 
   // Handle back button click
   const handleBackClick = () => {
-    // Store the current state before navigation
-    const currentState = {
-      authenticated,
-      profile: localStorage.getItem('userProfile'),
-      pfp: localStorage.getItem('userPFP')
-    }
-    
-    // Store state in sessionStorage for the home page
-    sessionStorage.setItem('profileState', JSON.stringify(currentState))
-    
-    // Navigate to home
-    router.replace("/")
+    router.push("/")
   }
 
   // Handle wallet button click
   const handleWalletClick = () => {
     if (authenticated) {
-      // Clear session storage before logout
-      sessionStorage.removeItem('profileState')
       logout()
-      router.replace("/")
-    } else {
-      router.replace("/")
+      router.push("/")
     }
   }
 

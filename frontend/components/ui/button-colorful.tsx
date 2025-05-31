@@ -24,29 +24,18 @@ export function ButtonColorful({
     return (
         <Button
             className={cn(
-                "relative overflow-hidden rounded-2xl",
+                "relative overflow-hidden rounded-2xl border-0",
                 sizeClasses[size],
-                "bg-zinc-900 dark:bg-zinc-100",
-                "transition-all duration-200",
+                "transition-all duration-300",
                 "group",
                 className
             )}
             {...props}
         >
-            {/* Gradient background effect */}
-            <div
-                className={cn(
-                    "absolute inset-0",
-                    "bg-gradient-to-r from-purple-500 via-fuchsia-500 to-emerald-500",
-                    "opacity-40 group-hover:opacity-100",
-                    "blur-sm group-hover:blur transition-all duration-500"
-                )}
-            />
-
             {/* Content */}
             <div className="relative flex items-center justify-center gap-2">
-                <span className="text-white dark:text-zinc-900 font-medium">{label}</span>
-                <ArrowUpRight className="w-4 h-4 text-white/90 dark:text-zinc-900/90" />
+                <span className="text-white group-hover:text-black dark:text-orange-500 dark:group-hover:text-black font-medium transition-colors">{label}</span>
+                <ArrowUpRight className="w-4 h-4 text-white group-hover:text-black/90 dark:text-orange-500/90 dark:group-hover:text-black/90 transition-colors" />
             </div>
         </Button>
     );

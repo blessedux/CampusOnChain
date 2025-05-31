@@ -12,22 +12,21 @@
 
 @keyframes zoomToFullscreen {
   0% {
-    transform: scale(1) translateY(0);
-    clip-path: none;
+    transform: scale(1) translate(0, 0);
   }
   100% {
-    transform: scale(15) translateY(-2%);
-    clip-path: inset(0 0 0 0);
+    transform: scale(30) translate(0, 0);
   }
 }
 
 .hero-container {
   position: relative;
   overflow: hidden;
+  transform-origin: center center;
 }
 
 .hero-container.zooming {
-  animation: zoomToFullscreen 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+  animation: zoomToFullscreen 2s cubic-bezier(0.87, 0, 0.13, 1) forwards;
 }
 
 .text-mask {
@@ -40,7 +39,9 @@
 .masked-text {
   position: relative;
   color: rgba(0, 0, 0, 0.5);
-  transform-origin: 50% 50%;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .masked-text::before {
@@ -55,10 +56,14 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .masked-text-container {
   position: relative;
-  perspective: 1000px;
+  perspective: 2000px;
   transform-style: preserve-3d;
+  will-change: transform;
 } 

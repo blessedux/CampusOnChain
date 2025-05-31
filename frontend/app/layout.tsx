@@ -24,18 +24,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" className="dark" suppressHydrationWarning>
       <body className={inter.className}>
         <PrivyClientProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
             {children}
-            <footer className="py-6 md:px-8 md:py-0">
-              <div className="container flex flex-col items-center justify-center gap-4 md:h-24">
-                <p className="text-center text-sm leading-loose text-muted-foreground">
-                  © {new Date().getFullYear()} Campus on Chain. Todos los derechos reservados.
-                </p>
-              </div>
-            </footer>
           </ThemeProvider>
         </PrivyClientProvider>
         <Toaster />

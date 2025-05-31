@@ -1,12 +1,18 @@
 # Campus on Chain 🌐
 
-Campus on Chain is the leading Web3 platform for university students in Chile, bridging the gap between traditional education and the blockchain ecosystem. We connect students with real opportunities in Web3 while providing universities with modern tools for student engagement.
+Campus on Chain is an innovative platform that connects university students with the Web3 ecosystem, transforming the educational and professional experience through blockchain technology.
 
 ## 🌟 Vision & Mission
 
 ### Vision
 
-To become the primary gateway for university students in South America to enter the Web3 ecosystem, creating a vibrant community where education meets innovation.
+Campus on Chain aspires to be the bridge between traditional universities and the Web3 ecosystem, creating a space where:
+
+- Each student has their own wallet serving as a digital identity
+- Academic and professional achievements are tokenized as NFTs and POAPs
+- Universities can adapt the platform to their specific needs
+- Students access real benefits like discounts and airdrops
+- The student community connects through events, hackathons, and conferences
 
 ### Mission
 

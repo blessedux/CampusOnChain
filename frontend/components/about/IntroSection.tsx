@@ -5,11 +5,11 @@ import { GradientText } from './GradientText';
 export const IntroSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.2,
-    triggerOnce: true
+    triggerOnce: false
   });
 
   return (
-    <div ref={ref} className="min-h-[80vh] flex items-center">
+    <div ref={ref} className="min-h-[80vh] flex items-center mb-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-12 gap-8 items-center">
           {/* Text Content */}
@@ -34,13 +34,13 @@ export const IntroSection = () => {
 
           {/* Spline Scene */}
           <div className="col-span-12 md:col-span-6 relative overflow-hidden">
-            <div className="aspect-square w-full scale-100">
+            <div className="aspect-square w-full relative">
               <iframe 
                 src='https://my.spline.design/chain-B6oxtiVTGyGz97m7p7nouK7q/?touch=0&mouse=0' 
                 frameBorder='0' 
                 width='100%' 
                 height='100%'
-                className="absolute inset-0 w-full h-full scale-125 pointer-events-none"
+                className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
                 title="3D Chain Animation"
               />
             </div>

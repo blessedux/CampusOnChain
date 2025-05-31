@@ -5,11 +5,27 @@ import { MeteorShower } from "@/components/core/backgrounds/meteor-shower";
 
 export default function ValuePropSection() {
   return (
-    <section className="relative min-h-screen bg-black py-48">
+    <section className="relative min-h-screen bg-black py-48 mt-auto">
       <MeteorShower className="absolute inset-0" number={30}>
         <div className="relative z-10 container mx-auto px-4">
           <div className="text-center mb-16">
-            
+            {/* Spline Scene Container */}
+            <div className="relative w-full h-[400px] mb-16">
+              {/* Cropping Container */}
+              <div className="absolute inset-0 overflow-hidden">
+                {/* Spline Scene */}
+                <div className="absolute inset-[-10%]">
+                  <iframe 
+                    src='https://my.spline.design/abstractcryptoscene-ObK8oAjkXqzZEq8zMMMDOaQr/'
+                    frameBorder='0'
+                    width='100%'
+                    height='100%'
+                    className="opacity-70"
+                    style={{ pointerEvents: 'none' }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">

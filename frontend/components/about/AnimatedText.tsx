@@ -7,7 +7,7 @@ interface AnimatedTextProps {
 export const AnimatedText = ({ children }: AnimatedTextProps) => {
   const [ref, inView] = useInView({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: false
   });
 
   return (

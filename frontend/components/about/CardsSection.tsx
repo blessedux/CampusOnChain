@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { FadeInCard } from './FadeInCard';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { TiltedCard } from '@/components/ui/tilted-card';
 
 interface CTA {
   label: string;
@@ -19,13 +18,6 @@ interface Card {
   image: string;
   primaryCTA: CTA;
   secondaryCTA: CTA;
-}
-
-interface TeamMember {
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
 }
 
 const cards: Card[] = [
@@ -75,61 +67,6 @@ const cards: Card[] = [
     }
   }
 ];
-
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Simon',
-    role: 'Founder & CEO',
-    bio: 'Blockchain visionary with extensive experience in Web3 education and community building.',
-    image: '/team/simon.jpeg'
-  },
-  {
-    name: 'Kaream',
-    role: 'CTO',
-    bio: 'Technical architect specializing in blockchain infrastructure and smart contract development.',
-    image: '/team/kaream.jpeg'
-  },
-  {
-    name: 'Fabio',
-    role: 'Head of Product',
-    bio: 'Product strategist focused on creating intuitive Web3 learning experiences.',
-    image: '/team/fabio.jpeg'
-  },
-  {
-    name: 'Joseph',
-    role: 'Head of Operations',
-    bio: 'Operations expert with a background in scaling Web3 educational platforms.',
-    image: '/team/joseph.jpeg'
-  }
-];
-
-const TeamCard = ({ member }: { member: TeamMember }) => {
-  const overlayContent = (
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6 text-white">
-      <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-      <p className="text-orange-500 font-medium mb-2">{member.role}</p>
-      <p className="text-sm text-gray-200">{member.bio}</p>
-    </div>
-  );
-
-  return (
-    <TiltedCard
-      imageSrc={member.image}
-      altText={`${member.name} - ${member.role}`}
-      containerHeight="400px"
-      containerWidth="300px"
-      imageHeight="400px"
-      imageWidth="300px"
-      scaleOnHover={1.02}
-      rotateAmplitude={5}
-      showMobileWarning={false}
-      showTooltip={false}
-      overlayContent={overlayContent}
-      displayOverlayContent={true}
-      className="rounded-xl overflow-hidden"
-    />
-  );
-};
 
 export const CardsSection = () => {
   const [currentCard, setCurrentCard] = useState(0);
@@ -228,17 +165,4 @@ export const CardsSection = () => {
       </div>
     </div>
   );
-};
-
-export function TeamSection() {
-  return (
-    <div className="py-20 px-6">
-      <h2 className="text-4xl font-bold text-center mb-16">Meet Our Team</h2>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-        {teamMembers.map((member) => (
-          <TeamCard key={member.name} member={member} />
-        ))}
-      </div>
-    </div>
-  );
-} 
+}; 

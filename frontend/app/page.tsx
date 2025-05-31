@@ -5,17 +5,23 @@ import { usePrivy, useLogin } from "@privy-io/react-auth"
 import { useRouter } from "next/navigation"
 import Header from "@/components/Header"
 import HeroSection from "@/components/HeroSection"
+import InfiniteLogosSlider from "@/components/ui/infinite-slider"
 import ValuePropSection from "@/components/ValuePropSection"
 import PartnersSection from "@/components/PartnersSection"
 import AboutSection from "@/components/AboutSection"
-import TeamSection from "@/components/TeamSection"
+import TeamSection from '@/components/about/TeamSection'
 import RoadmapSection from "@/components/RoadmapSection"
 import Footer from "@/components/Footer"
+import { FinalSection } from '@/components/FinalSection'
+import { CampusTransition } from '@/components/transitions/CampusTransition'
+import { useState, useCallback } from 'react'
 
 export default function LandingPage() {
   const { ready, authenticated, user, logout } = usePrivy();
   const { login } = useLogin();
   const router = useRouter();
+  const [showTransition, setShowTransition] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Handle wallet button click
   const handleWalletClick = () => {
@@ -27,16 +33,35 @@ export default function LandingPage() {
   }
 
   // Handle campus entry button click
-  const handleCampusEntry = () => {
+  const handleCampusEntry = async () => {
+    if (isNavigating) return; // Prevent multiple clicks
+    
     if (authenticated) {
-      router.push("/profile")
+      // If already authenticated, start transition
+      setShowTransition(true);
     } else {
-      login()
+      // If not authenticated, trigger login
+      await login();
     }
   }
 
+  // Handle transition completion
+  const handleTransitionComplete = useCallback(() => {
+    if (!isNavigating) {
+      setIsNavigating(true);
+      router.push('/feed');
+    }
+  }, [router, isNavigating]);
+
   return (
     <div className="min-h-screen bg-black text-white">
+      {showTransition && (
+        <CampusTransition 
+          isVisible={showTransition} 
+          onComplete={handleTransitionComplete}
+        />
+      )}
+      
       <Header 
         authenticated={authenticated}
         ready={ready}
@@ -49,12 +74,13 @@ export default function LandingPage() {
         ready={ready}
         onCampusEntry={handleCampusEntry}
       />
-      <AboutSection />
+      <InfiniteLogosSlider />
+      <AboutSection />  
+      <TeamSection />
       <ValuePropSection />
-      <PartnersSection />
       <RoadmapSection />
-      
-      <Footer />
+      <FinalSection />
+      <Footer /> 
     </div>
   )
 } 

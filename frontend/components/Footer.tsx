@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import AnimatedGradientBackground from "./AnimatedGradientBackground"
+import { SplineScene } from "@/components/ui/spline-scene"
 
 export default function Footer() {
   return (
@@ -23,6 +24,13 @@ export default function Footer() {
         breathingRange={8}
         topOffset={20}
       />
+      
+      {/* Spline Scene */}
+      <div className="absolute inset-0 -z-[1] opacity-30">
+        <div className="w-full h-full">
+          <SplineScene url="https://my.spline.design/animatedlightdesktop-z09EWCas87ASp5fW7afDMlCt/" />
+        </div>
+      </div>
       
       <div className="relative container h-full flex flex-col justify-end pb-8">
         <div className="flex flex-col items-center gap-6 text-center text-sm text-white/80">

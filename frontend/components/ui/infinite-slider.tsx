@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils';
 import { useMotionValue, animate, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import useMeasure from 'react-use-measure';
+import Image from 'next/image';
+import { ProgressiveBlur } from '@/components/ui/progressive-blur';
 
 type InfiniteSliderProps = {
   children: React.ReactNode;
@@ -103,5 +105,76 @@ export function InfiniteSlider({
         {children}
       </motion.div>
     </div>
+  );
+}
+
+// Standalone InfiniteLogosSlider component
+export default function InfiniteLogosSlider() {
+  return (
+    <section className={`py-12 transition-opacity duration-1000`}>
+      <div className="group relative m-auto max-w-7xl px-6">
+        <div className="flex flex-col items-center md:flex-row">
+          <div className="md:max-w-44 md:pr-6">
+            <p className="text-end text-sm text-gray-400">Nuestros <br />partners</p>
+          </div>
+          <div className="relative py-6 md:w-[calc(100%-11rem)]">
+            <InfiniteSlider duration={40} durationOnHover={120} gap={112}>
+              <div className="flex">
+                <Image
+                  style={{height: '48px', width: 'auto'}}
+                  className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                  src="/logos/avalanche.svg"
+                  alt="Avalanche Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '48px', width: 'auto'}}
+                  className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                  src="/logos/stellar.svg"
+                  alt="Stellar Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '48px', width: 'auto'}}
+                  className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                  src="/logos/Polkadot_Logo.svg"
+                  alt="Polkadot Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '48px', width: 'auto'}}
+                  className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                  src="/logos/worldcoin.svg"
+                  alt="Worldcoin Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+            </InfiniteSlider>
+            <div className="bg-gradient-to-r from-black absolute inset-y-0 left-0 w-20"></div>
+            <div className="bg-gradient-to-l from-black absolute inset-y-0 right-0 w-20"></div>
+            <ProgressiveBlur
+              className="pointer-events-none absolute left-0 top-0 h-full w-20"
+              direction="left"
+              blurIntensity={1}
+            />
+            <ProgressiveBlur
+              className="pointer-events-none absolute right-0 top-0 h-full w-20"
+              direction="right"
+              blurIntensity={1}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

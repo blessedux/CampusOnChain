@@ -3,7 +3,7 @@
 import * as React from "react"
 import { usePrivy } from "@privy-io/react-auth"
 import { Button } from "@/components/ui/button"
-import { LogOut } from "lucide-react"
+import { LogOut, Wallet } from "lucide-react"
 import { formatAddress } from "@/lib/utils"
 import { ScrollProgress } from "@/components/magicui/scroll-progress"
 import { useEffect, useState } from "react"
@@ -62,7 +62,7 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
                 variant="outline"
                 className="text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
               >
-                Conectar Wallet
+                <Wallet className="w-5 h-5" />
               </Button>
             )}
           </div>

@@ -1,135 +1,115 @@
 'use client';
 
-import { useInView } from 'react-intersection-observer';
-import { TiltedCard } from './TiltedCard';
-import { FaXTwitter, FaLinkedin } from "react-icons/fa6";
+import { TiltedCard } from '@/components/ui/tilted-card';
 
-const teamMembers = [
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+}
+
+const teamMembers: TeamMember[] = [
   {
-    name: 'Fabio Buscio',
-    role: 'Co-Founder & CEO',
-    image: '/team/fabio.jpeg',
-    bio: 'Apasionado por conectar la educación con la tecnología Web3. Liderando la visión de Campus On Chain.',
-    socials: {
-      twitter: 'https://twitter.com/fabiobuscio',
-      linkedin: 'https://linkedin.com/in/fabiobuscio'
-    }
+    name: 'Simon',
+    role: 'Founder & CEO',
+    bio: 'Blockchain visionary with extensive experience in Web3 education and community building.',
+    image: '/team/simon.jpeg'
   },
   {
-    name: 'Joseph Sanches',
-    role: 'Co-Founder & CTO',
-    image: '/team/joseph.jpeg',
-    bio: 'Desarrollador full-stack y entusiasta de blockchain. Construyendo los cimientos técnicos de nuestra plataforma.',
-    socials: {
-      twitter: 'https://twitter.com/josephsanches',
-      linkedin: 'https://linkedin.com/in/josephsanches'
-    }
+    name: 'Kaream',
+    role: 'CTO',
+    bio: 'Technical architect specializing in blockchain infrastructure and smart contract development.',
+    image: '/team/kaream.jpeg'
   },
   {
-    name: 'Simon Espinola',
-    role: 'Head of Community',
-    image: '/team/simon.jpeg',
-    bio: 'Constructor de comunidades y educador Web3. Fomentando conexiones en toda América Latina.',
-    socials: {
-      twitter: 'https://twitter.com/simonespinola',
-      linkedin: 'https://linkedin.com/in/simonespinola'
-    }
+    name: 'Fabio',
+    role: 'Head of Product',
+    bio: 'Product strategist focused on creating intuitive Web3 learning experiences.',
+    image: '/team/fabio.jpeg'
   },
   {
-    name: 'Kaream Badillo',
+    name: 'Joseph',
     role: 'Head of Operations',
-    image: '/team/kaream.jpeg',
-    bio: 'Experto en operaciones enfocado en escalar iniciativas educativas en Web3.',
-    socials: {
-      twitter: 'https://twitter.com/kareambadillo',
-      linkedin: 'https://linkedin.com/in/kareambadillo'
-    }
+    bio: 'Operations expert with a background in scaling Web3 educational platforms.',
+    image: '/team/joseph.jpeg'
   }
 ];
 
-export const TeamSection = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
-  return (
-    <div ref={ref} className="min-h-screen flex items-center py-24">
-      <div className="container mx-auto px-4">
-        <div className={`transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-white to-cyan-500 mb-16 text-center">
-            Nuestro Equipo
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <div key={member.name} className="flex flex-col items-center relative">
-                {/* Primary Backdrop Light Effect */}
-                <div className="absolute inset-0 -z-10 translate-y-6 blur-3xl">
-                  <div className="h-full w-full bg-gradient-to-b from-white/40 via-white/20 to-transparent rounded-[2.5rem] opacity-30" />
-                </div>
-                {/* Secondary Light Effect */}
-                <div className="absolute inset-0 -z-10 translate-y-4 blur-2xl">
-                  <div className="h-full w-full bg-gradient-to-b from-orange-500/20 via-white/30 to-transparent rounded-[2.5rem] opacity-25" />
-                </div>
-                
-                <TiltedCard
-                  imageSrc={member.image}
-                  altText={`${member.name} - ${member.role}`}
-                  containerHeight="300px"
-                  containerWidth="100%"
-                  imageHeight="300px"
-                  imageWidth="100%"
-                  showMobileWarning={false}
-                  showTooltip={false}
-                  displayOverlayContent={true}
-                  overlayContent={
-                    <div className="absolute inset-0 w-full h-full">
-                      {/* Dark gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                      
-                      {/* Content container */}
-                      <div className="absolute inset-x-0 bottom-0 p-4">
-                        {/* Name and Role */}
-                        <div className="space-y-1 mb-2">
-                          <h3 className="text-xl font-bold text-white">{member.name}</h3>
-                          <p className="text-sm text-orange-500">{member.role}</p>
-                        </div>
-                        
-                        {/* Bio with hover reveal */}
-                        <p className="text-sm text-neutral-300 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 leading-relaxed mb-4">
-                          {member.bio}
-                        </p>
-
-                        {/* Social Icons */}
-                        <div className="flex justify-end space-x-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                          <a 
-                            href={member.socials.twitter} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors"
-                          >
-                            <FaXTwitter size={16} />
-                          </a>
-                          <a 
-                            href={member.socials.linkedin} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors"
-                          >
-                            <FaLinkedin size={16} />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                  className="group"
-                />
-              </div>
-            ))}
+const TeamCard = ({ member }: { member: TeamMember }) => {
+  const overlayContent = (
+    <div className="absolute inset-0 [transform-style:preserve-3d]">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
+                      rounded-b-[15px] transition-all duration-300 [transform:translateZ(20px)]">
+        <div className="flex flex-col justify-between p-8 h-full">
+          <div className="transform-gpu [transform-style:preserve-3d] w-full max-w-[85%] mx-auto flex-1 flex items-center justify-center">
+            <div className="overflow-hidden [transform:translateZ(20px)]">
+              <p className="text-sm text-gray-200 drop-shadow-sm transform -translate-y-full opacity-0 
+                           group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 text-center">
+                {member.bio}
+              </p>
+            </div>
+          </div>
+          <div className="transform-gpu [transform-style:preserve-3d] w-full max-w-[85%] mx-auto">
+            <h3 className="text-2xl font-bold mb-3 text-white drop-shadow-sm [transform:translateZ(30px)] text-center">
+              {member.name}
+            </h3>
+            <p className="text-orange-500 font-medium drop-shadow-sm [transform:translateZ(25px)] text-center">
+              {member.role}
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
-}; 
+
+  return (
+    <div className="group relative">
+      <div className="absolute inset-0 transition-all duration-300 group-hover:blur-[1px] group-hover:brightness-75">
+        <TiltedCard
+          imageSrc={member.image}
+          altText={`${member.name} - ${member.role}`}
+          containerHeight="400px"
+          containerWidth="300px"
+          imageHeight="100%"
+          imageWidth="100%"
+          scaleOnHover={1.15}
+          rotateAmplitude={12}
+          showMobileWarning={false}
+          showTooltip={false}
+          className="rounded-xl overflow-hidden cursor-pointer"
+        />
+      </div>
+      <div className="relative z-10">
+        <TiltedCard
+          imageSrc={member.image}
+          altText={`${member.name} - ${member.role}`}
+          containerHeight="400px"
+          containerWidth="300px"
+          imageHeight="100%"
+          imageWidth="100%"
+          scaleOnHover={1.15}
+          rotateAmplitude={12}
+          showMobileWarning={false}
+          showTooltip={false}
+          overlayContent={overlayContent}
+          displayOverlayContent={true}
+          className="rounded-xl overflow-hidden cursor-pointer"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default function TeamSection() {
+  return (
+    <div className="py-20 px-6">
+      <h2 className="text-4xl font-bold text-center mb-16">Nuestro Equipo</h2>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+        {teamMembers.map((member) => (
+          <TeamCard key={member.name} member={member} />
+        ))}
+      </div>
+    </div>
+  );
+} 

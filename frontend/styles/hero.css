@@ -42,29 +42,63 @@
   transform-origin: center center;
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
+  isolation: isolate;
 }
 
+/* Base orange gradient overlay - always visible */
 .masked-text::before {
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(to right, rgba(255, 107, 0, 0.7), rgba(255, 143, 0, 0.7)),
-    var(--image-url);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(to right, rgba(255, 107, 0, 0.35), rgba(255, 143, 0, 0.35));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
-  transition: background-image 0.5s ease-in-out;
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
+/* Background image with orange overlay */
+.masked-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, 
+    rgba(255, 107, 0, 0.3),
+    rgba(255, 143, 0, 0.3)
+  ), var(--image-url);
+  background-size: 100%, cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-image 0ms linear;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+
+/* Additional subtle orange glow */
+.masked-text > span {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(255, 107, 0, 0.2), rgba(255, 143, 0, 0.2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 2;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .masked-text-container {
   position: relative;
-  perspective: 2000px;
-  transform-style: preserve-3d;
+  perspective: none;
+  transform-style: flat;
   will-change: transform;
+  overflow: hidden;
+  isolation: isolate;
 } 

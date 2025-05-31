@@ -1,7 +1,10 @@
+'use client';
+
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { FadeInCard } from './FadeInCard';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface CTA {
   label: string;
@@ -17,6 +20,13 @@ interface Card {
   secondaryCTA: CTA;
 }
 
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+}
+
 const cards: Card[] = [
   {
     icon: "🎯",
@@ -26,7 +36,7 @@ const cards: Card[] = [
     image: "/placeholder-1.jpg",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "https://lu.ma/user/usr-x3BACUjBDd0DWGe"
+      href: "/events"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -41,7 +51,7 @@ const cards: Card[] = [
     image: "/placeholder-2.jpg",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "https://lu.ma/user/usr-x3BACUjBDd0DWGe"
+      href: "/events"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -56,7 +66,7 @@ const cards: Card[] = [
     image: "/placeholder-3.jpg",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "https://lu.ma/user/usr-x3BACUjBDd0DWGe"
+      href: "/events"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -64,6 +74,74 @@ const cards: Card[] = [
     }
   }
 ];
+
+const teamMembers: TeamMember[] = [
+  {
+    name: 'Simon',
+    role: 'Founder & CEO',
+    bio: 'Blockchain visionary with extensive experience in Web3 education and community building.',
+    image: '/team/simon.jpeg'
+  },
+  {
+    name: 'Kaream',
+    role: 'CTO',
+    bio: 'Technical architect specializing in blockchain infrastructure and smart contract development.',
+    image: '/team/kaream.jpeg'
+  },
+  {
+    name: 'Fabio',
+    role: 'Head of Product',
+    bio: 'Product strategist focused on creating intuitive Web3 learning experiences.',
+    image: '/team/fabio.jpeg'
+  },
+  {
+    name: 'Joseph',
+    role: 'Head of Operations',
+    bio: 'Operations expert with a background in scaling Web3 educational platforms.',
+    image: '/team/joseph.jpeg'
+  }
+];
+
+const TeamCard = ({ member }: { member: TeamMember }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      className="relative h-[400px] w-[300px] rounded-xl overflow-hidden cursor-pointer group"
+      whileHover={{ scale: 1.02 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      style={{ perspective: '1000px' }}
+    >
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          rotateX: isHovered ? 5 : 0,
+          rotateY: isHovered ? 5 : 0,
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      >
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          className="object-cover"
+          sizes="(max-width: 300px) 100vw, 300px"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+          initial={false}
+        >
+          <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
+          <p className="text-orange-500 font-medium mb-2">{member.role}</p>
+          <p className="text-sm text-gray-200">{member.bio}</p>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export const CardsSection = () => {
   const [currentCard, setCurrentCard] = useState(0);
@@ -89,10 +167,10 @@ export const CardsSection = () => {
   }, [currentCard]);
 
   return (
-    <div className="min-h-[300vh] relative" ref={sectionRef}>
+    <div className="min-h-[300vh] w-[80%] mx-auto relative" ref={sectionRef}>
       <div className="sticky top-0 h-screen flex items-center justify-center">
-        <div className="container mx-auto px-12 sm:px-16 md:px-24 lg:px-32 max-w-[1200px]">
-          <div className="mx-auto max-w-[1000px]">
+        <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-24 max-w-[1600px]">
+          <div className="mx-auto max-w-[1400px]">
             {cards.map((card, index) => (
               <div
                 key={index}
@@ -101,9 +179,9 @@ export const CardsSection = () => {
                   ${currentCard === index ? 'opacity-100' : 'opacity-0 pointer-events-none'}
                 `}
               >
-                <div className="w-[90%] mx-auto py-12 md:py-16 lg:py-24">
-                  <div className="grid grid-cols-12 gap-8 md:gap-12 lg:gap-20 items-center">
-                    <div className="col-span-12 md:col-span-6 lg:col-span-5">
+                <div className="w-full py-12 md:py-16 lg:py-24">
+                  <div className="grid grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+                    <div className="col-span-12 md:col-span-5 lg:col-span-4">
                       <FadeInCard index={index}>
                         <div className="flex flex-col h-[400px]">
                           <div className="mb-8 h-16 w-16 rounded bg-neutral-800/50 flex items-center justify-center text-2xl">
@@ -132,7 +210,7 @@ export const CardsSection = () => {
                         </div>
                       </FadeInCard>
                     </div>
-                    <div className="col-span-12 md:col-span-6 lg:col-span-7 relative">
+                    <div className="col-span-12 md:col-span-7 lg:col-span-8 relative">
                       {/* Primary Backdrop Light Effect */}
                       <div className="absolute inset-0 -z-10 translate-y-6 blur-3xl">
                         <div className="h-full w-full bg-gradient-to-b from-white/40 via-white/20 to-transparent rounded-[2.5rem] opacity-30" />
@@ -162,4 +240,17 @@ export const CardsSection = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export function TeamSection() {
+  return (
+    <div className="py-20 px-6">
+      <h2 className="text-4xl font-bold text-center mb-16">Meet Our Team</h2>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+        {teamMembers.map((member) => (
+          <TeamCard key={member.name} member={member} />
+        ))}
+      </div>
+    </div>
+  );
+} 

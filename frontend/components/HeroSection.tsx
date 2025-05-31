@@ -6,8 +6,17 @@ import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ProgressiveBlur } from '@/components/ui/progressive-blur'
 import { LampContainer } from '@/components/ui/lamp'
 import { SplineScene } from '@/components/ui/spline-scene'
+import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel'
 import Image from 'next/image'
 import '@/styles/hero.css'
+
+// Define the carousel images
+const carouselImages = [
+  '/logos/charla-abogado-Yanqpp98arUvPNJW.jpg_1.jpeg',
+  '/logos/charla-world-mxBMpVgWQDh2pjWj.jpg.jpeg',
+  '/logos/meetup-en-la-uc-Yg2qppO7NPUGVRwM.jpg.jpeg',
+  '/logos/paintball-on-chain-AE0aZZ4lVyta7kRl.jpg.jpeg'
+]
 
 interface HeroSectionProps {
   authenticated: boolean
@@ -63,7 +72,7 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
           <div className="relative aspect-[20/8] rounded-[2.5rem] border border-neutral-800/30 bg-neutral-950/20 backdrop-blur-sm p-12 shadow-2xl before:absolute before:inset-0 before:-z-10 before:rounded-[2.5rem] before:bg-gradient-to-b before:from-orange-500/5 before:via-black/5 before:to-black/5 before:backdrop-blur-2xl overflow-hidden">
             {/* Spline Scene Background */}
             <div className="absolute inset-0 -z-[1] opacity-50">
-              <div className="w-full h-[calc(100%+65px)] -translate-y-2">
+              <div className="w-full h-[calc(100%+60px)] -translate-y-2">
                 <SplineScene url="https://my.spline.design/unchained-tBOtsunXijzRsPiy5Gg0pkCE/" />
               </div>
             </div>
@@ -77,14 +86,11 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
                   </div>
                   
                   {/* ON CHAIN masked text container */}
-                  <div className="relative w-full masked-text-container">
-                    <div 
-                      className="masked-text text-center text-8xl font-bold tracking-tight"
-                      data-text="ON CHAIN"
-                    >
-                      ON CHAIN
-                    </div>
-                  </div>
+                  <MaskedTextCarousel 
+                    text="ON CHAIN"
+                    images={carouselImages}
+                    interval={1000}
+                  />
                 </div>
               </div>
               <p className={`text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto transition-opacity duration-1000 ${isZooming ? 'opacity-0' : ''}`}>

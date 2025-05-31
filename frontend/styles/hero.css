@@ -50,7 +50,7 @@
   inset: 0;
   background: 
     linear-gradient(to right, rgba(255, 107, 0, 0.7), rgba(255, 143, 0, 0.7)),
-    url(/logos/innovation-pitch-m6LjWW2PEXu4bvqq.jpg_1.jpeg);
+    var(--image-url);
   background-size: cover;
   background-position: center;
   -webkit-background-clip: text;
@@ -59,6 +59,7 @@
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
+  transition: background-image 0.5s ease-in-out;
 }
 
 .masked-text-container {

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { FadeInCard } from './FadeInCard';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { TiltedCard } from '@/components/ui/tilted-card';
 
 interface CTA {
   label: string;
@@ -103,43 +104,30 @@ const teamMembers: TeamMember[] = [
 ];
 
 const TeamCard = ({ member }: { member: TeamMember }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const overlayContent = (
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6 text-white">
+      <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
+      <p className="text-orange-500 font-medium mb-2">{member.role}</p>
+      <p className="text-sm text-gray-200">{member.bio}</p>
+    </div>
+  );
 
   return (
-    <motion.div
-      className="relative h-[400px] w-[300px] rounded-xl overflow-hidden cursor-pointer group"
-      whileHover={{ scale: 1.02 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      style={{ perspective: '1000px' }}
-    >
-      <motion.div
-        className="absolute inset-0"
-        animate={{
-          rotateX: isHovered ? 5 : 0,
-          rotateY: isHovered ? 5 : 0,
-        }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-      >
-        <Image
-          src={member.image}
-          alt={member.name}
-          fill
-          className="object-cover"
-          sizes="(max-width: 300px) 100vw, 300px"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-          initial={false}
-        >
-          <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-          <p className="text-orange-500 font-medium mb-2">{member.role}</p>
-          <p className="text-sm text-gray-200">{member.bio}</p>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+    <TiltedCard
+      imageSrc={member.image}
+      altText={`${member.name} - ${member.role}`}
+      containerHeight="400px"
+      containerWidth="300px"
+      imageHeight="400px"
+      imageWidth="300px"
+      scaleOnHover={1.02}
+      rotateAmplitude={5}
+      showMobileWarning={false}
+      showTooltip={false}
+      overlayContent={overlayContent}
+      displayOverlayContent={true}
+      className="rounded-xl overflow-hidden"
+    />
   );
 };
 

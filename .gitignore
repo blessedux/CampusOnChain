@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -33,6 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+
+# Frontend specific
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/build
+frontend/.env*.local
 
 # project specific
 todolist.md

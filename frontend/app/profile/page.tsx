@@ -205,7 +205,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (ready && !authenticated) {
-      router.replace("/")
+        router.replace("/")
     }
   }, [ready, authenticated, router])
 

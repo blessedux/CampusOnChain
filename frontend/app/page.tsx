@@ -49,11 +49,9 @@ export default function LandingPage() {
         ready={ready}
         onCampusEntry={handleCampusEntry}
       />
-      
+      <AboutSection />
       <ValuePropSection />
       <PartnersSection />
-      <AboutSection />
-      <TeamSection />
       <RoadmapSection />
       
       <Footer />

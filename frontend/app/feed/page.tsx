@@ -5,33 +5,43 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Calendar, Trophy, Heart, MessageCircle, Share2, Award, Bell, Plus, Wallet, BookOpen, Users, Rocket } from "lucide-react"
-import Header from "@/components/Header"
-import { useState } from "react"
+import FeedHeader from "@/components/FeedHeader"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { usePrivy } from "@privy-io/react-auth"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
+  const { ready, authenticated, user } = usePrivy()
+  const router = useRouter()
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (ready && !authenticated) {
+      router.push('/')
+    }
+  }, [ready, authenticated, router])
+
+  // Show loading state while checking authentication
+  if (!ready || !authenticated) {
+    return (
+      <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center">
+        <div className="animate-pulse">Loading...</div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white">
-      {/* Original Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/logos/campus1.webp"
-              alt="Campus on Chain"
-              width={140}
-              height={32}
-              className="h-8 w-auto transition-opacity duration-500"
-            />
-          </Link>
-        </div>
-      </div>
-
-      <Header authenticated={false} ready={true} user={null} onWalletClick={() => setShowProfilePanel(true)} />
+      <FeedHeader 
+        authenticated={authenticated} 
+        ready={ready} 
+        user={user} 
+        onWalletClick={() => setShowProfilePanel(true)} 
+      />
 
       <div className="container mx-auto px-4 py-6 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -142,7 +152,7 @@ export default function FeedPage() {
                   <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">JD</AvatarFallback>
                 </Avatar>
                 <div className="font-bold text-lg mb-1 text-white">Jane Doe</div>
-                <div className="text-xs text-gray-400 mb-2">0x1234...abcd</div>
+                <div className="text-xs text-gray-400 mb-2">{user?.wallet?.address}</div>
                 <div className="flex items-center gap-2 mb-2">
                   <Wallet className="w-4 h-4 text-orange-400" />
                   <span className="font-semibold text-white">$123.45</span>
@@ -168,7 +178,7 @@ export default function FeedPage() {
                 <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">JD</AvatarFallback>
               </Avatar>
               <div className="font-bold text-lg mb-1 text-white">Jane Doe</div>
-              <div className="text-xs text-gray-400 mb-2">0x1234...abcd</div>
+              <div className="text-xs text-gray-400 mb-2">{user?.wallet?.address}</div>
               <div className="flex items-center gap-2 mb-2">
                 <Wallet className="w-4 h-4 text-orange-400" />
                 <span className="font-semibold text-white">$123.45</span>

@@ -30,11 +30,17 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleCampusEntry = () => {
-    setIsTransitioning(true);
-    onCampusEntry();
+    if (authenticated) {
+      setIsTransitioning(true);
+      onCampusEntry();
+    } else {
+      // If not authenticated, just trigger the login without changing visibility
+      onCampusEntry();
+    }
   };
 
-  if (isTransitioning) {
+  // Only show transition state if authenticated
+  if (isTransitioning && authenticated) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-black">
         <div className="text-center">

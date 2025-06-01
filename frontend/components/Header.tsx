@@ -45,26 +45,43 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
           </Link>
           <div className="flex items-center gap-4">
             {authenticated ? (
-              <Button
-                onClick={onWalletClick}
-                variant="outline"
-                className="flex items-center gap-2 text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
-              >
-                <span className="text-sm font-medium">
-                  {formatAddress(user?.wallet?.address)}
-                </span>
-                <LogOut className="w-4 h-4" />
-              </Button>
+              <div className="hidden md:flex items-center gap-2">
+                <Button
+                  onClick={onWalletClick}
+                  variant="outline"
+                  className="flex items-center gap-2 text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
+                >
+                  <span className="text-sm font-medium">
+                    {formatAddress(user?.wallet?.address)}
+                  </span>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </div>
             ) : (
-              <Button
-                onClick={onWalletClick}
-                disabled={!ready}
-                variant="outline"
-                className="text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
-              >
-                <Wallet className="w-5 h-5" />
-              </Button>
+              <div className="hidden md:flex">
+                <Button
+                  onClick={onWalletClick}
+                  disabled={!ready}
+                  variant="outline"
+                  className="text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
+                >
+                  Conectar Wallet
+                </Button>
+              </div>
             )}
+            {/* Mobile version - always show icon button */}
+            <Button
+              onClick={onWalletClick}
+              disabled={!ready}
+              variant="outline"
+              className="md:hidden text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
+            >
+              {authenticated ? (
+                <LogOut className="w-5 h-5" />
+              ) : (
+                <Wallet className="w-5 h-5" />
+              )}
+            </Button>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0">

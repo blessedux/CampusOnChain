@@ -10,6 +10,7 @@ import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel'
 import { motion, AnimatePresence } from 'framer-motion'
 import '@/styles/hero.css'
 import { BackgroundVideo } from '@/components/ui/background-video'
+import { AuroraBackground } from '@/components/ui/aurora-background'
 
 // Define the carousel images
 const carouselImages = [
@@ -53,24 +54,6 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
   return (
     <AnimatePresence mode="wait">
       <section className="relative w-screen h-screen min-h-screen flex items-center justify-center overflow-hidden mt-[-4rem] hero-container">
-        {/* Background video */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 -z-10 overflow-hidden"
-        >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="size-full object-cover opacity-30 dark:opacity-20 transition-opacity duration-1000"
-            src="https://ik.imagekit.io/lrigu76hy/tailark/dna-video.mp4?updatedAt=1745736251477">
-          </video>
-        </motion.div>
-
         {/* Lamp Effect */}
         <LampContainer className="absolute inset-0 -z-[5]">
           <div className="pointer-events-none" />
@@ -94,6 +77,13 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
 
           {/* Card Content */}
           <div className="relative w-full h-full max-w-[600px] max-h-[800px] sm:max-w-[90vw] sm:max-h-[90vh] md:max-w-[80vw] md:max-h-[70vh] lg:max-w-[1200px] lg:max-h-[75vh] xl:max-w-[1400px] xl:max-h-[75vh] rounded-[2.5rem] border border-neutral-800/30 bg-neutral-950/20 backdrop-blur-sm p-4 sm:p-8 md:p-12 shadow-2xl before:absolute before:inset-0 before:-z-10 before:rounded-[2.5rem] before:bg-gradient-to-b before:from-orange-500/5 before:via-black/5 before:to-black/5 before:backdrop-blur-2xl overflow-hidden flex flex-col justify-center">
+            {/* Aurora Background */}
+            <div className="absolute inset-0 -z-[2]">
+              <AuroraBackground className="!min-h-full">
+                <div className="w-full h-full" />
+              </AuroraBackground>
+            </div>
+
             {/* Video Background */}
             <div className="absolute inset-0 -z-[1] opacity-50">
               <div className="w-full h-[calc(100%+60px)] -translate-y-2">

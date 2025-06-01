@@ -9,20 +9,12 @@ export default function ValuePropSection() {
       <MeteorShower className="absolute inset-0" number={30}>
         <div className="relative z-10 container mx-auto px-4">
           <div className="text-center mb-16">
-            {/* Spline Scene Container */}
+            {/* Placeholder Container */}
             <div className="relative w-full h-[400px] mb-16">
-              {/* Cropping Container */}
-              <div className="absolute inset-0 overflow-hidden">
-                {/* Spline Scene */}
-                <div className="absolute inset-[-10%]">
-                  <iframe 
-                    src='https://my.spline.design/abstractcryptoscene-ObK8oAjkXqzZEq8zMMMDOaQr/'
-                    frameBorder='0'
-                    width='100%'
-                    height='100%'
-                    className="opacity-70"
-                    style={{ pointerEvents: 'none' }}
-                  />
+              {/* Placeholder Square */}
+              <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-neutral-800/30 bg-neutral-800/20 backdrop-blur-sm shadow-2xl">
+                <div className="w-full h-full flex items-center justify-center text-neutral-500">
+                  Placeholder
                 </div>
               </div>
             </div>

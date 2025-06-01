@@ -1,6 +1,7 @@
 import { useInView } from 'react-intersection-observer';
 import { AnimatedText } from './AnimatedText';
 import { GradientText } from './GradientText';
+import { BackgroundVideo } from '@/components/ui/background-video';
 
 export const IntroSection = () => {
   const [ref, inView] = useInView({
@@ -32,16 +33,12 @@ export const IntroSection = () => {
             </div>
           </div>
 
-          {/* Spline Scene */}
+          {/* Video Background */}
           <div className="col-span-12 md:col-span-6 relative overflow-hidden">
-            <div className="aspect-square w-full relative">
-              <iframe 
-                src='https://my.spline.design/chain-B6oxtiVTGyGz97m7p7nouK7q/?touch=0&mouse=0' 
-                frameBorder='0' 
-                width='100%' 
-                height='100%'
-                className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
-                title="3D Chain Animation"
+            <div className="aspect-square w-full relative rounded-[2.5rem] overflow-hidden border border-neutral-800/30 bg-neutral-950/20 backdrop-blur-sm shadow-2xl">
+              <BackgroundVideo 
+                src="/videos/chain2_optimized_loop.webm"
+                className="scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
               />
             </div>
           </div>

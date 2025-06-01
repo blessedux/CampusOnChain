@@ -11,8 +11,19 @@ const nextConfig = {
   },
   // Ensure static files are copied to the output directory
   output: 'standalone',
-  experimental: {
-    outputFileTracingRoot: undefined,
+  // Add headers for video files
+  async headers() {
+    return [
+      {
+        source: '/videos/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 }
 

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel';
+import Image from 'next/image';
 
 // Define the carousel images
 const carouselImages = [
@@ -21,32 +21,44 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
   const [shouldFadeOut, setShouldFadeOut] = useState(false);
 
   useEffect(() => {
+    console.log('CampusTransition mounted, isVisible:', isVisible);
+    
     if (isVisible) {
-      // Start the transition sequence
-      const sequence = async () => {
-        // Wait for the title animation (increased to 5 seconds)
-        await new Promise(resolve => setTimeout(resolve, 5000));
+      console.log('Starting feed content check');
+      
+      // Start checking for feed content immediately
+      const checkFeedContent = () => {
+        const feedContent = document.querySelector('[data-feed-content]');
+        console.log('Checking for feed content, found:', !!feedContent);
         
-        // Trigger the page transition
-        onComplete();
-        
-        // Wait for the new page to be mounted
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Start fade out
-        setShouldFadeOut(true);
+        if (feedContent) {
+          console.log('Feed content detected, setting shouldFadeOut to true');
+          setShouldFadeOut(true);
+          
+          // Wait for fade out animation to complete before calling onComplete
+          setTimeout(() => {
+            console.log('Fade out complete, calling onComplete');
+            onComplete();
+          }, 1000);
+        } else {
+          console.log('Feed content not found, checking again in 50ms');
+          // Check again in 50ms if feed content is not found
+          setTimeout(checkFeedContent, 50);
+        }
       };
 
-      sequence();
+      // Start checking
+      checkFeedContent();
+
+      // Cleanup timeout if component unmounts
+      return () => {
+        console.log('CampusTransition cleanup');
+        setShouldFadeOut(false);
+      };
     }
   }, [isVisible, onComplete]);
 
-  // Cleanup effect
-  useEffect(() => {
-    return () => {
-      setShouldFadeOut(false);
-    };
-  }, []);
+  console.log('Rendering CampusTransition, shouldFadeOut:', shouldFadeOut);
 
   return (
     <AnimatePresence mode="wait">
@@ -54,44 +66,33 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: shouldFadeOut ? 0 : 1 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 bg-black overflow-hidden"
+          className="fixed inset-0 z-50 bg-black"
         >
-          <motion.div
-            initial={{ scale: 1, filter: "blur(0px)" }}
-            animate={{ 
-              scale: 1.5,
-              filter: shouldFadeOut ? "blur(20px)" : "blur(0px)"
-            }}
-            transition={{ 
-              duration: 5,
-              ease: [0.4, 0, 0.2, 1], // Custom easing for smoother animation
-              filter: {
-                duration: 0.8,
-                ease: "easeInOut"
-              }
-            }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <div className="flex flex-col justify-center h-full text-center w-full px-4 relative z-10">
-              <div className="mb-6 relative w-full max-w-[90vw] mx-auto">
-                <div className="relative flex flex-col items-center">
-                  {/* CAMPUS text in white */}
-                  <div className="w-full text-center text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-2 whitespace-nowrap">
-                    CAMPUS
-                  </div>
-                  
-                  {/* ON CHAIN masked text container */}
-                  <MaskedTextCarousel 
-                    text="ON CHAIN"
-                    images={carouselImages}
-                    interval={2000}
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 1, filter: "blur(0px)" }}
+              animate={{ 
+                opacity: shouldFadeOut ? 0 : 1,
+                filter: shouldFadeOut ? "blur(20px)" : "blur(0px)",
+              }}
+              transition={{ 
+                duration: 1,
+                ease: "easeOut"
+              }}
+              className="w-full max-w-[400px] px-4"
+            >
+              <Image
+                src="/logos/campus_logo.png"
+                alt="Campus on Chain"
+                width={400}
+                height={89}
+                priority
+                className="w-full h-auto"
+              />
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -37,7 +37,7 @@ export const IntroSection = () => {
           <div className="col-span-12 md:col-span-6 relative overflow-hidden">
             <div className="aspect-square w-full relative rounded-[2.5rem] overflow-hidden border border-neutral-800/30 bg-neutral-950/20 backdrop-blur-sm shadow-2xl">
               <BackgroundVideo 
-                src="/videos/chain2_optimized_loop.webm"
+                src="/static/videos/chain2_optimized_loop.webm"
                 className="scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
               />
             </div>

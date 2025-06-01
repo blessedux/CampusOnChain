@@ -98,8 +98,8 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
             <div className="absolute inset-0 -z-[1] opacity-50">
               <div className="w-full h-[calc(100%+60px)] -translate-y-2">
                 <BackgroundVideo 
-                  src="/videos/unchained2_optimized_loop.webm"
-                  opacity={0.5}
+                  src="/static/videos/unchained2_optimized_loop.webm"
+                  className="scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
                 />
               </div>
             </div>

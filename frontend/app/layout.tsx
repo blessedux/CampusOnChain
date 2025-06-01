@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { PrivyClientProvider } from '@/components/privy-client-provider'
 import { Toaster } from "@/components/ui/toaster"
 import { BgradientAnim } from "@/components/ui/BgradientAnim"
+import '@/styles/globals.css'
+import '@/styles/spline.css'
 
 const inter = Inter({ subsets: ["latin"] })
 

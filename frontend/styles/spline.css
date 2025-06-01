@@ -1,0 +1,20 @@
+.spline-container {
+  background: transparent !important;
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+}
+
+.spline-scene {
+  background: transparent !important;
+}
+
+.spline-scene canvas {
+  background: transparent !important;
+}
+
+/* Ensure iframe background is transparent */
+.spline-scene iframe {
+  background: transparent !important;
+  background-color: transparent !important;
+} 

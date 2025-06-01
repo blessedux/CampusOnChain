@@ -24,33 +24,39 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
     console.log('CampusTransition mounted, isVisible:', isVisible);
     
     if (isVisible) {
-      console.log('Starting feed content check');
-      
-      // Start checking for feed content immediately
-      const checkFeedContent = () => {
-        const feedContent = document.querySelector('[data-feed-content]');
-        console.log('Checking for feed content, found:', !!feedContent);
+      // Function to check if feed is ready
+      const checkFeedReady = () => {
+        // Check for elements that indicate feed is ready
+        const feedHeader = document.querySelector('header');
+        const feedPosts = document.querySelector('.grid-cols-1');
         
-        if (feedContent) {
-          console.log('Feed content detected, setting shouldFadeOut to true');
-          setShouldFadeOut(true);
-          
-          // Wait for fade out animation to complete before calling onComplete
+        const isFeedReady = feedHeader && feedPosts;
+        console.log('Feed ready check:', {
+          feedHeader: !!feedHeader,
+          feedPosts: !!feedPosts,
+          isReady: isFeedReady
+        });
+
+        if (isFeedReady) {
+          console.log('Feed is ready, starting fade out');
+          // Small delay to ensure feed is fully rendered
           setTimeout(() => {
-            console.log('Fade out complete, calling onComplete');
-            onComplete();
-          }, 1000);
+            setShouldFadeOut(true);
+            // Wait for fade out animation to complete
+            setTimeout(() => {
+              console.log('Fade out complete');
+              onComplete();
+            }, 1000);
+          }, 100);
         } else {
-          console.log('Feed content not found, checking again in 50ms');
-          // Check again in 50ms if feed content is not found
-          setTimeout(checkFeedContent, 50);
+          // Check again after a short delay
+          setTimeout(checkFeedReady, 50);
         }
       };
 
-      // Start checking
-      checkFeedContent();
+      // Start checking for feed readiness
+      checkFeedReady();
 
-      // Cleanup timeout if component unmounts
       return () => {
         console.log('CampusTransition cleanup');
         setShouldFadeOut(false);

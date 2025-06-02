@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { usePrivy } from "@privy-io/react-auth"
-import { useToast } from "@/components/ui/use-toast"
 import FeedHeader from "@/components/FeedHeader"
-import { IdentitySection } from "@/components/feed/IdentitySection"
 import { QuickStats } from "@/components/feed/QuickStats"
 import { EventsFeed } from "@/components/feed/EventsFeed"
 import { NextActions } from "@/components/feed/NextActions"
@@ -17,16 +15,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Wallet } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { CampusWallPreview } from "@/components/feed/CampusWallPreview"
+import { UserProfilePanel } from "@/components/feed/UserProfilePanel"
+import { MeetupsFeed } from "@/components/feed/MeetupsFeed"
+import { StudentsPanel } from "@/components/feed/StudentsPanel"
+import { Footer } from "@/components/feed/Footer"
+import WallModal from "@/components/feed/WallModal"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
   const { ready, authenticated, user } = usePrivy()
   const router = useRouter()
-  const { toast } = useToast()
-
-  // Events state for live data
-  const [events, setEvents] = useState<any[]>([]);
-  const [loadingEvents, setLoadingEvents] = useState(true);
+  const [wallOpen, setWallOpen] = useState(false)
 
   // Redirect if not authenticated or if user disconnects wallet
   useEffect(() => {
@@ -35,44 +35,25 @@ export default function FeedPage() {
     }
   }, [ready, authenticated, router])
 
-  // Show welcome toast on successful login
-  useEffect(() => {
-    if (ready && authenticated) {
-      toast({
-        title: "Welcome to Campus On Chain!",
-        description: "Your wallet is ready. You've got 3 POAPs and 140 points.",
-        duration: 5000,
-      })
-    }
-  }, [ready, authenticated, toast])
-
-  // Fetch live hackathons from API
-  useEffect(() => {
-    setLoadingEvents(true);
-    fetch('/api/dorahacks')
-      .then(res => res.json())
-      .then(data => {
-        if (data.hackathons && Array.isArray(data.hackathons)) {
-          setEvents(data.hackathons);
-        }
-        setLoadingEvents(false);
-      })
-      .catch(() => {
-        setLoadingEvents(false);
-      });
-  }, []);
-
-  // Show loading state while checking authentication
-  if (!ready || !authenticated) {
-    return (
-      <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center">
-        <div className="animate-pulse">Loading...</div>
-      </div>
-    )
-  }
-
-  // Mock data - replace with real data from your backend
-  const mockEvents = [
+  // Hardcoded hackathon events
+  const events = [
+    {
+      id: 'nerdcamp',
+      title: 'NERD CAMP by Polkadot',
+      description: 'A virtual camp for blockchain, web3, startups, and apps.',
+      type: 'hackathon' as const,
+      date: 'Ongoing',
+      actionText: 'Join Event',
+      image: '/hackathons/nerdcamppolkadot.png',
+      status: 'Ongoing' as const,
+      timeLeft: '1 hour',
+      location: 'Virtual',
+      tags: ['blockchain', 'web3', 'startups', 'apps'],
+      organizer: 'polkadot',
+      prizePool: '7,000',
+      prizeCurrency: 'USD',
+      link: 'https://dorahacks.io/org/nerdconf',
+    },
     {
       id: '1',
       title: 'Agents Without Masters Hackathon with NEAR AI',
@@ -80,7 +61,7 @@ export default function FeedPage() {
       type: 'hackathon' as const,
       date: 'June 15, 2025',
       actionText: 'Join Event',
-      image: '/sample/hackathon1.jpg',
+      image: '/hackathons/agentswithuotmasters.webp',
       status: 'Upcoming' as const,
       timeLeft: '13 days',
       location: 'Berlin, Germany',
@@ -91,28 +72,12 @@ export default function FeedPage() {
     },
     {
       id: '2',
-      title: 'Integrate Civic Auth into Your Application',
-      description: 'Seamless user management and authentication for your dApp.',
-      type: 'workshop' as const,
-      date: 'Ongoing',
-      actionText: 'Register Now',
-      image: '/sample/hackathon2.jpg',
-      status: 'Ongoing' as const,
-      timeLeft: '12 days',
-      location: 'Virtual',
-      tags: ['authentication', 'identity', 'blockchain', 'ReactJS', 'NodeJS', 'NextJS'],
-      organizer: 'Civic',
-      prizePool: '2,300',
-      prizeCurrency: 'USD',
-    },
-    {
-      id: '3',
       title: 'The Apex of Skills: TRN Labs Hackathon',
       description: 'Compete for $10,000 USDT in $ROOT. Show your Web3 skills!',
       type: 'hackathon' as const,
       date: 'Upcoming',
       actionText: 'Join Event',
-      image: '/sample/hackathon3.jpg',
+      image: '/hackathons/theapexofskills.webp',
       status: 'Upcoming' as const,
       timeLeft: '2 days',
       location: 'Virtual',
@@ -122,19 +87,83 @@ export default function FeedPage() {
       prizeCurrency: 'USD',
     },
     {
-      id: '4',
-      title: 'NERD CAMP by Polkadot',
-      description: 'A virtual camp for blockchain, web3, startups, and apps.',
+      id: '3',
+      title: 'ChainOpera Hackathon',
+      description: 'A hackathon for music and blockchain innovation.',
       type: 'hackathon' as const,
       date: 'Ongoing',
       actionText: 'Join Event',
-      image: '/sample/hackathon4.jpg',
+      image: '/hackathons/chainopera.webp',
+      status: 'Ongoing' as const,
+      timeLeft: '5 days',
+      location: 'Virtual',
+      tags: ['Music', 'Blockchain', 'Opera'],
+      organizer: 'ChainOpera',
+      prizePool: '5,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '4',
+      title: 'ApeChain Africa',
+      description: "Build on ApeChain and empower Africa's Web3 future.",
+      type: 'hackathon' as const,
+      date: 'Ongoing',
+      actionText: 'Join Event',
+      image: '/hackathons/apechainafrica.webp',
       status: 'Ongoing' as const,
       timeLeft: '3 hours',
-      location: 'Virtual',
-      tags: ['blockchain', 'web3', 'startups', 'apps'],
-      organizer: 'NERDCONF',
+      location: 'Africa',
+      tags: ['Africa', 'Web3', 'ApeChain'],
+      organizer: 'ApeChain',
       prizePool: '7,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '5',
+      title: 'Hack the League',
+      description: 'A global hackathon for league builders.',
+      type: 'hackathon' as const,
+      date: 'Upcoming',
+      actionText: 'Join Event',
+      image: '/hackathons/hacktheleague.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '7 days',
+      location: 'Global',
+      tags: ['League', 'Global', 'Builders'],
+      organizer: 'HackLeague',
+      prizePool: '8,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '6',
+      title: 'AssetHub Hackathon',
+      description: 'Innovate with AssetHub and win big prizes.',
+      type: 'hackathon' as const,
+      date: 'Upcoming',
+      actionText: 'Join Event',
+      image: '/hackathons/assethubhackathon.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '10 days',
+      location: 'Virtual',
+      tags: ['AssetHub', 'Innovation', 'Prizes'],
+      organizer: 'AssetHub',
+      prizePool: '12,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '7',
+      title: 'ZoHouse Hack',
+      description: 'A hackathon for ZoHouse builders and creators.',
+      type: 'hackathon' as const,
+      date: 'Upcoming',
+      actionText: 'Join Event',
+      image: '/hackathons/zohousehack.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '15 days',
+      location: 'Virtual',
+      tags: ['ZoHouse', 'Builders', 'Creators'],
+      organizer: 'ZoHouse',
+      prizePool: '9,000',
       prizeCurrency: 'USD',
     },
   ]
@@ -190,70 +219,37 @@ export default function FeedPage() {
 
   return (
     <AuroraBackground className="fixed inset-0 -z-10">
-      <div className="min-h-screen text-white relative overflow-x-hidden">
-        <FeedHeader 
-          authenticated={authenticated} 
-          ready={ready} 
-          user={user} 
-          onWalletClick={() => setShowProfilePanel(true)} 
-        />
-
-        <div className="container mx-auto px-4 py-6 mt-12" data-feed-content>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Main Content */}
-            <div className="lg:col-span-3 space-y-6">
-              <IdentitySection
-                name="Camila"
-                university="Universidad de Chile"
+      <div className="min-h-screen text-white relative overflow-x-hidden w-full flex flex-col">
+        {/* Main content: full width, but inner content centered and max width */}
+        <div className="w-full flex flex-col items-center">
+          <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
+            <FeedHeader 
+              authenticated={authenticated} 
+              ready={ready} 
+              user={user} 
+              onWalletClick={() => setShowProfilePanel(true)} 
+            />
+            <div className="mt-8">
+              <QuickStats
+                airdrops={2}
+                points={140}
                 rank={42}
               />
-              
-              <QuickStats
-                points={140}
-                badgesEarned={3}
-                hasNewBadge={true}
-              />
-
-              {loadingEvents ? (
-                <div className="text-center py-12 text-gray-400">Loading hackathons...</div>
-              ) : (
-                <EventsFeed events={events} />
-              )}
             </div>
-
-            {/* Right Sidebar */}
-            <div className="lg:col-span-1 space-y-6">
-              <NextActions actions={actions} />
-              <AssetsSummary assets={assets} />
+            <div onClick={() => setWallOpen(true)}>
+              <CampusWallPreview />
             </div>
+            <EventsFeed events={events} />
+            <MeetupsFeed />
+            <StudentsPanel />
+            <Footer />
           </div>
         </div>
-        {/* Profile Panel Popup */}
-        {showProfilePanel && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <Card className="bg-[#1a1a1a] border-gray-800 w-80">
-              <CardContent className="p-6 flex flex-col items-center">
-                <Avatar className="w-20 h-20 mb-2 border-2 border-orange-500">
-                  <AvatarImage src="https://i.pravatar.cc/150?img=1" />
-                  <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">JD</AvatarFallback>
-                </Avatar>
-                <div className="font-bold text-lg mb-1 text-white">Camila</div>
-                <div className="text-xs text-gray-400 mb-2">Universidad de Chile</div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Wallet className="w-4 h-4 text-orange-400" />
-                  <span className="font-semibold text-white">140 Points</span>
-                </div>
-                <div className="flex gap-2 mb-2">
-                  <Badge className="bg-blue-700 text-white">3 POAPs</Badge>
-                  <Badge className="bg-purple-700 text-white">3 Badges</Badge>
-                </div>
-                <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white w-full mt-2" onClick={() => setShowProfilePanel(false)}>
-                  Close
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        {/* Desktop only: Profile panel fixed to right edge */}
+        <div className="hidden lg:block fixed top-0 right-0 pt-16 pr-8 z-30">
+          <UserProfilePanel />
+        </div>
+        <WallModal open={wallOpen} onClose={() => setWallOpen(false)} />
       </div>
     </AuroraBackground>
   )

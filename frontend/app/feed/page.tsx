@@ -1,29 +1,66 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Calendar, Trophy, Heart, MessageCircle, Share2, Award, Bell, Plus, Wallet, BookOpen, Users, Rocket } from "lucide-react"
-import FeedHeader from "@/components/FeedHeader"
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { usePrivy } from "@privy-io/react-auth"
+import { useToast } from "@/components/ui/use-toast"
+import FeedHeader from "@/components/FeedHeader"
+import { IdentitySection } from "@/components/feed/IdentitySection"
+import { QuickStats } from "@/components/feed/QuickStats"
+import { EventsFeed } from "@/components/feed/EventsFeed"
+import { NextActions } from "@/components/feed/NextActions"
+import { AssetsSummary } from "@/components/feed/AssetsSummary"
+import { Plus, Award, Users, UserPlus } from "lucide-react"
+import { AuroraBackground } from "@/components/ui/aurora-background"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Wallet } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
-  const [showContactForm, setShowContactForm] = useState(false)
   const { ready, authenticated, user } = usePrivy()
   const router = useRouter()
+  const { toast } = useToast()
 
-  // Redirect if not authenticated
+  // Events state for live data
+  const [events, setEvents] = useState<any[]>([]);
+  const [loadingEvents, setLoadingEvents] = useState(true);
+
+  // Redirect if not authenticated or if user disconnects wallet
   useEffect(() => {
     if (ready && !authenticated) {
       router.push('/')
     }
   }, [ready, authenticated, router])
+
+  // Show welcome toast on successful login
+  useEffect(() => {
+    if (ready && authenticated) {
+      toast({
+        title: "Welcome to Campus On Chain!",
+        description: "Your wallet is ready. You've got 3 POAPs and 140 points.",
+        duration: 5000,
+      })
+    }
+  }, [ready, authenticated, toast])
+
+  // Fetch live hackathons from API
+  useEffect(() => {
+    setLoadingEvents(true);
+    fetch('/api/dorahacks')
+      .then(res => res.json())
+      .then(data => {
+        if (data.hackathons && Array.isArray(data.hackathons)) {
+          setEvents(data.hackathons);
+        }
+        setLoadingEvents(false);
+      })
+      .catch(() => {
+        setLoadingEvents(false);
+      });
+  }, []);
 
   // Show loading state while checking authentication
   if (!ready || !authenticated) {
@@ -34,166 +71,190 @@ export default function FeedPage() {
     )
   }
 
+  // Mock data - replace with real data from your backend
+  const mockEvents = [
+    {
+      id: '1',
+      title: 'Agents Without Masters Hackathon with NEAR AI',
+      description: 'Hack AI like it means something. Participate in Berlin Blockchain Week!',
+      type: 'hackathon' as const,
+      date: 'June 15, 2025',
+      actionText: 'Join Event',
+      image: '/sample/hackathon1.jpg',
+      status: 'Upcoming' as const,
+      timeLeft: '13 days',
+      location: 'Berlin, Germany',
+      tags: ['AI', 'Blockchain', 'Autonomous Agents', 'DeFi'],
+      organizer: 'Hackbox',
+      prizePool: '10,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '2',
+      title: 'Integrate Civic Auth into Your Application',
+      description: 'Seamless user management and authentication for your dApp.',
+      type: 'workshop' as const,
+      date: 'Ongoing',
+      actionText: 'Register Now',
+      image: '/sample/hackathon2.jpg',
+      status: 'Ongoing' as const,
+      timeLeft: '12 days',
+      location: 'Virtual',
+      tags: ['authentication', 'identity', 'blockchain', 'ReactJS', 'NodeJS', 'NextJS'],
+      organizer: 'Civic',
+      prizePool: '2,300',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '3',
+      title: 'The Apex of Skills: TRN Labs Hackathon',
+      description: 'Compete for $10,000 USDT in $ROOT. Show your Web3 skills!',
+      type: 'hackathon' as const,
+      date: 'Upcoming',
+      actionText: 'Join Event',
+      image: '/sample/hackathon3.jpg',
+      status: 'Upcoming' as const,
+      timeLeft: '2 days',
+      location: 'Virtual',
+      tags: ['Web3', 'Gaming', 'DeFi', 'NFT'],
+      organizer: 'TRN Labs',
+      prizePool: '10,000',
+      prizeCurrency: 'USD',
+    },
+    {
+      id: '4',
+      title: 'NERD CAMP by Polkadot',
+      description: 'A virtual camp for blockchain, web3, startups, and apps.',
+      type: 'hackathon' as const,
+      date: 'Ongoing',
+      actionText: 'Join Event',
+      image: '/sample/hackathon4.jpg',
+      status: 'Ongoing' as const,
+      timeLeft: '3 hours',
+      location: 'Virtual',
+      tags: ['blockchain', 'web3', 'startups', 'apps'],
+      organizer: 'NERDCONF',
+      prizePool: '7,000',
+      prizeCurrency: 'USD',
+    },
+  ]
+
+  const actions = [
+    {
+      id: '1',
+      label: 'Join Event',
+      icon: <Plus className="w-4 h-4" />,
+      color: 'orange' as const,
+      onClick: () => console.log('Join Event clicked')
+    },
+    {
+      id: '2',
+      label: 'Claim Badge',
+      icon: <Award className="w-4 h-4" />,
+      color: 'blue' as const,
+      onClick: () => console.log('Claim Badge clicked')
+    },
+    {
+      id: '3',
+      label: 'Customize Profile',
+      icon: <Users className="w-4 h-4" />,
+      color: 'purple' as const,
+      onClick: () => console.log('Customize Profile clicked')
+    },
+    {
+      id: '4',
+      label: 'Invite Friends',
+      icon: <UserPlus className="w-4 h-4" />,
+      color: 'green' as const,
+      onClick: () => console.log('Invite Friends clicked')
+    }
+  ]
+
+  const assets = [
+    {
+      id: '1',
+      label: 'Campus Points',
+      value: 140
+    },
+    {
+      id: '2',
+      label: 'POAPs',
+      value: 3
+    },
+    {
+      id: '3',
+      label: 'Badges',
+      value: 3
+    }
+  ]
+
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white">
-      <FeedHeader 
-        authenticated={authenticated} 
-        ready={ready} 
-        user={user} 
-        onWalletClick={() => setShowProfilePanel(true)} 
-      />
+    <AuroraBackground className="fixed inset-0 -z-10">
+      <div className="min-h-screen text-white relative overflow-x-hidden">
+        <FeedHeader 
+          authenticated={authenticated} 
+          ready={ready} 
+          user={user} 
+          onWalletClick={() => setShowProfilePanel(true)} 
+        />
 
-      <div className="container mx-auto px-4 py-6 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Main Feed */}
-          <div className="lg:col-span-3">
-            {/* Post Creation */}
-            <Card className="bg-[#1a1a1a] border-gray-800 mb-6">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                    <AvatarFallback className="bg-gray-700 text-gray-300">JD</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <input
-                      placeholder="Share your Campus On Chain experience..."
-                      className="bg-transparent border-none text-gray-300 placeholder-gray-500 focus:ring-0 text-lg w-full"
-                    />
-                  </div>
-                  <Button size="sm" className="bg-orange-600 hover:bg-orange-700">
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+        <div className="container mx-auto px-4 py-6 mt-12" data-feed-content>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-6">
+              <IdentitySection
+                name="Camila"
+                university="Universidad de Chile"
+                rank={42}
+              />
+              
+              <QuickStats
+                points={140}
+                badgesEarned={3}
+                hasNewBadge={true}
+              />
 
-            {/* Event Announcement */}
-            <Card className="bg-[#1a1a1a] border-gray-800 mb-4">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Rocket className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm text-gray-400">Campus On Chain Hackathon starts in 2 days! Form your teams and get ready to build.</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-2 mb-6">
-              <Button variant="ghost" size="sm" className="bg-gray-800 text-white hover:bg-gray-700">
-                All
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-gray-800">
-                Announcements
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-gray-800">
-                Hackathons
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-gray-800">
-                Wallet
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-gray-800">
-                POAPs & NFTs
-              </Button>
+              {loadingEvents ? (
+                <div className="text-center py-12 text-gray-400">Loading hackathons...</div>
+              ) : (
+                <EventsFeed events={events} />
+              )}
             </div>
 
-            <div className="space-y-4">
-              {/* Pinned Post */}
-              <Card className="bg-[#1a1a1a] border-orange-500/30 border-2">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                      <AvatarFallback className="bg-gray-700 text-gray-300">EM</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-semibold text-white">Campus On Chain Team</span>
-                        <span className="text-xs text-gray-400">Pinned • Announcements</span>
-                        <Badge className="bg-orange-600/20 text-orange-400 border-orange-500/30 ml-auto">
-                          📌 Pinned
-                        </Badge>
-                      </div>
-                      <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">🚀 Welcome to Campus On Chain!</h3>
-                      <p className="text-gray-300 mb-4">
-                        Join our hackathons, earn POAPs and NFTs, and manage your on-chain wallet. Share your progress, team up, and build the future of education on blockchain!
-                      </p>
-                      <div className="flex items-center gap-2 mb-4">
-                        <Badge className="bg-green-600/20 text-green-400 border-green-500/30">Hackathon</Badge>
-                        <Badge className="bg-blue-600/20 text-blue-400 border-blue-500/30">Wallet</Badge>
-                        <Badge className="bg-purple-600/20 text-purple-400 border-purple-500/30">NFT</Badge>
-                      </div>
-                      <div className="flex items-center gap-6 text-gray-400">
-                        <Button variant="ghost" size="sm" className="p-0 h-auto text-gray-400 hover:text-white">
-                          <Heart className="w-4 h-4 mr-1" />
-                          <span className="text-sm">173</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="p-0 h-auto text-gray-400 hover:text-white">
-                          <MessageCircle className="w-4 h-4 mr-1" />
-                          <span className="text-sm">222</span>
-                        </Button>
-                        <span className="text-sm text-blue-400 ml-auto">New comment 1d ago</span>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              {/* ...other posts as in your reference, but update content to be about Campus On Chain activities, wallet, hackathons, POAPs, NFTs, etc... */}
+            {/* Right Sidebar */}
+            <div className="lg:col-span-1 space-y-6">
+              <NextActions actions={actions} />
+              <AssetsSummary assets={assets} />
             </div>
           </div>
-
-          {/* Right Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Wallet/POAP/NFT/Profile Panel */}
-            <Card className="bg-[#1a1a1a] border-gray-800 h-64">
+        </div>
+        {/* Profile Panel Popup */}
+        {showProfilePanel && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <Card className="bg-[#1a1a1a] border-gray-800 w-80">
               <CardContent className="p-6 flex flex-col items-center">
                 <Avatar className="w-20 h-20 mb-2 border-2 border-orange-500">
                   <AvatarImage src="https://i.pravatar.cc/150?img=1" />
                   <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">JD</AvatarFallback>
                 </Avatar>
-                <div className="font-bold text-lg mb-1 text-white">Jane Doe</div>
-                <div className="text-xs text-gray-400 mb-2">{user?.wallet?.address}</div>
+                <div className="font-bold text-lg mb-1 text-white">Camila</div>
+                <div className="text-xs text-gray-400 mb-2">Universidad de Chile</div>
                 <div className="flex items-center gap-2 mb-2">
                   <Wallet className="w-4 h-4 text-orange-400" />
-                  <span className="font-semibold text-white">$123.45</span>
+                  <span className="font-semibold text-white">140 Points</span>
                 </div>
                 <div className="flex gap-2 mb-2">
                   <Badge className="bg-blue-700 text-white">3 POAPs</Badge>
-                  <Badge className="bg-purple-700 text-white">2 NFTs</Badge>
+                  <Badge className="bg-purple-700 text-white">3 Badges</Badge>
                 </div>
+                <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white w-full mt-2" onClick={() => setShowProfilePanel(false)}>
+                  Close
+                </Button>
               </CardContent>
             </Card>
-            {/* ...other sidebar cards as needed */}
           </div>
-        </div>
+        )}
       </div>
-
-      {/* Profile Panel Popup */}
-      {showProfilePanel && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <Card className="bg-[#1a1a1a] border-gray-800 w-80">
-            <CardContent className="p-6 flex flex-col items-center">
-              <Avatar className="w-20 h-20 mb-2 border-2 border-orange-500">
-                <AvatarImage src="https://i.pravatar.cc/150?img=1" />
-                <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">JD</AvatarFallback>
-              </Avatar>
-              <div className="font-bold text-lg mb-1 text-white">Jane Doe</div>
-              <div className="text-xs text-gray-400 mb-2">{user?.wallet?.address}</div>
-              <div className="flex items-center gap-2 mb-2">
-                <Wallet className="w-4 h-4 text-orange-400" />
-                <span className="font-semibold text-white">$123.45</span>
-              </div>
-              <div className="flex gap-2 mb-2">
-                <Badge className="bg-blue-700 text-white">3 POAPs</Badge>
-                <Badge className="bg-purple-700 text-white">2 NFTs</Badge>
-              </div>
-              <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white w-full mt-2" onClick={() => setShowProfilePanel(false)}>
-                Close
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-    </div>
+    </AuroraBackground>
   )
 } 

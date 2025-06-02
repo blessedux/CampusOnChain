@@ -66,10 +66,15 @@ export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
               rel="noopener noreferrer"
               className="group flex w-full rounded-2xl bg-[#18181a] border border-gray-800 shadow-lg hover:shadow-xl transition overflow-hidden hover:bg-[#23232a]"
             >
-              {/* Timeline date */}
-              <div className="flex flex-col items-center justify-center px-4 py-4 bg-[#23232a] min-w-[70px]">
-                <span className="text-xs text-gray-400 font-semibold">{date}</span>
-                <span className="text-xs text-gray-500">{day.charAt(0).toUpperCase() + day.slice(1)}</span>
+              {/* Thumbnail */}
+              <div className="flex items-center justify-center min-w-[90px] bg-[#23232a]">
+                <Image
+                  src={event.image}
+                  alt={event.title}
+                  width={80}
+                  height={80}
+                  className="rounded-xl object-cover"
+                />
               </div>
               {/* Event info */}
               <div className="flex-1 flex flex-col justify-between px-4 py-3 min-w-0">
@@ -111,15 +116,10 @@ export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
                   </div>
                 </div>
               </div>
-              {/* Thumbnail */}
-              <div className="flex items-center justify-center min-w-[90px] bg-[#23232a]">
-                <Image
-                  src={event.image}
-                  alt={event.title}
-                  width={80}
-                  height={80}
-                  className="rounded-xl object-cover"
-                />
+              {/* Timeline date */}
+              <div className="flex flex-col items-center justify-center px-4 py-4 bg-[#23232a] min-w-[70px]">
+                <span className="text-xs text-gray-400 font-semibold">{date}</span>
+                <span className="text-xs text-gray-500">{day.charAt(0).toUpperCase() + day.slice(1)}</span>
               </div>
             </a>
           );

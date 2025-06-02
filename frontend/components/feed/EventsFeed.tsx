@@ -15,7 +15,7 @@ interface Hackathon {
   date: string;
   actionText: string;
   image: string;
-  status: 'Upcoming' | 'Ongoing';
+  status: 'Upcoming' | 'Ongoing' | 'Over';
   timeLeft: string;
   location: string;
   tags: string[];
@@ -23,6 +23,7 @@ interface Hackathon {
   prizePool: string;
   prizeCurrency: string;
   link: string;
+  disabled?: boolean;
 }
 
 interface HackathonsFeedProps {
@@ -53,7 +54,7 @@ export const HackathonsFeed = ({ hackathons }: HackathonsFeedProps) => {
                 priority
               />
               <div className="absolute top-2 left-2 flex gap-2 z-10">
-                <Badge className={`text-xs font-semibold ${hackathon.status === 'Upcoming' ? 'bg-yellow-700 text-yellow-300' : 'bg-green-700 text-green-300'}`}>{hackathon.status}</Badge>
+                <Badge className={`text-xs font-semibold ${hackathon.status === 'Upcoming' ? 'bg-yellow-700 text-yellow-300' : hackathon.status === 'Ongoing' ? 'bg-green-700 text-green-300' : 'bg-gray-700 text-gray-300'}`}>{hackathon.status}</Badge>
                 <Badge className="text-xs bg-black/70 text-yellow-200 border-yellow-400 border font-semibold">
                   {hackathon.timeLeft} left
                 </Badge>
@@ -85,8 +86,21 @@ export const HackathonsFeed = ({ hackathons }: HackathonsFeedProps) => {
                   <span>{hackathon.prizePool}</span>
                   <span className="text-xs text-gray-300 font-normal ml-1">{hackathon.prizeCurrency}</span>
                 </div>
-                <Button size="sm" className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs font-semibold" onClick={() => window.open(hackathon.link, '_blank')}>
-                  {hackathon.actionText}
+                <Button
+                  size="sm"
+                  className={
+                    hackathon.disabled || hackathon.status === 'Over'
+                      ? 'bg-gray-700 text-gray-400 px-3 py-1 text-xs font-semibold cursor-not-allowed'
+                      : 'bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs font-semibold'
+                  }
+                  onClick={() => {
+                    if (!(hackathon.disabled || hackathon.status === 'Over')) {
+                      window.open(hackathon.link, '_blank');
+                    }
+                  }}
+                  disabled={hackathon.disabled || hackathon.status === 'Over'}
+                >
+                  {hackathon.status === 'Over' ? 'Finalizado' : hackathon.actionText}
                 </Button>
               </div>
             </CardContent>

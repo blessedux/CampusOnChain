@@ -13,7 +13,7 @@ export const QuickStats = ({
   rank 
 }: QuickStatsProps) => {
   return (
-    <Card className="bg-[#1a1a1a] border-gray-800">
+    <Card className="bg-white/5 border-gray-800">
       <CardContent className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3">

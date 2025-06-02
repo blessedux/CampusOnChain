@@ -23,6 +23,8 @@ import { Footer } from "@/components/feed/Footer"
 import WallModal from "@/components/feed/WallModal"
 import { FadeInCard } from "@/components/ui/FadeInCard"
 import { LeaderboardStats } from "@/components/feed/LeaderboardStats"
+import { EducationSection } from "@/components/feed/EducationSection"
+import { InternshipsSection } from "@/components/feed/InternshipsSection"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
@@ -48,14 +50,15 @@ export default function FeedPage() {
       date: 'Ongoing',
       actionText: 'Unirse',
       image: '/hackathons/nerdcamppolkadot.png',
-      status: 'Ongoing' as const,
-      timeLeft: '1 hour',
+      status: 'Over' as const,
+      timeLeft: '-',
       location: 'Virtual',
       tags: ['blockchain', 'web3', 'startups', 'apps'],
       organizer: 'polkadot',
       prizePool: '7,000',
       prizeCurrency: 'USD',
       link: 'https://dorahacks.io/hackathon/nerdconf-polkadot',
+      disabled: true,
     },
     {
       id: 'agents-without-masters',
@@ -348,7 +351,7 @@ export default function FeedPage() {
   ]
 
   // Separate hackathons and meetups by type and image path
-  const hackathons = events.filter(e => e.type === 'hackathon' && e.image.startsWith('/hackathons/'));
+  const hackathons = events.filter(e => e.type === 'hackathon' && e.image.startsWith('/hackathons/')) as any;
   const meetups = events.filter(e => e.type === 'event' && e.image.startsWith('/events/')).map(e => ({
     ...e,
     attendees: [
@@ -383,6 +386,8 @@ export default function FeedPage() {
             <FadeInCard index={1}><HackathonsFeed hackathons={hackathons} /></FadeInCard>
             <FadeInCard index={2}><MeetupsFeed meetups={meetups} /></FadeInCard>
             <FadeInCard index={3}><LeaderboardStats /></FadeInCard>
+            <FadeInCard index={4}><EducationSection /></FadeInCard>
+            <FadeInCard index={5}><InternshipsSection /></FadeInCard>
             <Footer />
           </div>
         </div>

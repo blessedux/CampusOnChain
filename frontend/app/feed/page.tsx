@@ -25,6 +25,7 @@ import { FadeInCard } from "@/components/ui/FadeInCard"
 import { LeaderboardStats } from "@/components/feed/LeaderboardStats"
 import { EducationSection } from "@/components/feed/EducationSection"
 import { InternshipsSection } from "@/components/feed/InternshipsSection"
+import { FeedTutorial } from "@/components/feed/FeedTutorial"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
@@ -362,56 +363,41 @@ export default function FeedPage() {
   }));
 
   return (
-    <AuroraBackground className="fixed inset-0 -z-10">
-      <div className="min-h-screen text-white relative overflow-x-hidden w-full flex flex-col">
-        {/* Mobile: Profile panel at the very top */}
-        <div className="block lg:hidden w-full flex justify-center mt-12 px-4 pt-4 z-30">
-          <UserProfilePanel />
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-transparent relative px-2">
+      <FeedTutorial />
+      
+      {/* Left Column (Events, Hackathons, Leaderboard) */}
+      <div className="flex-1 flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 lg:pl-12 pt-8">
+        <div className="upcoming-events">
+          <UpcomingEvents />
         </div>
-        {/* Main content: full width, but inner content centered and max width */}
-        <div className="w-full flex flex-col items-center">
-          <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
-            <FeedHeader 
-              authenticated={authenticated} 
-              ready={ready} 
-              user={user} 
-              onWalletClick={() => setShowProfilePanel(true)} 
-            />
-            <div className="mt-8">
-              <FadeInCard index={0}><QuickStats airdrops={2} points={140} rank={42} /></FadeInCard>
-            </div>
-            <div onClick={() => setWallOpen(true)}>
-              <CampusWallPreview />
-            </div>
-            <FadeInCard index={1}><HackathonsFeed hackathons={hackathons} /></FadeInCard>
-            <FadeInCard index={2}><MeetupsFeed meetups={meetups} /></FadeInCard>
-            <FadeInCard index={3}><LeaderboardStats /></FadeInCard>
-            <FadeInCard index={4}><EducationSection /></FadeInCard>
-            <FadeInCard index={5}><InternshipsSection /></FadeInCard>
-            <Footer />
-          </div>
+        <div className="hackathons-feed">
+          <HackathonsFeed hackathons={hackathons} />
         </div>
-        {/* Desktop only: Profile panel fixed to right edge */}
-        <div className="hidden lg:block fixed top-0 right-0 pt-16 pr-8 z-30">
-          <UserProfilePanel />
-          <div className="mt-6 w-64">
-            <div
-              className="rounded-xl shadow-lg border border-gray-800 overflow-hidden relative flex flex-col items-center justify-center min-h-[120px]"
-              style={{
-                backgroundImage: 'url(/backgrounds/puc_pixelart.webp)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <div className="absolute inset-0 bg-black/40" />
-              <div className="relative z-10 flex flex-col items-center justify-center h-full w-full p-6">
-                <h3 className="text-xl font-bold text-white drop-shadow mb-1 text-center">Muro de mi universidad</h3>
-              </div>
-            </div>
-          </div>
+        <div className="leaderboard-stats">
+          <LeaderboardStats />
         </div>
-        <WallModal open={wallOpen} onClose={() => setWallOpen(false)} />
       </div>
-    </AuroraBackground>
+
+      {/* Center Content */}
+      <div className="flex-1 flex flex-col items-center justify-center py-8">
+        <div className="quick-stats mb-8">
+          <QuickStats points={140} rank={5} />
+        </div>
+        <div className="campus-wall">
+          <CampusWallPreview />
+        </div>
+        <div className="assets-summary mt-8">
+          <AssetsSummary assets={mockAssets} />
+        </div>
+      </div>
+
+      {/* Right Column (User Profile, desktop only) */}
+      <div className="hidden lg:flex flex-col items-end justify-start pt-8 pr-12 min-w-[300px]">
+        <div className="user-profile-panel">
+          <UserProfilePanel />
+        </div>
+      </div>
+    </div>
   )
 } 

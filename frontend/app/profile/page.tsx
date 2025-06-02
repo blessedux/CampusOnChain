@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { AuroraBackground } from "@/components/ui/aurora-background"
 
 interface POAP {
   id: number;
@@ -211,7 +212,7 @@ export default function ProfilePage() {
 
   // Handle back button click
   const handleBackClick = () => {
-    router.push("/")
+    router.push("/feed")
   }
 
   // Handle wallet button click
@@ -291,7 +292,7 @@ export default function ProfilePage() {
   const isProfileComplete = profile.handle && profile.university
 
   return (
-    <div className="min-h-screen bg-background">
+    <AuroraBackground>
       {/* Back Button */}
       <div className="absolute top-4 left-4 z-50">
         <button
@@ -348,15 +349,15 @@ export default function ProfilePage() {
 
       {/* Profile Header */}
       <div 
-        className={`relative h-48 ${!universityBackgrounds[profile.university] ? getBackgroundImage() : ''}`}
+        className={`relative h-48 w-full max-w-5xl mx-auto`}
         style={universityBackgrounds[profile.university] ? {
           backgroundImage: `url(${getBackgroundImage()})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         } : {}}
       >
-        <div className="absolute inset-0 bg-black/30" /> {/* Overlay for better text visibility */}
-        <div className="absolute -bottom-16 left-8">
+        <div className="absolute inset-0 bg-black/30" style={{zIndex: 1}} />
+        <div className="absolute -bottom-16 left-8 z-10">
           <div className="relative">
             <UniversityRing universityId={profile.university} size={144} />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -375,20 +376,20 @@ export default function ProfilePage() {
       </div>
 
       {/* Profile Content */}
-      <div className="container mx-auto px-4 pt-20 pb-8">
+      <div className="container mx-auto px-4 pt-32 pb-8 max-w-5xl z-20 relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left Column - Profile Info */}
           <div className="md:col-span-2 space-y-6">
-            <Card className={`p-6 ${showTutorial && !isProfileComplete ? 'ring-2 ring-primary ring-offset-2' : ''}`}>
+            <Card className={`p-6 bg-black/40 backdrop-blur-sm border border-white/10 ${showTutorial && !isProfileComplete ? 'ring-2 ring-primary ring-offset-2' : ''}`}>
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold">
+                  <h1 className="text-2xl font-bold text-white">
                     {profile.handle ? `@${profile.handle}` : "Completa tu perfil"}
                   </h1>
-                  <p className="text-muted-foreground">{getUniversityName(profile.university)}</p>
-                  {profile.field && <p className="text-muted-foreground">{profile.field}</p>}
+                  <p className="text-gray-300">{getUniversityName(profile.university)}</p>
+                  {profile.field && <p className="text-gray-400">{profile.field}</p>}
                 </div>
-                <Button onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}>
+                <Button onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)} className="text-white">
                   {isEditing ? "Guardar Cambios" : "Editar Perfil"}
                 </Button>
               </div>
@@ -396,7 +397,7 @@ export default function ProfilePage() {
               {isEditing ? (
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium">Nombre de Usuario</label>
+                    <label className="text-sm font-medium text-gray-300">Nombre de Usuario</label>
                     <Input 
                       value={profile.handle} 
                       onChange={(e) => setProfile({...profile, handle: e.target.value})}
@@ -404,7 +405,7 @@ export default function ProfilePage() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Universidad</label>
+                    <label className="text-sm font-medium text-gray-300">Universidad</label>
                     <Select
                       value={profile.university}
                       onValueChange={(value) => setProfile({...profile, university: value})}
@@ -414,38 +415,34 @@ export default function ProfilePage() {
                       </SelectTrigger>
                       <SelectContent>
                         {Object.entries(universities).map(([category, unis]) => (
-                          <div key={category}>
-                            <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground">
-                              {category}
-                            </div>
+                          <>
+                            <div className="px-2 py-1 text-xs text-gray-400 font-semibold uppercase tracking-wider" key={category}>{category}</div>
                             {unis.map((uni) => (
-                              <SelectItem key={uni.id} value={uni.id}>
-                                {uni.name}
-                              </SelectItem>
+                              <SelectItem value={uni.id} key={uni.id}>{uni.name}</SelectItem>
                             ))}
-                          </div>
+                          </>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Carrera</label>
+                    <label className="text-sm font-medium text-gray-300">Carrera / Especialidad</label>
                     <Input 
                       value={profile.field} 
                       onChange={(e) => setProfile({...profile, field: e.target.value})}
-                      placeholder="¿Qué estás estudiando?"
+                      placeholder="Ej: Ingeniería, Derecho, Medicina..."
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Biografía</label>
-                    <Textarea 
-                      value={profile.bio} 
+                    <label className="text-sm font-medium text-gray-300">Biografía</label>
+                    <Textarea
+                      value={profile.bio}
                       onChange={(e) => setProfile({...profile, bio: e.target.value})}
                       placeholder="Cuéntanos sobre ti..."
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Intereses</label>
+                    <label className="text-sm font-medium text-gray-300">Intereses</label>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {profile.interests.map((interest, index) => (
                         <Badge 
@@ -463,7 +460,7 @@ export default function ProfilePage() {
                       ))}
                     </div>
                     <div className="mt-4">
-                      <p className="text-sm text-muted-foreground mb-2">Selecciona tus intereses:</p>
+                      <p className="text-sm text-gray-400 mb-2">Selecciona tus intereses:</p>
                       <div className="flex flex-wrap gap-2">
                         {web3Interests.map((interest) => (
                           <Badge
@@ -484,7 +481,7 @@ export default function ProfilePage() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Habilidades</label>
+                    <label className="text-sm font-medium text-gray-300">Habilidades</label>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {profile.skills.map((skill, index) => (
                         <Badge 
@@ -502,7 +499,7 @@ export default function ProfilePage() {
                       ))}
                     </div>
                     <div className="mt-4">
-                      <p className="text-sm text-muted-foreground mb-2">Selecciona tus habilidades:</p>
+                      <p className="text-sm text-gray-400 mb-2">Selecciona tus habilidades:</p>
                       <div className="flex flex-wrap gap-2">
                         {studentSkills.map((skill) => (
                           <Badge
@@ -526,9 +523,9 @@ export default function ProfilePage() {
               ) : (
                 <div className="space-y-4">
                   {profile.bio ? (
-                    <p className="text-muted-foreground">{profile.bio}</p>
+                    <p className="text-gray-300">{profile.bio}</p>
                   ) : (
-                    <p className="text-muted-foreground italic">Agrega una biografía para contarles a otros sobre ti</p>
+                    <p className="text-gray-400 italic">Agrega una biografía para contarles a otros sobre ti</p>
                   )}
                   {profile.interests.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
@@ -537,15 +534,15 @@ export default function ProfilePage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground italic">Agrega tus intereses para conectar con otros</p>
+                    <p className="text-gray-400 italic">Agrega tus intereses para conectar con otros</p>
                   )}
                 </div>
               )}
             </Card>
 
             {/* Achievements Gallery */}
-            <Card className="p-6">
-              <h2 className="text-xl font-bold mb-4">Logros</h2>
+            <Card className="p-6 bg-black/40 backdrop-blur-sm border border-white/10">
+              <h2 className="text-xl font-bold mb-4 text-white">Logros</h2>
               {profile.poaps.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {profile.poaps.map((poap) => (
@@ -565,7 +562,7 @@ export default function ProfilePage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-muted-foreground">
+                <div className="text-center py-8 text-gray-300">
                   <p>Aún no hay logros</p>
                   <p className="text-sm">¡Completa cursos de Campus On Chain para ganar NFTs exclusivos!</p>
                   <p className="text-xs mt-2">Cada curso completado te otorgará un NFT único que certifica tu aprendizaje</p>
@@ -576,8 +573,8 @@ export default function ProfilePage() {
 
           {/* Right Column - Stats & Skills */}
           <div className="space-y-6">
-            <Card className="p-6">
-              <h2 className="text-xl font-bold mb-4">Habilidades</h2>
+            <Card className="p-6 bg-black/40 backdrop-blur-sm border border-white/10">
+              <h2 className="text-xl font-bold mb-4 text-white">Habilidades</h2>
               {profile.skills.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {profile.skills.map((skill, index) => (
@@ -587,36 +584,36 @@ export default function ProfilePage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-muted-foreground italic">Agrega tus habilidades para mostrar tu experiencia</p>
+                <p className="text-gray-400 italic">Agrega tus habilidades para mostrar tu experiencia</p>
               )}
             </Card>
 
-            <Card className="p-6">
-              <h2 className="text-xl font-bold mb-4">Estadísticas</h2>
+            <Card className="p-6 bg-black/40 backdrop-blur-sm border border-white/10">
+              <h2 className="text-xl font-bold mb-4 text-white">Estadísticas</h2>
               <div className="space-y-6">
                 {/* POAPs Preview */}
                 <div>
-                  <p className="text-sm text-muted-foreground mb-3">POAPs</p>
+                  <p className="text-sm text-gray-400 mb-3">POAPs</p>
                   <div className="flex items-center gap-4">
                     <div className="flex -space-x-2">
                       {[...Array(5)].map((_, i) => (
                         <div
                           key={i}
-                          className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium text-muted-foreground cursor-pointer hover:bg-muted/80 transition-colors"
+                          className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium text-gray-400 cursor-pointer hover:bg-muted/80 transition-colors"
                           onClick={() => window.open('https://poap.xyz', '_blank')}
                         >
                           {i + 1}
                         </div>
                       ))}
                     </div>
-                    <p className="text-2xl font-bold">{profile.stats.poapsEarned}</p>
+                    <p className="text-2xl font-bold text-white">{profile.stats.poapsEarned}</p>
                   </div>
                 </div>
 
                 {/* Other Stats */}
                 <div className="space-y-4">
                   <div className="group relative">
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <p className="text-sm text-gray-400 flex items-center gap-1">
                       OnChain Rank
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -626,14 +623,14 @@ export default function ProfilePage() {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="w-4 h-4 text-muted-foreground/70 cursor-help"
+                        className="w-4 h-4 text-gray-400/70 cursor-help"
                       >
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 16v-4" />
                         <path d="M12 8h.01" />
                       </svg>
                     </p>
-                    <p className="text-2xl font-bold">#{profile.stats.communityRank}</p>
+                    <p className="text-2xl font-bold text-white">#{profile.stats.communityRank}</p>
                     <div className="absolute left-0 top-full mt-2 w-72 p-3 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <p className="mb-2">Tu OnChain Rank se basa en tu participación en:</p>
                       <ul className="list-disc list-inside mb-2 space-y-1">
@@ -646,7 +643,7 @@ export default function ProfilePage() {
                     </div>
                   </div>
                   <div className="group relative">
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <p className="text-sm text-gray-400 flex items-center gap-1">
                       Hackathons
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -656,14 +653,14 @@ export default function ProfilePage() {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="w-4 h-4 text-muted-foreground/70 cursor-help"
+                        className="w-4 h-4 text-gray-400/70 cursor-help"
                       >
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 16v-4" />
                         <path d="M12 8h.01" />
                       </svg>
                     </p>
-                    <p className="text-2xl font-bold">{profile.stats.hackathonsParticipated}</p>
+                    <p className="text-2xl font-bold text-white">{profile.stats.hackathonsParticipated}</p>
                     <div className="absolute left-0 top-full mt-2 w-72 p-3 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <p className="mb-2">Campus On Chain fomenta la participación en hackathons como una excelente manera de aprender y crecer en el ecosistema Web3.</p>
                       <p className="mb-2">
@@ -694,6 +691,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-    </div>
+    </AuroraBackground>
   )
 } 

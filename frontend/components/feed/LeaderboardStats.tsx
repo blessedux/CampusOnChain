@@ -114,6 +114,7 @@ export const LeaderboardStats = () => {
   const [inViewRef, inView] = useInView({ threshold: 0.2, triggerOnce: false });
   const [hoveredUser, setHoveredUser] = useState<typeof mockLeaders[0] | null>(null);
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
+  const [showAll, setShowAll] = useState(false);
 
   // Merge refs
   const setRefs = (node: any) => {
@@ -130,6 +131,9 @@ export const LeaderboardStats = () => {
     setHoveredUser(user);
   };
 
+  // Only show top 8 unless showAll is true
+  const visibleLeaders = showAll ? mockLeaders : mockLeaders.slice(0, 8);
+
   return (
     <motion.div
       ref={setRefs}
@@ -141,8 +145,8 @@ export const LeaderboardStats = () => {
     >
       <h3 className="text-lg font-bold mb-2 text-purple-300">Leaderboard: Campus Challenges & Activations</h3>
       <p className="text-xs text-gray-400 mb-3">Top students in gamified challenges, marketing campaigns, and special activations.</p>
-      <ul className="space-y-1 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-        {mockLeaders.map((user, idx) => (
+      <ul className={`space-y-1 flex-1 ${showAll ? 'overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent' : 'overflow-y-hidden'}`}>
+        {visibleLeaders.map((user, idx) => (
           <li
             key={user.id}
             className="flex items-center gap-2 text-white/90 hover:bg-white/5 rounded-lg p-2 transition-colors cursor-pointer group"
@@ -162,6 +166,16 @@ export const LeaderboardStats = () => {
           </li>
         ))}
       </ul>
+      {!showAll && (
+        <div className="flex justify-center mt-2">
+          <button
+            className="text-xs text-gray-400 hover:text-gray-200 font-normal bg-transparent px-2 py-1 rounded transition"
+            onClick={() => setShowAll(true)}
+          >
+            Ver más
+          </button>
+        </div>
+      )}
       <AnimatePresence>
         {hoveredUser && (
           <HoverCard user={hoveredUser} position={hoverPosition} />

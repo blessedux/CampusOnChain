@@ -394,6 +394,21 @@ export default function FeedPage() {
         {/* Desktop only: Profile panel fixed to right edge */}
         <div className="hidden lg:block fixed top-0 right-0 pt-16 pr-8 z-30">
           <UserProfilePanel />
+          <div className="mt-6 w-64">
+            <div
+              className="rounded-xl shadow-lg border border-gray-800 overflow-hidden relative flex flex-col items-center justify-center min-h-[120px]"
+              style={{
+                backgroundImage: 'url(/backgrounds/puc_pixelart.webp)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 flex flex-col items-center justify-center h-full w-full p-6">
+                <h3 className="text-xl font-bold text-white drop-shadow mb-1 text-center">Muro de mi universidad</h3>
+              </div>
+            </div>
+          </div>
         </div>
         <WallModal open={wallOpen} onClose={() => setWallOpen(false)} />
       </div>

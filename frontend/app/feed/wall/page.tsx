@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { UpcomingEvents } from "@/components/feed/UpcomingEvents";
-import { EventsFeed } from "@/components/feed/EventsFeed";
+import { HackathonsFeed } from "@/components/feed/EventsFeed";
 import { LeaderboardStats } from "@/components/feed/LeaderboardStats";
 import { UserProfilePanel } from "@/components/feed/UserProfilePanel";
 
@@ -32,12 +32,13 @@ const hackathons = [
     organizer: 'Hackbox',
     prizePool: '10,000',
     prizeCurrency: 'USD',
+    link: 'https://dorahacks.io/hackathon/agents-without-masters',
   },
   {
     id: '2',
     title: 'Integrate Civic Auth into Your Application',
     description: 'Seamless user management and authentication for your dApp.',
-    type: 'workshop' as const,
+    type: 'hackathon' as const,
     date: 'Ongoing',
     actionText: 'Register Now',
     image: '/sample/hackathon2.jpg',
@@ -48,6 +49,7 @@ const hackathons = [
     organizer: 'Civic',
     prizePool: '2,300',
     prizeCurrency: 'USD',
+    link: 'https://dorahacks.io/hackathon/civic-auth',
   },
 ];
 
@@ -80,7 +82,7 @@ export default function CampusWallPage() {
       {/* Left Column (Events, Hackathons, Leaderboard) */}
       <div className="flex-1 flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 lg:pl-12 pt-8">
         <UpcomingEvents />
-        <EventsFeed events={hackathons} />
+        <HackathonsFeed hackathons={hackathons} />
         <LeaderboardStats />
       </div>
 

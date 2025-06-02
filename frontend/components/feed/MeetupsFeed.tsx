@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Meetup {
   id: string;
@@ -31,10 +32,12 @@ const formatDate = (iso: string) => {
 
 export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
+  const [showAll, setShowAll] = useState(false);
   // For now, all are upcoming
+  const visibleMeetups = showAll ? meetups : meetups.slice(0, 4);
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 relative">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xl font-bold">Eventos & Meetups</h3>
         <div className="flex gap-2 bg-[#23232a] rounded-lg p-1">
@@ -52,8 +55,8 @@ export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-4 w-full">
-        {meetups.map((event) => {
+      <div className="flex flex-col gap-4 w-full relative" style={{ minHeight: 340 }}>
+        {visibleMeetups.map((event) => {
           const { day, date, time } = formatDate(event.date);
           return (
             <a
@@ -121,6 +124,29 @@ export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
             </a>
           );
         })}
+        {/* Fade-out and Show More */}
+        <AnimatePresence>
+          {!showAll && meetups.length > 4 && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+              className="absolute bottom-0 left-0 w-full flex flex-col items-center z-20"
+              style={{ pointerEvents: 'none' }}
+            >
+              <div className="w-full h-16 bg-gradient-to-t from-[#18181a] to-transparent transition-opacity" />
+              <div className="flex justify-center mt-[-2.5rem] w-full" style={{ pointerEvents: 'auto' }}>
+                <button
+                  className="text-xs text-gray-400 hover:text-gray-200 font-normal bg-transparent px-2 py-1 rounded transition"
+                  onClick={() => setShowAll(true)}
+                >
+                  Ver más eventos
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

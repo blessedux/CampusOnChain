@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { FadeInCard } from './FadeInCard';
+import { FadeInCard } from '../ui/FadeInCard';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 

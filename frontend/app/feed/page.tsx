@@ -21,6 +21,7 @@ import { MeetupsFeed } from "@/components/feed/MeetupsFeed"
 import { StudentsPanel } from "@/components/feed/StudentsPanel"
 import { Footer } from "@/components/feed/Footer"
 import WallModal from "@/components/feed/WallModal"
+import { FadeInCard } from "@/components/ui/FadeInCard"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
@@ -373,18 +374,14 @@ export default function FeedPage() {
               onWalletClick={() => setShowProfilePanel(true)} 
             />
             <div className="mt-8">
-              <QuickStats
-                airdrops={2}
-                points={140}
-                rank={42}
-              />
+              <FadeInCard index={0}><QuickStats airdrops={2} points={140} rank={42} /></FadeInCard>
             </div>
             <div onClick={() => setWallOpen(true)}>
               <CampusWallPreview />
             </div>
-            <HackathonsFeed hackathons={hackathons} />
-            <MeetupsFeed meetups={meetups} />
-            <StudentsPanel />
+            <FadeInCard index={1}><HackathonsFeed hackathons={hackathons} /></FadeInCard>
+            <FadeInCard index={2}><MeetupsFeed meetups={meetups} /></FadeInCard>
+            <FadeInCard index={3}><StudentsPanel /></FadeInCard>
             <Footer />
           </div>
         </div>

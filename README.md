@@ -31,6 +31,8 @@ Campus on Chain aspires to be the bridge between traditional universities and th
 - **Student Network**: Connect with other Web3-interested students across universities
 - **Event Discovery**: Get notified about Web3 meetups, conferences, and hackathons
 - **Career Opportunities**: Access Web3 job listings and internship opportunities
+- **Verifiable Credentials**: Claim your on-chain university certificates and badges via Moonbeam, a Polkadot-based EVM chain
+- **Interactive Onboarding**: Step-by-step guided tour of platform features and Web3 concepts (Coming Soon)
 
 ### For Universities
 
@@ -66,6 +68,7 @@ Campus on Chain aspires to be the bridge between traditional universities and th
 - **Wallet**: Privy for seamless Web3 authentication
 - **Smart Contracts**: Solidity for future governance features
 - **Network**: Ethereum Mainnet + Optimism for scaling
+- **Certification Layer**: Moonbeam for NFT-based student credentials and badges on Polkadot
 
 ## 🚀 Getting Started
 

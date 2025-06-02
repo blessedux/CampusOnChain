@@ -14,7 +14,7 @@ import RoadmapSection from "@/components/RoadmapSection"
 import Footer from "@/components/Footer"
 import { FinalSection } from '@/components/FinalSection'
 import { CampusTransition } from '@/components/transitions/CampusTransition'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 export default function LandingPage() {
   const { ready, authenticated, user, logout } = usePrivy();
@@ -22,6 +22,7 @@ export default function LandingPage() {
   const router = useRouter();
   const [showTransition, setShowTransition] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isLoginAttempted, setIsLoginAttempted] = useState(false);
 
   // Handle wallet button click
   const handleWalletClick = () => {
@@ -41,6 +42,7 @@ export default function LandingPage() {
       setShowTransition(true);
     } else {
       // If not authenticated, trigger login
+      setIsLoginAttempted(true);
       await login();
     }
   }
@@ -52,6 +54,18 @@ export default function LandingPage() {
       router.push('/feed');
     }
   }, [router, isNavigating]);
+
+  // Listen for authentication changes after login attempt
+  useEffect(() => {
+    if (isLoginAttempted && authenticated) {
+      // If user successfully authenticated after clicking Enter Campus
+      setShowTransition(true);
+      setIsLoginAttempted(false);
+    } else if (isLoginAttempted && !authenticated) {
+      // If user cancelled login or it failed
+      setIsLoginAttempted(false);
+    }
+  }, [authenticated, isLoginAttempted]);
 
   return (
     <div className="min-h-screen bg-black text-white">

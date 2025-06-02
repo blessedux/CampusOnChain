@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { usePrivy } from "@privy-io/react-auth"
 import FeedHeader from "@/components/FeedHeader"
 import { QuickStats } from "@/components/feed/QuickStats"
-import { EventsFeed } from "@/components/feed/EventsFeed"
+import { HackathonsFeed } from "@/components/feed/EventsFeed"
 import { NextActions } from "@/components/feed/NextActions"
 import { AssetsSummary } from "@/components/feed/AssetsSummary"
 import { Plus, Award, Users, UserPlus } from "lucide-react"
@@ -35,15 +35,16 @@ export default function FeedPage() {
     }
   }, [ready, authenticated, router])
 
-  // Hardcoded hackathon events
+  // Updated events for FeedPage
   const events = [
+    // Hackathons (images in /hackathons)
     {
       id: 'nerdcamp',
       title: 'NERD CAMP by Polkadot',
       description: 'A virtual camp for blockchain, web3, startups, and apps.',
       type: 'hackathon' as const,
       date: 'Ongoing',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/nerdcamppolkadot.png',
       status: 'Ongoing' as const,
       timeLeft: '1 hour',
@@ -52,15 +53,15 @@ export default function FeedPage() {
       organizer: 'polkadot',
       prizePool: '7,000',
       prizeCurrency: 'USD',
-      link: 'https://dorahacks.io/org/nerdconf',
+      link: 'https://dorahacks.io/hackathon/nerdconf-polkadot',
     },
     {
-      id: '1',
+      id: 'agents-without-masters',
       title: 'Agents Without Masters Hackathon with NEAR AI',
       description: 'Hack AI like it means something. Participate in Berlin Blockchain Week!',
       type: 'hackathon' as const,
       date: 'June 15, 2025',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/agentswithuotmasters.webp',
       status: 'Upcoming' as const,
       timeLeft: '13 days',
@@ -69,14 +70,15 @@ export default function FeedPage() {
       organizer: 'Hackbox',
       prizePool: '10,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '2',
+      id: 'the-apex-of-skills',
       title: 'The Apex of Skills: TRN Labs Hackathon',
       description: 'Compete for $10,000 USDT in $ROOT. Show your Web3 skills!',
       type: 'hackathon' as const,
       date: 'Upcoming',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/theapexofskills.webp',
       status: 'Upcoming' as const,
       timeLeft: '2 days',
@@ -85,14 +87,15 @@ export default function FeedPage() {
       organizer: 'TRN Labs',
       prizePool: '10,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '3',
+      id: 'chainopera',
       title: 'ChainOpera Hackathon',
       description: 'A hackathon for music and blockchain innovation.',
       type: 'hackathon' as const,
       date: 'Ongoing',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/chainopera.webp',
       status: 'Ongoing' as const,
       timeLeft: '5 days',
@@ -101,14 +104,15 @@ export default function FeedPage() {
       organizer: 'ChainOpera',
       prizePool: '5,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '4',
+      id: 'apechain-africa',
       title: 'ApeChain Africa',
       description: "Build on ApeChain and empower Africa's Web3 future.",
       type: 'hackathon' as const,
       date: 'Ongoing',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/apechainafrica.webp',
       status: 'Ongoing' as const,
       timeLeft: '3 hours',
@@ -117,14 +121,15 @@ export default function FeedPage() {
       organizer: 'ApeChain',
       prizePool: '7,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '5',
+      id: 'hacktheleague',
       title: 'Hack the League',
       description: 'A global hackathon for league builders.',
       type: 'hackathon' as const,
       date: 'Upcoming',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/hacktheleague.webp',
       status: 'Upcoming' as const,
       timeLeft: '7 days',
@@ -133,14 +138,15 @@ export default function FeedPage() {
       organizer: 'HackLeague',
       prizePool: '8,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '6',
+      id: 'assethub',
       title: 'AssetHub Hackathon',
       description: 'Innovate with AssetHub and win big prizes.',
       type: 'hackathon' as const,
       date: 'Upcoming',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/assethubhackathon.webp',
       status: 'Upcoming' as const,
       timeLeft: '10 days',
@@ -149,14 +155,15 @@ export default function FeedPage() {
       organizer: 'AssetHub',
       prizePool: '12,000',
       prizeCurrency: 'USD',
+      link: '',
     },
     {
-      id: '7',
+      id: 'zohouse',
       title: 'ZoHouse Hack',
       description: 'A hackathon for ZoHouse builders and creators.',
       type: 'hackathon' as const,
       date: 'Upcoming',
-      actionText: 'Join Event',
+      actionText: 'Unirse',
       image: '/hackathons/zohousehack.webp',
       status: 'Upcoming' as const,
       timeLeft: '15 days',
@@ -165,6 +172,127 @@ export default function FeedPage() {
       organizer: 'ZoHouse',
       prizePool: '9,000',
       prizeCurrency: 'USD',
+      link: '',
+    },
+    // Meetups/Events (images in /events)
+    {
+      id: 'web3-ai-pitch',
+      title: 'Web3 & AI Pitch Competition & VC networking',
+      description: 'Pitch competition, networking y VC en TECHWEEK2025 NYC.',
+      type: 'event' as const,
+      date: 'Tomorrow',
+      actionText: 'Unirse',
+      image: '/events/web3auoitchcompetition.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '1 day',
+      location: 'New York, NY',
+      tags: ['Web3', 'AI', 'Pitch', 'VC', 'Networking'],
+      organizer: 'Ga^3in Ventures x Fibonacci Capital',
+      prizePool: 'Pitch',
+      prizeCurrency: '',
+      link: 'https://lu.ma/jz5gdw3g?tk=uN74AU',
+    },
+    {
+      id: 'triggers-minithon',
+      title: 'Triggers, Not Apps: Sherry x Avalanche Minithon (Online)',
+      description: 'Minithon online sobre Avalanche y Sherry.',
+      type: 'event' as const,
+      date: 'June 6, 2025',
+      actionText: 'Unirse',
+      image: '/events/triggersminithon.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '3 days',
+      location: 'Google Meet',
+      tags: ['Avalanche', 'Sherry', 'Minithon', 'Online'],
+      organizer: 'Juvenal',
+      prizePool: 'Certificados',
+      prizeCurrency: '',
+      link: 'https://lu.ma/6rpyc0pz?tk=Wy4BJQ',
+    },
+    {
+      id: 'the-oz-city',
+      title: 'The Oz city – a pop-up city & bootcamp on Agents',
+      description: 'Pop-up city y bootcamp sobre agentes y Web3.',
+      type: 'event' as const,
+      date: 'June 21, 2025',
+      actionText: 'Unirse',
+      image: '/events/theozcity.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '2 weeks',
+      location: 'Valbonne',
+      tags: ['Bootcamp', 'Web3', 'Pop-up', 'Agents'],
+      organizer: 'Epic Web3',
+      prizePool: 'Invitaciones',
+      prizeCurrency: '',
+      link: 'https://lu.ma/ozcity?tk=SHXzqC',
+    },
+    {
+      id: 'sozuhaus-mallorca',
+      title: 'Sozu Haus Mallorca (Pre-EthCC)',
+      description: 'Evento previo a EthCC en Mallorca.',
+      type: 'event' as const,
+      date: 'June 22, 2025',
+      actionText: 'Unirse',
+      image: '/events/sozuhausmallorca.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '2 weeks',
+      location: 'Mallorca',
+      tags: ['Mallorca', 'EthCC', 'Web3'],
+      organizer: 'Sozu Haus',
+      prizePool: 'Networking',
+      prizeCurrency: '',
+      link: 'https://lu.ma/vyji07hq?tk=Hkc4bs',
+    },
+    {
+      id: 'infratalks',
+      title: 'Infra Talks: Conectando Tecnologías Descentralizadas',
+      description: 'Un evento único donde los principales actores del ecosistema Web3 se unen para hablar de interoperabilidad, infraestructura descentralizada y el futuro de las tecnologías blockchain.',
+      type: 'event' as const,
+      date: 'May 26, 2025',
+      actionText: 'Unirse',
+      image: '/events/infratalks.webp',
+      status: 'Ongoing' as const,
+      timeLeft: '1 day',
+      location: 'Virtual',
+      tags: ['Web3', 'Infraestructura', 'Blockchain', 'Interoperabilidad'],
+      organizer: 'ICP HUB Argentina & ICP HUBS Network',
+      prizePool: 'Certificados',
+      prizeCurrency: '',
+      link: 'https://lu.ma/8x9p396m?tk=kVdZ6G',
+    },
+    {
+      id: 'cryptocitiesmonth',
+      title: 'Crypto Cities Month',
+      description: 'Lanzamiento de proyectos cripto en el mundo real. ¡Construye tu summit, DAO, DeFi, off-ramp, ZK o blockchain project!',
+      type: 'event' as const,
+      date: 'Today',
+      actionText: 'Unirse',
+      image: '/events/cryptocitiesmonth.webp',
+      status: 'Ongoing' as const,
+      timeLeft: '1 month',
+      location: 'Prospera',
+      tags: ['Crypto', 'Cities', 'DAO', 'DeFi', 'ZK'],
+      organizer: 'Infinita City',
+      prizePool: 'Networking',
+      prizeCurrency: '',
+      link: 'https://lu.ma/infinita-crypto-cities?tk=TcmgLO',
+    },
+    {
+      id: 'casatigre',
+      title: 'Casa Tigre',
+      description: 'Evento en Río San Antonio.',
+      type: 'event' as const,
+      date: 'Nov 24, 2025',
+      actionText: 'Unirse',
+      image: '/events/casatigre.webp',
+      status: 'Upcoming' as const,
+      timeLeft: '5 months',
+      location: 'Río San Antonio',
+      tags: ['Casa', 'Tigre', 'Evento'],
+      organizer: 'Casa Tigre',
+      prizePool: 'Networking',
+      prizeCurrency: '',
+      link: 'https://lu.ma/62qx28n9',
     },
   ]
 
@@ -217,9 +345,24 @@ export default function FeedPage() {
     }
   ]
 
+  // Separate hackathons and meetups by type and image path
+  const hackathons = events.filter(e => e.type === 'hackathon' && e.image.startsWith('/hackathons/'));
+  const meetups = events.filter(e => e.type === 'event' && e.image.startsWith('/events/')).map(e => ({
+    ...e,
+    attendees: [
+      '/PFPs/pixelcat.webp',
+      '/PFPs/pixelfox.webp',
+      '/PFPs/pixelowl.webp',
+    ],
+  }));
+
   return (
     <AuroraBackground className="fixed inset-0 -z-10">
       <div className="min-h-screen text-white relative overflow-x-hidden w-full flex flex-col">
+        {/* Mobile: Profile panel at the very top */}
+        <div className="block lg:hidden w-full flex justify-center mt-12 px-4 pt-4 z-30">
+          <UserProfilePanel />
+        </div>
         {/* Main content: full width, but inner content centered and max width */}
         <div className="w-full flex flex-col items-center">
           <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
@@ -239,8 +382,8 @@ export default function FeedPage() {
             <div onClick={() => setWallOpen(true)}>
               <CampusWallPreview />
             </div>
-            <EventsFeed events={events} />
-            <MeetupsFeed />
+            <HackathonsFeed hackathons={hackathons} />
+            <MeetupsFeed meetups={meetups} />
             <StudentsPanel />
             <Footer />
           </div>

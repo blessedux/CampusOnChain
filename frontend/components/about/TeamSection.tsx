@@ -1,115 +1,67 @@
 'use client';
 
-import { TiltedCard } from '@/components/ui/tilted-card';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-interface TeamMember {
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-}
-
-const teamMembers: TeamMember[] = [
+const teamMembers = [
   {
-    name: 'Simon',
-    role: 'Founder & CEO',
-    bio: 'Blockchain visionary with extensive experience in Web3 education and community building.',
-    image: '/team/simon.jpeg'
+    name: "Kaream Badillo",
+    title: "Community Lead & Web Developer",
+    bio: "Desarrolladora web con foco en HTML, CSS y JavaScript. Activa en comunidades Web3 en Latinoamérica, donde impulsa la inclusión y participación de nuevos talentos en tecnología y blockchain.",
+    avatar: "/PFPs/pixelcat.webp",
   },
   {
-    name: 'Kaream',
-    role: 'CTO',
-    bio: 'Technical architect specializing in blockchain infrastructure and smart contract development.',
-    image: '/team/kaream.jpeg'
+    name: "Carlos Concha",
+    title: "Cultural Programs Lead",
+    bio: "Músico y productor cultural. Fundador y vocalista de la banda chilena Cleaver. Enfocado en conectar arte, música y nuevas tecnologías para fortalecer comunidades creativas.",
+    avatar: "/PFPs/pixelfox.webp",
   },
   {
-    name: 'Fabio',
-    role: 'Head of Product',
-    bio: 'Product strategist focused on creating intuitive Web3 learning experiences.',
-    image: '/team/fabio.jpeg'
+    name: "Simón Espínola",
+    title: "University Partnerships & Product Manager",
+    bio: "Ingeniero comercial. Forma parte del equipo de Dob Protocol, desarrollando productos Web3 centrados en la experiencia del usuario. Conecta el mundo académico con la innovación digital.",
+    avatar: "/PFPs/pixelowl.webp",
   },
   {
-    name: 'Joseph',
-    role: 'Head of Operations',
-    bio: 'Operations expert with a background in scaling Web3 educational platforms.',
-    image: '/team/joseph.jpeg'
-  }
+    name: "Mauro Ojeda",
+    title: "Co-founder & Global Strategy",
+    bio: "Ingeniero en computación. Especialista en educación tecnológica y desarrollo de ecosistemas blockchain en universidades. Diseña estrategias para la expansión regional de proyectos Web3.",
+    avatar: "/PFPs/pixelcat.webp",
+  },
+  {
+    name: "Joseph Sánchez",
+    title: "Co-founder & Executive Director",
+    bio: "Comunicador y organizador de comunidades tecnológicas. Dirige iniciativas educativas y gremiales enfocadas en la adopción y comprensión de tecnologías descentralizadas.",
+    avatar: "/PFPs/pixelfox.webp",
+  },
+  {
+    name: "Fabio Buscio",
+    title: "Co-founder & Marketing Director",
+    bio: "Publicista con experiencia en estrategia, comunicación y crecimiento de comunidades Web3. Enfocado en educación, storytelling y adopción de nuevas tecnologías desde una perspectiva creativa y humana.",
+    avatar: "/PFPs/pixelowl.webp",
+  },
 ];
-
-const TeamCard = ({ member }: { member: TeamMember }) => {
-  const overlayContent = (
-    <div className="absolute inset-0 [transform-style:preserve-3d]">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                      rounded-b-[15px] transition-all duration-300 [transform:translateZ(20px)]">
-        <div className="flex flex-col justify-between p-8 h-full">
-          <div className="transform-gpu [transform-style:preserve-3d] w-full max-w-[85%] mx-auto flex-1 flex items-center justify-center">
-            <div className="overflow-hidden [transform:translateZ(20px)]">
-              <p className="text-sm text-gray-200 drop-shadow-sm transform -translate-y-full opacity-0 
-                           group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 text-center">
-                {member.bio}
-              </p>
-            </div>
-          </div>
-          <div className="transform-gpu [transform-style:preserve-3d] w-full max-w-[85%] mx-auto">
-            <h3 className="text-2xl font-bold mb-3 text-white drop-shadow-sm [transform:translateZ(30px)] text-center">
-              {member.name}
-            </h3>
-            <p className="text-orange-500 font-medium drop-shadow-sm [transform:translateZ(25px)] text-center">
-              {member.role}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="group relative">
-      <div className="absolute inset-0 transition-all duration-300 group-hover:blur-[1px] group-hover:brightness-75">
-        <TiltedCard
-          imageSrc={member.image}
-          altText={`${member.name} - ${member.role}`}
-          containerHeight="400px"
-          containerWidth="300px"
-          imageHeight="100%"
-          imageWidth="100%"
-          scaleOnHover={1.15}
-          rotateAmplitude={12}
-          showMobileWarning={false}
-          showTooltip={false}
-          className="rounded-xl overflow-hidden cursor-pointer"
-        />
-      </div>
-      <div className="relative z-10">
-        <TiltedCard
-          imageSrc={member.image}
-          altText={`${member.name} - ${member.role}`}
-          containerHeight="400px"
-          containerWidth="300px"
-          imageHeight="100%"
-          imageWidth="100%"
-          scaleOnHover={1.15}
-          rotateAmplitude={12}
-          showMobileWarning={false}
-          showTooltip={false}
-          overlayContent={overlayContent}
-          displayOverlayContent={true}
-          className="rounded-xl overflow-hidden cursor-pointer"
-        />
-      </div>
-    </div>
-  );
-};
 
 export default function TeamSection() {
   return (
-    <div className="py-20 px-6">
-      <h2 className="text-4xl font-bold text-center mb-16">Nuestro Equipo</h2>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-        {teamMembers.map((member) => (
-          <TeamCard key={member.name} member={member} />
-        ))}
+    <section className="py-16 bg-transparent">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-10 text-white">Nuestro Equipo</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {teamMembers.map((member, idx) => (
+            <div key={idx} className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-white/20">
+              <Avatar className="w-20 h-20 mb-4 border-2 border-orange-500">
+                <AvatarImage src={member.avatar} />
+                <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">
+                  {member.name[0]}
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-orange-300 mb-1">{member.name}</h3>
+              <div className="text-sm text-orange-100 mb-2 font-semibold">{member.title}</div>
+              <p className="text-sm text-white/90 mb-2">{member.bio}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 } 

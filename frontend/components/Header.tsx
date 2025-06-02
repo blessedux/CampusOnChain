@@ -36,11 +36,13 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/logos/campus1.webp"
+              key="campus-logo"
+              src="/logos/campus_logo.png"
               alt="Campus on Chain"
-              width={140}
-              height={32}
-              className={`h-8 w-auto transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
+              width={180}
+              height={40}
+              priority
+              className={`h-10 w-auto transition-all duration-500 transform ${scrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
             />
           </Link>
           <div className="flex items-center gap-4">

@@ -7,11 +7,11 @@ import Image from "next/image"
 // DoraHacks logo (replace with your asset if needed)
 const DORA_LOGO = "/logos/dorahackslogo.png";
 
-interface Event {
+interface Hackathon {
   id: string;
   title: string;
   description: string;
-  type: 'hackathon' | 'workshop';
+  type: 'hackathon';
   date: string;
   actionText: string;
   image: string;
@@ -22,13 +22,14 @@ interface Event {
   organizer: string;
   prizePool: string;
   prizeCurrency: string;
+  link: string;
 }
 
-interface EventsFeedProps {
-  events: Event[];
+interface HackathonsFeedProps {
+  hackathons: Hackathon[];
 }
 
-export const EventsFeed = ({ events }: EventsFeedProps) => {
+export const HackathonsFeed = ({ hackathons }: HackathonsFeedProps) => {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
@@ -36,15 +37,15 @@ export const EventsFeed = ({ events }: EventsFeedProps) => {
         <h3 className="text-xl font-bold">Hackathons on DoraHacks</h3>
       </div>
       <div className="flex gap-6 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-        {events.map((event) => (
+        {hackathons.map((hackathon) => (
           <Card 
-            key={event.id}
+            key={hackathon.id}
             className="min-w-[340px] max-w-[340px] bg-[#181818] border border-gray-800 flex-shrink-0 shadow-lg relative"
           >
             <div className="relative h-40 w-full rounded-t overflow-hidden">
               <Image
-                src={event.image}
-                alt={event.title}
+                src={hackathon.image}
+                alt={hackathon.title}
                 fill
                 style={{ objectFit: 'cover' }}
                 className="rounded-t"
@@ -52,40 +53,40 @@ export const EventsFeed = ({ events }: EventsFeedProps) => {
                 priority
               />
               <div className="absolute top-2 left-2 flex gap-2 z-10">
-                <Badge className={`text-xs font-semibold ${event.status === 'Upcoming' ? 'bg-yellow-700 text-yellow-300' : 'bg-green-700 text-green-300'}`}>{event.status}</Badge>
+                <Badge className={`text-xs font-semibold ${hackathon.status === 'Upcoming' ? 'bg-yellow-700 text-yellow-300' : 'bg-green-700 text-green-300'}`}>{hackathon.status}</Badge>
                 <Badge className="text-xs bg-black/70 text-yellow-200 border-yellow-400 border font-semibold">
-                  {event.timeLeft} left
+                  {hackathon.timeLeft} left
                 </Badge>
               </div>
             </div>
             <CardContent className="p-4 flex flex-col h-[220px]">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs text-gray-400 font-medium">{event.organizer}</span>
+                <span className="text-xs text-gray-400 font-medium">{hackathon.organizer}</span>
               </div>
-              <div className="font-semibold text-base text-white mb-1 line-clamp-2">{event.title}</div>
+              <div className="font-semibold text-base text-white mb-1 line-clamp-2">{hackathon.title}</div>
               <div className="flex items-center gap-1 text-xs text-gray-400 mb-2">
                 <MapPin className="w-3 h-3 mr-1" />
-                {event.location}
+                {hackathon.location}
               </div>
               <div className="flex flex-wrap gap-1 mb-2">
-                {event.tags.slice(0, 5).map((tag) => (
+                {hackathon.tags.slice(0, 5).map((tag) => (
                   <Badge key={tag} className="bg-[#232323] text-orange-300 text-xs font-medium px-2 py-0.5 rounded">
                     {tag}
                   </Badge>
                 ))}
-                {event.tags.length > 5 && (
-                  <Badge className="bg-[#232323] text-orange-300 text-xs font-medium px-2 py-0.5 rounded">+{event.tags.length - 5}</Badge>
+                {hackathon.tags.length > 5 && (
+                  <Badge className="bg-[#232323] text-orange-300 text-xs font-medium px-2 py-0.5 rounded">+{hackathon.tags.length - 5}</Badge>
                 )}
               </div>
-              <div className="text-xs text-gray-400 mb-2 line-clamp-2">{event.description}</div>
+              <div className="text-xs text-gray-400 mb-2 line-clamp-2">{hackathon.description}</div>
               <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center gap-1 text-yellow-400 font-bold text-base">
                   <Trophy className="w-4 h-4" />
-                  <span>{event.prizePool}</span>
-                  <span className="text-xs text-gray-300 font-normal ml-1">{event.prizeCurrency}</span>
+                  <span>{hackathon.prizePool}</span>
+                  <span className="text-xs text-gray-300 font-normal ml-1">{hackathon.prizeCurrency}</span>
                 </div>
-                <Button size="sm" className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs font-semibold">
-                  {event.actionText}
+                <Button size="sm" className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs font-semibold" onClick={() => window.open(hackathon.link, '_blank')}>
+                  {hackathon.actionText}
                 </Button>
               </div>
             </CardContent>

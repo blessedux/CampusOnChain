@@ -22,6 +22,7 @@ import { StudentsPanel } from "@/components/feed/StudentsPanel"
 import { Footer } from "@/components/feed/Footer"
 import WallModal from "@/components/feed/WallModal"
 import { FadeInCard } from "@/components/ui/FadeInCard"
+import { LeaderboardStats } from "@/components/feed/LeaderboardStats"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
@@ -381,7 +382,7 @@ export default function FeedPage() {
             </div>
             <FadeInCard index={1}><HackathonsFeed hackathons={hackathons} /></FadeInCard>
             <FadeInCard index={2}><MeetupsFeed meetups={meetups} /></FadeInCard>
-            <FadeInCard index={3}><StudentsPanel /></FadeInCard>
+            <FadeInCard index={3}><LeaderboardStats /></FadeInCard>
             <Footer />
           </div>
         </div>

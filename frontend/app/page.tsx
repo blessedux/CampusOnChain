@@ -9,6 +9,7 @@ import InfiniteLogosSlider from "@/components/ui/infinite-slider"
 import ValuePropSection from "@/components/ValuePropSection"
 import PartnersSection from "@/components/PartnersSection"
 import AboutSection from "@/components/AboutSection"
+import MissionSection from "@/components/MissionSection"
 import TeamSection from '@/components/about/TeamSection'
 import RoadmapSection from "@/components/RoadmapSection"
 import Footer from "@/components/Footer"
@@ -89,7 +90,8 @@ export default function LandingPage() {
         onCampusEntry={handleCampusEntry}
       />
       <InfiniteLogosSlider />
-      <AboutSection />  
+      <AboutSection />
+      <MissionSection />
       <TeamSection />
       <ValuePropSection />
       <RoadmapSection />

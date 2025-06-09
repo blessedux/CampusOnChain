@@ -16,7 +16,9 @@ export default function AboutSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.8, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={sectionRef} className="relative">
+    <section 
+      id="about-section"
+      ref={sectionRef} className="relative">
       <motion.div 
         style={{ opacity }}
         className="absolute inset-0 z-0"

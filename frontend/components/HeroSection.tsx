@@ -59,7 +59,9 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
 
   return (
     <AnimatePresence mode="wait">
-      <section className="relative w-screen h-screen min-h-screen flex items-center justify-center overflow-hidden mt-[-4rem] hero-container">
+      <section 
+        id="hero-section"
+        className="relative w-screen h-screen min-h-screen flex items-center justify-center overflow-hidden mt-[-4rem] hero-container">
         {/* Lamp Effect */}
         <LampContainer className="absolute inset-0 -z-[5]">
           <div className="pointer-events-none" />

@@ -6,7 +6,9 @@ import { SplineScene } from "@/components/ui/spline-scene"
 
 export default function Footer() {
   return (
-    <footer className="relative w-full h-screen bg-black">
+    <footer 
+      id="footer-section"
+      className="relative w-full h-screen bg-black">
       <AnimatedGradientBackground 
         Breathing={true}
         startingGap={110}

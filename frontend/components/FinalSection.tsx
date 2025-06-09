@@ -1,4 +1,5 @@
 import { useInView } from 'react-intersection-observer';
+import { Footer } from './Footer';
 
 export const FinalSection = () => {
   const [ref, inView] = useInView({
@@ -7,7 +8,7 @@ export const FinalSection = () => {
   });
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center">
+    <div id="final-section" ref={ref} className="relative flex items-center bg-gradient-to-b from-black to-[#1a1a1a]">
       <div className="container mx-auto px-4">
         <div className={`max-w-4xl mx-auto transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-white to-cyan-500 mb-12">

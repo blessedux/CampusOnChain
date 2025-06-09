@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { GradientButton } from '@/components/ui/gradient-button'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ProgressiveBlur } from '@/components/ui/progressive-blur'
-import { LampContainer } from '@/components/ui/lamp'
 import { SplineScene } from '@/components/ui/spline-scene'
 import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -31,8 +30,8 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
 
   const handleCampusEntry = () => {
     if (authenticated) {
-      setIsTransitioning(true);
-      onCampusEntry();
+    setIsTransitioning(true);
+    onCampusEntry();
     } else {
       // If not authenticated, just trigger the login without changing visibility
       onCampusEntry();
@@ -60,11 +59,6 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
   return (
     <AnimatePresence mode="wait">
       <section className="relative w-screen h-screen min-h-screen flex items-center justify-center overflow-hidden mt-[-4rem] hero-container">
-        {/* Lamp Effect */}
-        <LampContainer className="absolute inset-0 -z-[5]">
-          <div className="pointer-events-none" />
-        </LampContainer>
-
         {/* Floating Card with Backdrop Light */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

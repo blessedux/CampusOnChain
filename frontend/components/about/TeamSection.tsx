@@ -59,9 +59,9 @@ export default function TeamSection() {
               <div className="text-sm text-orange-100 mb-2 font-semibold">{member.title}</div>
               <p className="text-sm text-white/90 mb-2">{member.bio}</p>
             </div>
-          ))}
-        </div>
+        ))}
       </div>
+    </div>
     </section>
   );
 } 

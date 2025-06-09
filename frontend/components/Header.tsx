@@ -48,25 +48,25 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
           <div className="flex items-center gap-4">
             {authenticated ? (
               <div className="hidden md:flex items-center gap-2">
-                <Button
-                  onClick={onWalletClick}
-                  variant="outline"
-                  className="flex items-center gap-2 text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
-                >
-                  <span className="text-sm font-medium">
-                    {formatAddress(user?.wallet?.address)}
-                  </span>
-                  <LogOut className="w-4 h-4" />
-                </Button>
+              <Button
+                onClick={onWalletClick}
+                variant="outline"
+                className="flex items-center gap-2 text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
+              >
+                <span className="text-sm font-medium">
+                  {formatAddress(user?.wallet?.address)}
+                </span>
+                <LogOut className="w-4 h-4" />
+              </Button>
               </div>
             ) : (
               <div className="hidden md:flex">
-                <Button
-                  onClick={onWalletClick}
-                  disabled={!ready}
-                  variant="outline"
-                  className="text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
-                >
+              <Button
+                onClick={onWalletClick}
+                disabled={!ready}
+                variant="outline"
+                className="text-white hover:text-white border-white/20 hover:border-white/40 hover:bg-white/10 bg-transparent"
+              >
                   Conectar Wallet
                 </Button>
               </div>
@@ -83,7 +83,7 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
               ) : (
                 <Wallet className="w-5 h-5" />
               )}
-            </Button>
+              </Button>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0">

@@ -41,7 +41,7 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
           console.log('Feed is ready, starting fade out');
           // Small delay to ensure feed is fully rendered
           setTimeout(() => {
-            setShouldFadeOut(true);
+        setShouldFadeOut(true);
             // Wait for fade out animation to complete
             setTimeout(() => {
               console.log('Fade out complete');
@@ -77,16 +77,16 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
           className="fixed inset-0 z-50 bg-black"
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
+          <motion.div
               initial={{ opacity: 1, filter: "blur(0px)" }}
-              animate={{ 
+            animate={{ 
                 opacity: shouldFadeOut ? 0 : 1,
                 filter: shouldFadeOut ? "blur(20px)" : "blur(0px)",
-              }}
-              transition={{ 
+            }}
+            transition={{ 
                 duration: 1,
                 ease: "easeOut"
-              }}
+            }}
               className="w-full max-w-[400px] px-4"
             >
               <Image
@@ -98,7 +98,7 @@ export const CampusTransition = ({ isVisible, onComplete }: CampusTransitionProp
                 className="w-full h-auto"
               />
             </motion.div>
-          </div>
+            </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -26,6 +26,7 @@ import { LeaderboardStats } from "@/components/feed/LeaderboardStats"
 import { EducationSection } from "@/components/feed/EducationSection"
 import { InternshipsSection } from "@/components/feed/InternshipsSection"
 import { FeedTutorial } from "@/components/feed/FeedTutorial"
+import { UpcomingEvents } from "@/components/feed/UpcomingEvents"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
@@ -353,49 +354,36 @@ export default function FeedPage() {
 
   // Separate hackathons and meetups by type and image path
   const hackathons = events.filter(e => e.type === 'hackathon' && e.image.startsWith('/hackathons/')) as any;
-  const meetups = events.filter(e => e.type === 'event' && e.image.startsWith('/events/')).map(e => ({
-    ...e,
-    attendees: [
-      '/PFPs/pixelcat.webp',
-      '/PFPs/pixelfox.webp',
-      '/PFPs/pixelowl.webp',
-    ],
-  }));
+  const upcomingEvents = events.filter(e => e.type === 'event' && e.image.startsWith('/events/'));
 
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row bg-transparent relative px-2">
       <FeedTutorial />
-      
-      {/* Left Column (Events, Hackathons, Leaderboard) */}
+      {/* Left Column */}
       <div className="flex-1 flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 lg:pl-12 pt-8">
-        <div className="upcoming-events">
-          <UpcomingEvents />
-        </div>
-        <div className="hackathons-feed">
-          <HackathonsFeed hackathons={hackathons} />
-        </div>
-        <div className="leaderboard-stats">
-          <LeaderboardStats />
-        </div>
-      </div>
-
-      {/* Center Content */}
-      <div className="flex-1 flex flex-col items-center justify-center py-8">
-        <div className="quick-stats mb-8">
+        <div className="quick-stats">
           <QuickStats points={140} rank={5} />
         </div>
         <div className="campus-wall">
           <CampusWallPreview />
-        </div>
-        <div className="assets-summary mt-8">
-          <AssetsSummary assets={mockAssets} />
+      </div>
+        <div className="upcoming-events">
+          <UpcomingEvents events={upcomingEvents} />
+                  </div>
+        <div className="hackathons-feed">
+          <HackathonsFeed hackathons={hackathons} />
+                </div>
+        <div className="leaderboard-stats">
+          <LeaderboardStats />
         </div>
       </div>
-
-      {/* Right Column (User Profile, desktop only) */}
-      <div className="hidden lg:flex flex-col items-end justify-start pt-8 pr-12 min-w-[300px]">
-        <div className="user-profile-panel">
+      {/* Right Column (desktop only) */}
+      <div className="hidden lg:flex flex-col items-end justify-start pt-8 pr-12 min-w-[300px] gap-4">
+        <div className="user-profile-panel w-full">
           <UserProfilePanel />
+              </div>
+        <div className="assets-summary w-full">
+          <AssetsSummary assets={assets} />
         </div>
       </div>
     </div>

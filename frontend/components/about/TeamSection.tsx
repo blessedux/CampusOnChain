@@ -7,37 +7,37 @@ const teamMembers = [
     name: "Kaream Badillo",
     title: "Community Lead & Web Developer",
     bio: "Desarrolladora web con foco en HTML, CSS y JavaScript. Activa en comunidades Web3 en Latinoamérica, donde impulsa la inclusión y participación de nuevos talentos en tecnología y blockchain.",
-    avatar: "/PFPs/pixelcat.webp",
+    avatar: "/team/kareambadillo.png",
   },
   {
     name: "Carlos Concha",
     title: "Cultural Programs Lead",
     bio: "Músico y productor cultural. Fundador y vocalista de la banda chilena Cleaver. Enfocado en conectar arte, música y nuevas tecnologías para fortalecer comunidades creativas.",
-    avatar: "/PFPs/pixelfox.webp",
+    avatar: "/team/carlosconcha.png",
   },
   {
     name: "Simón Espínola",
     title: "University Partnerships & Product Manager",
     bio: "Ingeniero comercial. Forma parte del equipo de Dob Protocol, desarrollando productos Web3 centrados en la experiencia del usuario. Conecta el mundo académico con la innovación digital.",
-    avatar: "/PFPs/pixelowl.webp",
+    avatar: "/team/simonespinola.png",
   },
   {
     name: "Mauro Ojeda",
     title: "Co-founder & Global Strategy",
     bio: "Ingeniero en computación. Especialista en educación tecnológica y desarrollo de ecosistemas blockchain en universidades. Diseña estrategias para la expansión regional de proyectos Web3.",
-    avatar: "/PFPs/pixelcat.webp",
+    avatar: "/team/mauroojeda.png",
   },
   {
     name: "Joseph Sánchez",
     title: "Co-founder & Executive Director",
     bio: "Comunicador y organizador de comunidades tecnológicas. Dirige iniciativas educativas y gremiales enfocadas en la adopción y comprensión de tecnologías descentralizadas.",
-    avatar: "/PFPs/pixelfox.webp",
+    avatar: "/team/josephsanchez.png",
   },
   {
     name: "Fabio Buscio",
     title: "Co-founder & Marketing Director",
     bio: "Publicista con experiencia en estrategia, comunicación y crecimiento de comunidades Web3. Enfocado en educación, storytelling y adopción de nuevas tecnologías desde una perspectiva creativa y humana.",
-    avatar: "/PFPs/pixelowl.webp",
+    avatar: "/team/fabiobuscio.png",
   },
 ];
 

@@ -28,6 +28,11 @@ const scrollToSection = (sectionId: string) => {
   }
 }
 
+// Función Contacto
+const handleContact = () => {
+  window.open('https://wa.me/+56999015675', '_blank')
+}
+
 export default function Header({ authenticated, ready, user, onWalletClick }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -45,7 +50,7 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
     { label: 'App del Campus', target: 'hero-section' },
     { label: 'Nosotros', target: 'about-section' },
     { label: 'Misión', target: 'mission-section' },
-    { label: 'Contacto', target: 'footer-section' },
+    { label: 'Contacto', target: 'contact', type: 'external' },
   ];
 
   return (
@@ -68,7 +73,13 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
             {navItems.map((item) => (
               <button
                 key={item.target}
-                onClick={() => scrollToSection(item.target)}
+                onClick={() => {
+                  if (item.type === 'external') {
+                    handleContact()
+                  } else {
+                    scrollToSection(item.target)
+                  } 
+                }}
                 className="text-white hover:text-orange-400 transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-white/10"
               >
                 {item.label}

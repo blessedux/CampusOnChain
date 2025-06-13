@@ -17,6 +17,22 @@ interface HeaderProps {
   onWalletClick: () => void
 }
 
+// smooth scroll
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+}
+
+// Función Contacto
+const handleContact = () => {
+  window.open('https://wa.me/+56999015675', '_blank')
+}
+
 export default function Header({ authenticated, ready, user, onWalletClick }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -29,6 +45,13 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { label: 'App del Campus', target: 'hero-section' },
+    { label: 'Nosotros', target: 'about-section' },
+    { label: 'Misión', target: 'mission-section' },
+    { label: 'Contacto', target: 'contact', type: 'external' },
+  ];
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/20 backdrop-blur-sm' : 'bg-transparent'}`}>
@@ -45,6 +68,24 @@ export default function Header({ authenticated, ready, user, onWalletClick }: He
               className={`h-10 w-auto transition-all duration-500 transform ${scrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
             />
           </Link>
+          {/* Menu de navegacion */}
+          <nav className={`hidden lg:flex items-center space-x-6 transition-all duration-500 transform ${scrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            {navItems.map((item) => (
+              <button
+                key={item.target}
+                onClick={() => {
+                  if (item.type === 'external') {
+                    handleContact()
+                  } else {
+                    scrollToSection(item.target)
+                  } 
+                }}
+                className="text-white hover:text-orange-400 transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-white/10"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
           <div className="flex items-center gap-4">
             {authenticated ? (
               <div className="hidden md:flex items-center gap-2">

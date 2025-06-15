@@ -5,9 +5,9 @@ import { MeteorShower } from "@/components/core/backgrounds/meteor-shower";
 
 export default function ValuePropSection() {
   return (
-    <section className="relative min-h-screen bg-black py-48 mt-auto">
+    <section className="relative min-h-[120vh] bg-black pt-[12vh] pb-[40vh] z-10">
       <MeteorShower className="absolute inset-0" number={30}>
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-20 container mx-auto px-4">
           <div className="text-center mb-16">
             {/* Placeholder Container */}
             <div className="relative w-full h-[400px] mb-16">
@@ -20,7 +20,7 @@ export default function ValuePropSection() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto relative z-30">
             {/* Certificados Verificables */}
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent rounded-2xl -m-2 group-hover:from-orange-500/20 transition-all duration-300"></div>

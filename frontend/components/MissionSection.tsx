@@ -1,12 +1,11 @@
 'use client';
 
-import { IntroSection } from './about/IntroSection';
-import { CardsSection } from './about/CardsSection';
+import { MissionContent } from './mission/MissionContent';
 import { AuroraBackground } from '@/components/ui/aurora-background';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
-export default function AboutSection() {
+export default function MissionSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -17,7 +16,7 @@ export default function AboutSection() {
 
   return (
     <section 
-      id="about-section"
+      id="mission-section"
       ref={sectionRef} className="relative">
       <motion.div 
         style={{ opacity }}
@@ -29,15 +28,10 @@ export default function AboutSection() {
       </motion.div>
       
       <div className="relative z-10">
-        {/* Intro Section */}
-        <div className="about-intro-section mb-4">
-          <IntroSection />
-        </div>
-        {/* Cards Section */}
-        <div className="about-cards-section mb-4">
-          <CardsSection />
+        <div className="mission-content-section mb-4">
+          <MissionContent />
         </div>
       </div>
     </section>
   );
-} 
+}

@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: 'Fabio Buscio',
     role: 'Co-Founder & CEO',
-    image: '/team/fabiobuscio.png',
+    image: '/team/fabiobuscio.webp',
     bio: 'Apasionado por conectar la educación con la tecnología Web3. Liderando la visión de Campus On Chain.',
     socials: {
       twitter: 'https://twitter.com/fabiobuscio',
@@ -18,7 +18,7 @@ const teamMembers = [
   {
     name: 'Joseph Sanches',
     role: 'Co-Founder & CTO',
-    image: '/team/josephsanchez.png',
+    image: '/team/josephsanchez.webp',
     bio: 'Desarrollador full-stack y entusiasta de blockchain. Construyendo los cimientos técnicos de nuestra plataforma.',
     socials: {
       twitter: 'https://twitter.com/josephsanches',
@@ -28,7 +28,7 @@ const teamMembers = [
   {
     name: 'Simon Espinola',
     role: 'Head of Community',
-    image: '/team/simonespinola.png',
+    image: '/team/simonespinola.webp',
     bio: 'Constructor de comunidades y educador Web3. Fomentando conexiones en toda América Latina.',
     socials: {
       twitter: 'https://twitter.com/simonespinola',
@@ -38,7 +38,7 @@ const teamMembers = [
   {
     name: 'Kaream Badillo',
     role: 'Head of Operations',
-    image: '/team/kareambadillo.png',
+    image: '/team/kareambadillo.webp',
     bio: 'Experto en operaciones enfocado en escalar iniciativas educativas en Web3.',
     socials: {
       twitter: 'https://twitter.com/kareambadillo',
@@ -48,7 +48,7 @@ const teamMembers = [
   {
     name: 'Mauro Ojeda',
     role: 'Co-Founder & Global Strategy',
-    image: '/team/mauroojeda.png',
+    image: '/team/mauroojeda.webp',
     bio: 'Ingeniero en computación. Especialista en educación tecnológica y desarrollo de ecosistemas blockchain en universidades.',
     socials: {
       twitter: 'https://twitter.com/mauroojeda',
@@ -58,7 +58,7 @@ const teamMembers = [
   {
     name: 'Carlos Concha',
     role: 'Cultural Programs Lead',
-    image: '/team/carlosconcha.png',
+    image: '/team/carlosconcha.webp',
     bio: 'Músico y productor cultural. Fundador y vocalista de la banda chilena Cleaver. Enfocado en conectar arte, música y nuevas tecnologías para fortalecer comunidades creativas.',
     socials: {
       twitter: 'https://twitter.com/carlosconcha',

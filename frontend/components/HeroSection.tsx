@@ -7,6 +7,7 @@ import { ProgressiveBlur } from '@/components/ui/progressive-blur'
 import { SplineScene } from '@/components/ui/spline-scene'
 import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import '@/styles/hero.css'
 import { BackgroundVideo } from '@/components/ui/background-video'
 import { AuroraBackground } from '@/components/ui/aurora-background'
@@ -27,6 +28,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ authenticated, ready, onCampusEntry }: HeroSectionProps) {
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const router = useRouter();
 
   const handleCampusEntry = () => {
     if (authenticated) {
@@ -36,6 +38,11 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
       // If not authenticated, just trigger the login without changing visibility
       onCampusEntry();
     }
+  };
+
+  //botón comenzar tour
+  const handleComenzarClick = () => {
+    router.push('/campus');
   };
 
   // Only show transition state if authenticated
@@ -138,6 +145,38 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
                     />
                   </svg>
                 </GradientButton>
+                {/* Botón comenzar solo cuando esté autenticado */}
+                {authenticated && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                  >
+                    <GradientButton
+                      onClick={handleComenzarClick}
+                      variant="variant"
+                      className="flex items-center gap-2 hover:text-cyan-200 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
+                    >
+                      Comenzar Tour
+                      <svg 
+                        width="16" 
+                        height="16" 
+                        viewBox="0 0 16 16" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="transform"
+                      >
+                        <path 
+                          d="M8 3V13M13 8L8 13L3 8" 
+                          stroke="currentColor" 
+                          strokeWidth="1.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </GradientButton>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>

@@ -39,9 +39,9 @@ const footerLinks: FooterSection[] = [
 		label: 'Enlaces Sociales',
 		links: [
 			{ title: 'Facebook', href: '#', icon: FacebookIcon },
-			{ title: 'Instagram', href: '#', icon: InstagramIcon },
-			{ title: 'Youtube', href: '#', icon: YoutubeIcon },
-			{ title: 'LinkedIn', href: '#', icon: LinkedinIcon },
+			{ title: 'Instagram', href: 'https://www.instagram.com/campusonchain/', icon: InstagramIcon },
+			{ title: 'Youtube', href: 'https://www.youtube.com/@CampusOnChain', icon: YoutubeIcon },
+			{ title: 'LinkedIn', href: 'https://www.linkedin.com/company/campus-on-chain', icon: LinkedinIcon },
 		],
 	},
 ];
@@ -97,6 +97,10 @@ export function Footer() {
 											<li key={link.title}>
 												<a
 													href={link.href}
+													{...(link.href !== '#' && {
+														target: '_blank',
+														rel: 'noopener noreferrer'
+													})}
 													className="hover:text-foreground inline-flex items-center transition-all duration-300"
 												>
 													{link.icon && <link.icon className="me-1 size-4" />}

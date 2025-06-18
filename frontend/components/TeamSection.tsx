@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: 'Fabio Buscio',
     role: 'Co-Founder & CEO',
-    image: '/team/fabio.jpeg',
+    image: '/team/fabiobuscio.webp',
     bio: 'Apasionado por conectar la educación con la tecnología Web3. Liderando la visión de Campus On Chain.',
     socials: {
       twitter: 'https://twitter.com/fabiobuscio',
@@ -18,7 +18,7 @@ const teamMembers = [
   {
     name: 'Joseph Sanches',
     role: 'Co-Founder & CTO',
-    image: '/team/joseph.jpeg',
+    image: '/team/josephsanchez.webp',
     bio: 'Desarrollador full-stack y entusiasta de blockchain. Construyendo los cimientos técnicos de nuestra plataforma.',
     socials: {
       twitter: 'https://twitter.com/josephsanches',
@@ -28,7 +28,7 @@ const teamMembers = [
   {
     name: 'Simon Espinola',
     role: 'Head of Community',
-    image: '/team/simon.jpeg',
+    image: '/team/simonespinola.webp',
     bio: 'Constructor de comunidades y educador Web3. Fomentando conexiones en toda América Latina.',
     socials: {
       twitter: 'https://twitter.com/simonespinola',
@@ -38,11 +38,31 @@ const teamMembers = [
   {
     name: 'Kaream Badillo',
     role: 'Head of Operations',
-    image: '/team/kaream.jpeg',
+    image: '/team/kareambadillo.webp',
     bio: 'Experto en operaciones enfocado en escalar iniciativas educativas en Web3.',
     socials: {
       twitter: 'https://twitter.com/kareambadillo',
       linkedin: 'https://linkedin.com/in/kareambadillo'
+    }
+  },
+  {
+    name: 'Mauro Ojeda',
+    role: 'Co-Founder & Global Strategy',
+    image: '/team/mauroojeda.webp',
+    bio: 'Ingeniero en computación. Especialista en educación tecnológica y desarrollo de ecosistemas blockchain en universidades.',
+    socials: {
+      twitter: 'https://twitter.com/mauroojeda',
+      linkedin: 'https://linkedin.com/in/mauroojeda'
+    }
+  },
+  {
+    name: 'Carlos Concha',
+    role: 'Cultural Programs Lead',
+    image: '/team/carlosconcha.webp',
+    bio: 'Músico y productor cultural. Fundador y vocalista de la banda chilena Cleaver. Enfocado en conectar arte, música y nuevas tecnologías para fortalecer comunidades creativas.',
+    socials: {
+      twitter: 'https://twitter.com/carlosconcha',
+      linkedin: 'https://linkedin.com/in/carlosconcha'
     }
   }
 ];
@@ -61,7 +81,7 @@ export const TeamSection = () => {
             Nuestro Equipo
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
             {teamMembers.map((member, index) => (
               <div key={member.name} className="flex flex-col items-center relative">
                 {/* Primary Backdrop Light Effect */}

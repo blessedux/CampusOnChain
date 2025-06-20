@@ -20,8 +20,8 @@ export const UpcomingEvents = ({ events }: { events: Event[] }) => {
 
   return (
     <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg mb-4 w-full">
-      <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-        <Calendar className="w-5 h-5 text-orange-400" /> Upcoming Events
+      <h3 className="text-lg font-bold mb-2 flex items-center gap-2 text-white">
+        <Calendar className="w-5 h-5 text-orange-400" /> Eventos
       </h3>
       <ul className="space-y-3">
         {topEvents.length === 0 && (

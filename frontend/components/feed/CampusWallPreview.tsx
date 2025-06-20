@@ -51,7 +51,7 @@ export const CampusWallPreview = () => {
       className="bg-[#18181a]/80 rounded-xl p-4 shadow-lg cursor-pointer mb-6"
       onClick={() => router.push("/feed/wall")}
     >
-      <h3 className="text-lg font-bold mb-2">Muro del Campus</h3>
+      <h3 className="text-lg font-bold mb-2 text-white">Muro del Campus</h3>
       <svg width="0" height="0">
         <filter id="pixelate">
           <feFlood x="4" y="4" height="8" width="8" />

@@ -16,60 +16,50 @@ const PublicBetaStep: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h3 className="text-lg font-bold mb-2 text-orange-500">¡Bienvenido a Campus On Chain! 🚀</h3>
-      <p className="text-gray-700 mb-4">Has completado el tour de la plataforma. Campus On Chain es tu hub central para conectar con la comunidad Web3, participar en hackathons, ganar recompensas y construir el futuro descentralizado.</p>
-      <h4 className="text-md font-semibold mb-2 text-orange-500">Próximamente public beta</h4>
+      <h3 className="text-lg font-bold mb-3 text-orange-500">¡Únete a la Revolución Web3! 🚀</h3>
+      <p className="text-gray-700 mb-4">Has explorado Campus On Chain. Estamos lanzando el public beta pronto con acceso completo a hackathons, recompensas y networking global.</p>
+      
       {showBox && !showEmail && (
-        <div className="relative mt-4 bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center">
-          <span className="mr-4">🔔 avisar sobre el public beta</span>
-          <button
-            className="ml-auto bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600"
-            onClick={() => setShowEmail(true)}
-          >
-            Avisarme
-          </button>
-          <button
-            className="absolute top-1 right-1 text-gray-400 hover:text-gray-700"
-            onClick={() => setShowBox(false)}
-            aria-label="Cerrar"
-          >
-            ×
-          </button>
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+          <div className="text-center">
+            <p className="text-gray-700 mb-3 font-medium">¿Quieres acceso prioritario al public beta?</p>
+            <button
+              className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 font-semibold text-lg w-full"
+              onClick={() => setShowEmail(true)}
+            >
+              🔔 Notificarme del Lanzamiento
+            </button>
+          </div>
         </div>
       )}
+      
       {showEmail && (
-        <div className="relative mt-4 bg-white border border-orange-200 rounded-lg p-4">
+        <div className="bg-white border border-orange-200 rounded-lg p-4">
           {!submitted ? (
             <>
-              <label className="block mb-2 text-sm text-gray-700">Ingresa tu correo para ser notificado:</label>
+              <label className="block mb-2 text-sm text-gray-700 font-medium">Tu email para acceso prioritario:</label>
               <input
                 type="email"
-                className="border border-gray-300 rounded px-2 py-1 w-full mb-3 text-white bg-gray-900"
-                placeholder="Escribe tu correo..."
+                className="border border-gray-300 rounded px-3 py-2 w-full mb-4 text-gray-900 bg-white"
+                placeholder="tu@email.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
-              <div className="flex justify-center">
-                <button
-                  className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full max-w-xs"
-                  onClick={() => {
-                    setSubmitted(true);
-                  }}
-                  disabled={!email}
-                >
-                  🔔 notificar public beta
-                </button>
-              </div>
               <button
-                className="absolute top-1 right-1 text-gray-400 hover:text-gray-700"
-                onClick={() => setShowEmail(false)}
-                aria-label="Cerrar"
+                className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 font-semibold w-full"
+                onClick={() => {
+                  setSubmitted(true);
+                }}
+                disabled={!email}
               >
-                ×
+                🔔 Acceso Prioritario
               </button>
             </>
           ) : (
-            <div className="text-green-600 font-semibold">¡Te avisaremos cuando esté disponible el public beta!</div>
+            <div className="text-center">
+              <div className="text-green-600 font-semibold text-lg mb-2">¡Perfecto! 🎉</div>
+              <div className="text-gray-600">Te avisaremos cuando lancemos el public beta con acceso prioritario.</div>
+            </div>
           )}
         </div>
       )}
@@ -227,6 +217,14 @@ export const FeedTour: React.FC<FeedTourProps> = ({ run }) => {
         badge: (base) => ({ ...base, left: 'auto', right: '-0.8125em' }),
         controls: (base) => ({ ...base, marginTop: 10 }),
         close: (base) => ({ ...base, display: 'none' }),
+        navigation: (base) => ({ 
+          ...base, 
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateRows: 'repeat(2, 1fr)',
+          gap: '4px',
+          marginTop: '10px'
+        }),
       }}
       showPrevNextButtons={true}
       showCloseButton={false}
@@ -247,18 +245,6 @@ export const FeedTour: React.FC<FeedTourProps> = ({ run }) => {
         </button>
       )}
       nextButton={({ currentStep, setCurrentStep, steps }) => {
-        if (currentStep === steps!.length - 1) {
-          return (
-            <button
-              onClick={() => {
-                console.log('Tour completed');
-              }}
-              className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-medium ml-2"
-            >
-              ¡Completado!
-            </button>
-          );
-        }
         return (
           <button
             onClick={() => setCurrentStep(currentStep + 1)}

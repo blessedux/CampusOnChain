@@ -97,7 +97,7 @@ export const MeetupsFeed = ({ meetups }: MeetupsFeedProps) => {
                 </div>
                 <div className="flex items-center gap-2 mt-2">
                   <button
-                    className="bg-white text-black font-semibold px-3 py-1 rounded-lg text-xs shadow hover:bg-blue-100 transition"
+                    className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-3 py-1 rounded-lg text-xs shadow transition"
                     onClick={e => { e.preventDefault(); window.open(event.link, '_blank'); }}
                   >
                     Unirse

@@ -16,6 +16,33 @@ const mockMessages = [
   { id: 5, user: "Valentina", text: "Who else is excited for the workshop?" },
 ];
 
+const upcomingEvents = [
+  {
+    id: '1',
+    title: 'Web3 & AI Pitch Competition & VC networking',
+    date: 'Tomorrow',
+    location: 'New York, NY',
+    image: '/events/web3auoitchcompetition.webp',
+    link: 'https://lu.ma/jz5gdw3g?tk=uN74AU',
+  },
+  {
+    id: '2',
+    title: 'Triggers, Not Apps: Sherry x Avalanche Minithon',
+    date: 'June 6, 2025',
+    location: 'Google Meet',
+    image: '/events/triggersminithon.webp',
+    link: 'https://lu.ma/6rpyc0pz?tk=Wy4BJQ',
+  },
+  {
+    id: '3',
+    title: 'The Oz city – a pop-up city & bootcamp on Agents',
+    date: 'June 21, 2025',
+    location: 'Valbonne',
+    image: '/events/theozcity.webp',
+    link: 'https://lu.ma/ozcity?tk=SHXzqC',
+  },
+];
+
 const hackathons = [
   {
     id: '1',
@@ -24,7 +51,7 @@ const hackathons = [
     type: 'hackathon' as const,
     date: 'June 15, 2025',
     actionText: 'Join Event',
-    image: '/sample/hackathon1.jpg',
+    image: '/hackathons/agentswithuotmasters.webp',
     status: 'Upcoming' as const,
     timeLeft: '13 days',
     location: 'Berlin, Germany',
@@ -36,20 +63,20 @@ const hackathons = [
   },
   {
     id: '2',
-    title: 'Integrate Civic Auth into Your Application',
-    description: 'Seamless user management and authentication for your dApp.',
+    title: 'The Apex of Skills: TRN Labs Hackathon',
+    description: 'Compete for $10,000 USDT in $ROOT. Show your Web3 skills!',
     type: 'hackathon' as const,
-    date: 'Ongoing',
-    actionText: 'Register Now',
-    image: '/sample/hackathon2.jpg',
-    status: 'Ongoing' as const,
-    timeLeft: '12 days',
+    date: 'Upcoming',
+    actionText: 'Join Event',
+    image: '/hackathons/theapexofskills.webp',
+    status: 'Upcoming' as const,
+    timeLeft: '2 days',
     location: 'Virtual',
-    tags: ['authentication', 'identity', 'blockchain', 'ReactJS', 'NodeJS', 'NextJS'],
-    organizer: 'Civic',
-    prizePool: '2,300',
+    tags: ['Web3', 'Gaming', 'DeFi', 'NFT'],
+    organizer: 'TRN Labs',
+    prizePool: '10,000',
     prizeCurrency: 'USD',
-    link: 'https://dorahacks.io/hackathon/civic-auth',
+    link: '',
   },
 ];
 
@@ -81,7 +108,7 @@ export default function CampusWallPage() {
 
       {/* Left Column (Events, Hackathons, Leaderboard) */}
       <div className="flex-1 flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 lg:pl-12 pt-8">
-        <UpcomingEvents />
+        <UpcomingEvents events={upcomingEvents} />
         <HackathonsFeed hackathons={hackathons} />
         <LeaderboardStats />
       </div>

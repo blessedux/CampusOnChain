@@ -140,7 +140,7 @@ export const LeaderboardStats = () => {
       initial={{ height: 220 }}
       animate={{ height: inView ? '80vh' : 220 }}
       transition={{ type: 'spring', stiffness: 60, damping: 20 }}
-      className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg mt-4 w-full overflow-hidden flex flex-col"
+      className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg mt-4 mb-8 w-full overflow-hidden flex flex-col"
       style={{ minHeight: 220, maxHeight: '80vh' }}
     >
       <h3 className="text-lg font-bold mb-2 text-purple-300">Leaderboard: Campus Challenges & Activations</h3>

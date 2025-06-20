@@ -188,7 +188,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    /* Removed invalid border-border class */
   }
   body {
     @apply bg-background text-foreground;

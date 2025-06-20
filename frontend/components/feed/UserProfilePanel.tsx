@@ -13,7 +13,7 @@ function getRandomPFP() {
 const randomPFP = getRandomPFP();
 
 export const UserProfilePanel = () => (
-  <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg flex flex-col items-center w-64 border border-white/20">
+  <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg flex flex-col items-center w-full border border-white/20">
     <a href="/profile" className="block group">
       <Avatar className="w-16 h-16 mb-2 border-2 border-orange-500 group-hover:border-orange-400 transition">
         <AvatarImage src={randomPFP} />

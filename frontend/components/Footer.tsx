@@ -59,7 +59,7 @@ function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationPr
 		return children;
 	}
 
-	return (
+  return (
 		<motion.div
 			initial={{ filter: 'blur(4px)', translateY: -8, opacity: 0 }}
 			whileInView={{ filter: 'blur(0px)', translateY: 0, opacity: 1 }}
@@ -108,14 +108,14 @@ export function Footer() {
 								</div>
 							</AnimatedContainer>
 						))}
-					</div>
-				</div>
+        </div>
+      </div>
 				<div className="w-full flex justify-center mt-12">
 					<p className="text-muted-foreground text-center text-sm bottom-0">
 						© {new Date().getFullYear()} Campus On Chain. All rights reserved.
 					</p>
-				</div>
-			</div>
+          </div>
+        </div>
 		</motion.footer>
 	);
 } 

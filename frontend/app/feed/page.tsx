@@ -6,7 +6,6 @@ import { usePrivy } from "@privy-io/react-auth"
 import FeedHeader from "@/components/FeedHeader"
 import { QuickStats } from "@/components/feed/QuickStats"
 import { HackathonsFeed } from "@/components/feed/EventsFeed"
-import { NextActions } from "@/components/feed/NextActions"
 import { AssetsSummary } from "@/components/feed/AssetsSummary"
 import { Plus, Award, Users, UserPlus } from "lucide-react"
 import { AuroraBackground } from "@/components/ui/aurora-background"
@@ -303,37 +302,6 @@ export default function FeedPage() {
     },
   ]
 
-  const actions = [
-    {
-      id: '1',
-      label: 'Join Event',
-      icon: <Plus className="w-4 h-4" />,
-      color: 'orange' as const,
-      onClick: () => console.log('Join Event clicked')
-    },
-    {
-      id: '2',
-      label: 'Claim Badge',
-      icon: <Award className="w-4 h-4" />,
-      color: 'blue' as const,
-      onClick: () => console.log('Claim Badge clicked')
-    },
-    {
-      id: '3',
-      label: 'Customize Profile',
-      icon: <Users className="w-4 h-4" />,
-      color: 'purple' as const,
-      onClick: () => console.log('Customize Profile clicked')
-    },
-    {
-      id: '4',
-      label: 'Invite Friends',
-      icon: <UserPlus className="w-4 h-4" />,
-      color: 'green' as const,
-      onClick: () => console.log('Invite Friends clicked')
-    }
-  ]
-
   const assets = [
     {
       id: '1',
@@ -357,35 +325,49 @@ export default function FeedPage() {
   const upcomingEvents = events.filter(e => e.type === 'event' && e.image.startsWith('/events/'));
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-transparent relative px-2">
-      <FeedTutorial />
-      {/* Left Column */}
-      <div className="flex-1 flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 lg:pl-12 pt-8">
-        <div className="quick-stats">
-          <QuickStats points={140} rank={5} />
+    <AuroraBackground className="w-full">
+      <div className="min-h-screen w-full flex flex-col lg:flex-row relative px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
+        <FeedTutorial />
+        
+        {/* Mobile: Right sidebar elements at top */}
+        <div className="lg:hidden flex flex-col gap-4 pt-8 w-full max-w-[90%] mx-auto">
+          <div className="user-profile-panel w-full">
+            <UserProfilePanel />
+          </div>
+          <div className="assets-summary w-full">
+            <AssetsSummary assets={assets} />
+          </div>
         </div>
-        <div className="campus-wall">
-          <CampusWallPreview />
-      </div>
-        <div className="upcoming-events">
-          <UpcomingEvents events={upcomingEvents} />
-                  </div>
-        <div className="hackathons-feed">
-          <HackathonsFeed hackathons={hackathons} />
-                </div>
-        <div className="leaderboard-stats">
-          <LeaderboardStats />
+
+        {/* Main Content - 80% on desktop, 90% on mobile */}
+        <div className="flex-1 flex flex-col gap-4 lg:pr-8 pt-8 w-full max-w-[90%] lg:max-w-none lg:w-4/5 mx-auto lg:mx-0">
+          <div className="quick-stats w-full">
+            <QuickStats points={140} rank={5} />
+          </div>
+          <div className="campus-wall w-full">
+            <CampusWallPreview />
+          </div>
+          <div className="upcoming-events w-full">
+            <UpcomingEvents events={upcomingEvents} />
+          </div>
+          <div className="hackathons-feed w-full">
+            <HackathonsFeed hackathons={hackathons} />
+          </div>
+          <div className="leaderboard-stats w-full">
+            <LeaderboardStats />
+          </div>
+        </div>
+
+        {/* Desktop: Right Column - 20% width */}
+        <div className="hidden lg:flex flex-col items-end justify-start pt-8 lg:pl-8 w-1/5 gap-4 flex-shrink-0">
+          <div className="user-profile-panel w-full">
+            <UserProfilePanel />
+          </div>
+          <div className="assets-summary w-full">
+            <AssetsSummary assets={assets} />
+          </div>
         </div>
       </div>
-      {/* Right Column (desktop only) */}
-      <div className="hidden lg:flex flex-col items-end justify-start pt-8 pr-12 min-w-[300px] gap-4">
-        <div className="user-profile-panel w-full">
-          <UserProfilePanel />
-              </div>
-        <div className="assets-summary w-full">
-          <AssetsSummary assets={assets} />
-        </div>
-      </div>
-    </div>
+    </AuroraBackground>
   )
 } 

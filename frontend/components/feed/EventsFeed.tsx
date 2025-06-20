@@ -37,11 +37,11 @@ export const HackathonsFeed = ({ hackathons }: HackathonsFeedProps) => {
         <Image src={DORA_LOGO} alt="DoraHacks" width={32} height={32} className="rounded" />
         <h3 className="text-xl font-bold">Hackathons on DoraHacks</h3>
       </div>
-      <div className="flex gap-6 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+      <div className="flex gap-4 lg:gap-6 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
         {hackathons.map((hackathon) => (
           <Card 
             key={hackathon.id}
-            className="min-w-[340px] max-w-[340px] bg-[#181818] border border-gray-800 flex-shrink-0 shadow-lg relative"
+            className="min-w-[280px] sm:min-w-[320px] lg:min-w-[340px] max-w-[280px] sm:max-w-[320px] lg:max-w-[340px] bg-[#181818] border border-gray-800 flex-shrink-0 shadow-lg relative"
           >
             <div className="relative h-40 w-full rounded-t overflow-hidden">
               <Image
@@ -111,7 +111,7 @@ export const HackathonsFeed = ({ hackathons }: HackathonsFeedProps) => {
           href="https://dorahacks.io"
           target="_blank"
           rel="noopener noreferrer"
-          className="min-w-[340px] max-w-[340px] bg-gradient-to-br from-orange-500/20 to-blue-500/20 border-2 border-dashed border-orange-400 flex-shrink-0 shadow-lg rounded-2xl flex flex-col items-center justify-center p-8 hover:scale-105 transition cursor-pointer group"
+          className="min-w-[280px] sm:min-w-[320px] lg:min-w-[340px] max-w-[280px] sm:max-w-[320px] lg:max-w-[340px] bg-gradient-to-br from-orange-500/20 to-blue-500/20 border-2 border-dashed border-orange-400 flex-shrink-0 shadow-lg rounded-2xl flex flex-col items-center justify-center p-8 hover:scale-105 transition cursor-pointer group"
         >
           <div className="flex flex-col items-center gap-3">
             <Image src={DORA_LOGO} alt="DoraHacks" width={64} height={64} className="rounded mb-2" />

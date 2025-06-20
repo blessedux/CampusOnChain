@@ -4,8 +4,6 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { PrivyClientProvider } from '@/components/privy-client-provider'
 import { Toaster } from "@/components/ui/toaster"
-import { BgradientAnim } from "@/components/ui/BgradientAnim"
-import '@/styles/globals.css'
 import '@/styles/spline.css'
 
 const inter = Inter({ subsets: ["latin"] })
@@ -35,11 +33,9 @@ export default function RootLayout({
           padding: 0,
           minHeight: '100vh',
           position: 'relative',
-          overflow: 'auto',
-          background: 'black'
+          overflow: 'auto'
         }}
       >
-        <BgradientAnim />
         <main className="relative z-10">
         <PrivyClientProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>

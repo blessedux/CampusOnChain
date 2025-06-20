@@ -67,7 +67,7 @@ export default function LandingPage() {
   }, [authenticated, isLoginAttempted]);
 
   return (
-    <div className="flex flex-col min-h-screen text-white">
+    <div className="flex flex-col min-h-screen text-white bg-black">
       {showTransition && (
         <CampusTransition 
           isVisible={showTransition} 

@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { usePrivy } from "@privy-io/react-auth"
 import FeedHeader from "@/components/FeedHeader"
 import { QuickStats } from "@/components/feed/QuickStats"
 import { HackathonsFeed } from "@/components/feed/EventsFeed"
+import { NextActions } from "@/components/feed/NextActions"
 import { AssetsSummary } from "@/components/feed/AssetsSummary"
 import { Plus, Award, Users, UserPlus } from "lucide-react"
 import { AuroraBackground } from "@/components/ui/aurora-background"
@@ -24,15 +25,40 @@ import { FadeInCard } from "@/components/ui/FadeInCard"
 import { LeaderboardStats } from "@/components/feed/LeaderboardStats"
 import { EducationSection } from "@/components/feed/EducationSection"
 import { InternshipsSection } from "@/components/feed/InternshipsSection"
-import { FeedTutorial } from "@/components/feed/FeedTutorial"
 import { UpcomingEvents } from "@/components/feed/UpcomingEvents"
+import { FeedTour } from "@/components/feed/FeedTour"
 
 export default function FeedPage() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
   const { ready, authenticated, user } = usePrivy()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [wallOpen, setWallOpen] = useState(false)
+  const [showTour, setShowTour] = useState(false)
 
+  // Verificar si el joyride debiese comenzar desde los url params
+  useEffect(() => {
+    const startTour = searchParams.get('tour')
+    if (startTour === 'true' && authenticated) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        setShowTour(true)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [searchParams, authenticated])
+
+  // Auto-start tour when user enters feed page
+  useEffect(() => {
+    if (authenticated && ready) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        setShowTour(true)
+      }, 1500)
+      return () => clearTimeout(timer)
+    }
+  }, [authenticated, ready])
+  
   // Redirect if not authenticated or if user disconnects wallet
   useEffect(() => {
     if (ready && !authenticated) {
@@ -302,6 +328,37 @@ export default function FeedPage() {
     },
   ]
 
+  const actions = [
+    {
+      id: '1',
+      label: 'Join Event',
+      icon: <Plus className="w-4 h-4" />,
+      color: 'orange' as const,
+      onClick: () => console.log('Join Event clicked')
+    },
+    {
+      id: '2',
+      label: 'Claim Badge',
+      icon: <Award className="w-4 h-4" />,
+      color: 'blue' as const,
+      onClick: () => console.log('Claim Badge clicked')
+    },
+    {
+      id: '3',
+      label: 'Customize Profile',
+      icon: <Users className="w-4 h-4" />,
+      color: 'purple' as const,
+      onClick: () => console.log('Customize Profile clicked')
+    },
+    {
+      id: '4',
+      label: 'Invite Friends',
+      icon: <UserPlus className="w-4 h-4" />,
+      color: 'green' as const,
+      onClick: () => console.log('Invite Friends clicked')
+    }
+  ]
+
   const assets = [
     {
       id: '1',
@@ -325,41 +382,28 @@ export default function FeedPage() {
   const upcomingEvents = events.filter(e => e.type === 'event' && e.image.startsWith('/events/'));
 
   return (
-    <AuroraBackground className="w-full">
-      <div className="min-h-screen w-full flex flex-col lg:flex-row relative px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
-        <FeedTutorial />
-        
-        {/* Mobile: Right sidebar elements at top */}
-        <div className="lg:hidden flex flex-col gap-4 pt-8 w-full max-w-[90%] mx-auto">
-          <div className="user-profile-panel w-full">
-            <UserProfilePanel />
-          </div>
-          <div className="assets-summary w-full">
-            <AssetsSummary assets={assets} />
-          </div>
-        </div>
-
-        {/* Main Content - 80% on desktop, 90% on mobile */}
-        <div className="flex-1 flex flex-col gap-4 lg:pr-8 pt-8 w-full max-w-[90%] lg:max-w-none lg:w-4/5 mx-auto lg:mx-0">
-          <div className="quick-stats w-full">
+    <AuroraBackground>
+      <div className="min-h-screen w-full flex flex-col lg:flex-row bg-transparent relative px-2">
+        {/* Left Column */}
+        <div className="w-full lg:w-4/5 flex flex-col gap-4 max-w-lg lg:max-w-none mx-auto lg:mx-0 lg:pl-12 pt-8">
+          <div className="quick-stats">
             <QuickStats points={140} rank={5} />
           </div>
-          <div className="campus-wall w-full">
+          <div className="campus-wall">
             <CampusWallPreview />
           </div>
-          <div className="upcoming-events w-full">
+          <div className="upcoming-events">
             <UpcomingEvents events={upcomingEvents} />
           </div>
-          <div className="hackathons-feed w-full">
+          <div className="hackathons-feed">
             <HackathonsFeed hackathons={hackathons} />
           </div>
-          <div className="leaderboard-stats w-full">
+          <div className="leaderboard-stats">
             <LeaderboardStats />
           </div>
         </div>
-
-        {/* Desktop: Right Column - 20% width */}
-        <div className="hidden lg:flex flex-col items-end justify-start pt-8 lg:pl-8 w-1/5 gap-4 flex-shrink-0">
+        {/* Right Column (desktop only) */}
+        <div className="hidden lg:flex flex-col items-end justify-start pt-8 pr-12 w-1/5 min-w-[300px] gap-4 sticky top-0 h-screen overflow-y-auto">
           <div className="user-profile-panel w-full">
             <UserProfilePanel />
           </div>
@@ -367,7 +411,9 @@ export default function FeedPage() {
             <AssetsSummary assets={assets} />
           </div>
         </div>
+        {/* Tour Component */}
+        <FeedTour run={showTour} />
       </div>
     </AuroraBackground>
   )
-} 
+}

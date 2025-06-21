@@ -26,7 +26,7 @@ const cards: Card[] = [
     title: "Aprende haciendo",
     description:
       "Participa en hackathons, meetups y workshops prácticos para explorar el mundo Web3 y construir proyectos reales desde el primer día.",
-    image: "/placeholder-1.jpg",
+    image: "/IMG_5835.webp",
     primaryCTA: {
       label: "Próximos eventos",
       href: "/events"
@@ -41,7 +41,7 @@ const cards: Card[] = [
     title: "Conviértete en experto Web3",
     description:
       "Pasa de ser un estudiante curioso a un profesional blockchain con nuestra plataforma de aprendizaje gamificada, certificaciones on-chain y una ruta educativa pensada para ti.",
-    image: "/placeholder-2.jpg",
+    image: "/IMG_4675-2.webp",
     primaryCTA: {
       label: "Próximos eventos",
       href: "/events"
@@ -56,7 +56,7 @@ const cards: Card[] = [
     title: "Conecta con otros builders",
     description:
       "Conoce estudiantes de todo Chile que están construyendo el futuro de Web3. Encuentra compañeros para hackathons, únete a comunidades y crezcan juntos.",
-    image: "/placeholder-3.jpg",
+    image: "/IMG_5859-3.webp",
     primaryCTA: {
       label: "Próximos eventos",
       href: "/events"

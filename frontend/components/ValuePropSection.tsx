@@ -18,12 +18,12 @@ export default function ValuePropSection() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black py-48 mt-auto">
+    <section className="relative min-h-[180vh] lg:min-h-[1200px] bg-black py-24 lg:py-32 mt-auto">
       <MeteorShower className="absolute inset-0" number={30}>
         <div className="relative z-10 container mx-auto px-4">
           
           {/* Top Wide Container - Animation and Title */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 lg:mb-24">
             <div className="relative w-full h-[400px] mb-16">
               {/* Spline Animation Container */}
               <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-neutral-800/30 bg-neutral-800/20 backdrop-blur-sm shadow-2xl">
@@ -92,7 +92,7 @@ export default function ValuePropSection() {
           </div>
           
           {/* Bottom Section - Value Props Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto pb-16 lg:pb-24">
             {/* Certificados Verificables */}
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent rounded-2xl -m-2 group-hover:from-orange-500/20 transition-all duration-300"></div>

@@ -159,6 +159,57 @@ export default function InfiniteLogosSlider() {
                   width={150}
                 />
               </div>
+              <div className="flex">
+                <Image
+                  style={{height: '32px', width: 'auto'}}
+                  className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
+                  src="/logos/Chainlink-Logo-White.png"
+                  alt="Chainlink Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '32px', width: 'auto'}}
+                  className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
+                  src="/logos/fintech_chile_whitelogo.png"
+                  alt="Fintech Chile Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '32px', width: 'auto'}}
+                  className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
+                  src="/logos/hub_providencia_white.png"
+                  alt="Hub Providencia Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className="flex">
+                <Image
+                  style={{height: '32px', width: 'auto'}}
+                  className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
+                  src="/logos/tellus_logowhite.png"
+                  alt="Tellus Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+              <div className='flex'>
+              <Image
+                  style={{height: '32px', width: 'auto'}}
+                  className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
+                  src="/logos/mono-dark.png"
+                  alt="Tellus Logo"
+                  height={48}
+                  width={150}
+                />
+              </div>
+
             </InfiniteSlider>
             <div className="bg-gradient-to-r from-black absolute inset-y-0 left-0 w-12 md:w-20"></div>
             <div className="bg-gradient-to-l from-black absolute inset-y-0 right-0 w-12 md:w-20"></div>

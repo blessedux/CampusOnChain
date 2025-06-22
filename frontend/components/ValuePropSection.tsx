@@ -1,25 +1,97 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MeteorShower } from "@/components/core/backgrounds/meteor-shower";
+import Image from 'next/image';
 
 export default function ValuePropSection() {
+  const [splineLoaded, setSplineLoaded] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
+  // Handle iframe load
+  const handleIframeLoad = () => {
+    setIframeLoaded(true);
+    // Add a small delay to ensure smooth transition
+    setTimeout(() => {
+      setSplineLoaded(true);
+    }, 500);
+  };
+
   return (
     <section className="relative min-h-screen bg-black py-48 mt-auto">
       <MeteorShower className="absolute inset-0" number={30}>
         <div className="relative z-10 container mx-auto px-4">
+          
+          {/* Top Wide Container - Animation and Title */}
           <div className="text-center mb-16">
-            {/* Placeholder Container */}
             <div className="relative w-full h-[400px] mb-16">
-              {/* Placeholder Square */}
+              {/* Spline Animation Container */}
               <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-neutral-800/30 bg-neutral-800/20 backdrop-blur-sm shadow-2xl">
-                <div className="w-full h-full flex items-center justify-center text-neutral-500">
-                  Placeholder
+                {/* Placeholder Image (shown while Spline loads) */}
+                {!splineLoaded && (
+                  <div className="absolute inset-0 transition-opacity duration-1000 ease-in-out">
+                    <Image
+                      src="/Cute_Computer_lazyload.webp"
+                      alt="Cute Computer Loading"
+                      fill
+                      className="object-cover rounded-[2.5rem]"
+                      priority
+                    />
+                  </div>
+                )}
+                
+                {/* Spline Animation - Scaled up to crop borders */}
+                <div 
+                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                    splineLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{
+                    transform: 'scale(1.4)',
+                    transformOrigin: 'center center'
+                  }}
+                >
+                  <iframe 
+                    src='https://my.spline.design/cutecomputerfollowcursor-AT0SxKGRYhXCNQXCt30IFFgA/' 
+                    frameBorder='0' 
+                    width='100%' 
+                    height='100%'
+                    onLoad={handleIframeLoad}
+                    className="rounded-[2.5rem]"
+                  />
+                </div>
+                
+                {/* Darker overlay for mobile */}
+                <div className="absolute inset-0 bg-black/40 lg:hidden rounded-[2.5rem]"></div>
+                
+                {/* Title Overlay - Centered on mobile, right-aligned on desktop */}
+                <div className="absolute inset-0 flex flex-col items-center lg:items-end justify-center z-10 px-8 lg:pr-16 pointer-events-none">
+                  <div className="space-y-6 text-center lg:text-right pointer-events-none max-w-md lg:max-w-lg">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight drop-shadow-lg pointer-events-none">
+                      Construye el futuro del{' '}
+                      <span className="bg-gradient-to-r from-orange-500 to-cyan-500 bg-clip-text text-transparent">
+                        Web3
+                      </span>
+                    </h2>
+                    
+                    <p className="text-lg lg:text-xl text-white leading-relaxed drop-shadow-lg pointer-events-none">
+                      Únete a la revolución blockchain con Campus On Chain. Aprende, construye y conecta con una comunidad global de builders que están definiendo el futuro de la tecnología descentralizada.
+                    </p>
+                    
+                    <a 
+                      href="https://docs.google.com/forms/u/0/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block bg-gradient-to-r from-orange-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 pointer-events-auto"
+                    >
+                      Quiero un evento en mi universidad
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           
+          {/* Bottom Section - Value Props Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
             {/* Certificados Verificables */}
             <div className="relative group">

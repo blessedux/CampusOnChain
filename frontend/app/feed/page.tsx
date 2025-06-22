@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { usePrivy } from "@privy-io/react-auth"
 import FeedHeader from "@/components/FeedHeader"
@@ -28,7 +28,8 @@ import { InternshipsSection } from "@/components/feed/InternshipsSection"
 import { UpcomingEvents } from "@/components/feed/UpcomingEvents"
 import { FeedTour } from "@/components/feed/FeedTour"
 
-export default function FeedPage() {
+// Component that uses useSearchParams
+function FeedPageContent() {
   const [showProfilePanel, setShowProfilePanel] = useState(false)
   const { ready, authenticated, user } = usePrivy()
   const router = useRouter()
@@ -415,5 +416,13 @@ export default function FeedPage() {
         <FeedTour run={showTour} />
       </div>
     </AuroraBackground>
+  )
+}
+
+export default function FeedPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FeedPageContent />
+    </Suspense>
   )
 }

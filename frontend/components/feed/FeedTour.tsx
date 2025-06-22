@@ -231,8 +231,10 @@ export const FeedTour: React.FC<FeedTourProps> = ({ run }) => {
       disableInteraction={true}
       disableKeyboardNavigation={true}
       onClickMask={({ setIsOpen }) => {
-        // Prevent closing when clicking on mask
+        // Prevent closing when clicking on mask - tour must stay open
+        // This ensures users can't accidentally close the tour
         console.log('Mask clicked but tour stays open');
+        // Do not call setIsOpen(false) - keep tour open
       }}
       className="tour-highlight"
       prevButton={({ currentStep, setCurrentStep, steps }) => (
@@ -245,6 +247,11 @@ export const FeedTour: React.FC<FeedTourProps> = ({ run }) => {
         </button>
       )}
       nextButton={({ currentStep, setCurrentStep, steps }) => {
+        // Hide next button on the last step (public beta step)
+        if (!steps || currentStep === steps.length - 1) {
+          return null;
+        }
+        
         return (
           <button
             onClick={() => setCurrentStep(currentStep + 1)}

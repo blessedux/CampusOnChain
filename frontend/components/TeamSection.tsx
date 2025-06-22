@@ -3,6 +3,7 @@
 import { useInView } from 'react-intersection-observer';
 import { TiltedCard } from './about/TiltedCard';
 import { FaXTwitter, FaLinkedin } from "react-icons/fa6";
+import { useState } from 'react';
 
 const teamMembers = [
   {
@@ -53,6 +54,15 @@ export const TeamSection = () => {
     triggerOnce: true
   });
 
+  const [expandedCards, setExpandedCards] = useState<{ [key: string]: boolean }>({});
+
+  const toggleCard = (memberName: string) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [memberName]: !prev[memberName]
+    }));
+  };
+
   return (
     <div ref={ref} className="min-h-screen flex items-center py-24">
       <div className="container mx-auto px-4">
@@ -84,7 +94,10 @@ export const TeamSection = () => {
                   showTooltip={false}
                   displayOverlayContent={true}
                   overlayContent={
-                    <div className="absolute inset-0 w-full h-full">
+                    <div 
+                      className="absolute inset-0 w-full h-full cursor-pointer"
+                      onClick={() => toggleCard(member.name)}
+                    >
                       {/* Dark gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                       
@@ -96,28 +109,44 @@ export const TeamSection = () => {
                           <p className="text-sm text-orange-500">{member.role}</p>
                         </div>
                         
-                        {/* Bio with hover reveal */}
-                        <p className="text-sm text-neutral-300 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 leading-relaxed mb-4">
-                          {member.bio}
-                        </p>
+                        {/* Bio with smooth fade transition */}
+                        <div 
+                          className={`transition-all duration-700 ease-in-out ${
+                            expandedCards[member.name] 
+                              ? 'opacity-0 transform translate-y-4 pointer-events-none' 
+                              : 'opacity-100 transform translate-y-0'
+                          }`}
+                        >
+                          <p className="text-sm text-neutral-300 leading-relaxed mb-4">
+                            {member.bio}
+                          </p>
+                        </div>
 
-                        {/* Social Icons */}
-                        <div className="flex justify-end space-x-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                        {/* Social Icons with smooth fade transition */}
+                        <div 
+                          className={`flex justify-end space-x-3 transition-all duration-700 ease-in-out ${
+                            expandedCards[member.name] 
+                              ? 'opacity-100 transform translate-y-0' 
+                              : 'opacity-0 transform translate-y-4 pointer-events-none'
+                          }`}
+                        >
                           <a 
                             href={member.socials.twitter} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors"
+                            className="text-white hover:text-orange-500 transition-colors duration-300"
+                            onClick={(e) => e.stopPropagation()}
                           >
-                            <FaXTwitter size={16} />
+                            <FaXTwitter size={20} />
                           </a>
                           <a 
                             href={member.socials.linkedin} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors"
+                            className="text-white hover:text-orange-500 transition-colors duration-300"
+                            onClick={(e) => e.stopPropagation()}
                           >
-                            <FaLinkedin size={16} />
+                            <FaLinkedin size={20} />
                           </a>
                         </div>
                       </div>

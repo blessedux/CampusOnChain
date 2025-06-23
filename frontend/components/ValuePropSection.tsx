@@ -65,7 +65,7 @@ export default function ValuePropSection() {
   };
 
   return (
-    <section className="relative min-h-[180vh] lg:min-h-[1200px] bg-black py-24 lg:py-32 mt-auto">
+    <section className="relative min-h-[200vh] lg:min-h-[1200px] bg-black py-24 lg:py-32 mt-auto">
       <MeteorShower className="absolute inset-0" number={30}>
         <div className="relative z-10 container mx-auto px-4">
           

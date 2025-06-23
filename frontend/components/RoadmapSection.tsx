@@ -12,25 +12,14 @@ interface RoadmapItem {
 
 const roadmapData: RoadmapItem[] = [
   {
-    quarter: '2023',
-    year: '2023',
-    title: '2023',
-    items: [
-      'Q1 - Lanzamiento de la plataforma beta con certificados verificables',
-      'Q2 - Integración con universidades piloto en América Latina',
-      'Q3 - Desarrollo de la comunidad inicial de estudiantes Web3',
-      'Q4 - Implementación del sistema de reputación blockchain'
-    ]
-  },
-  {
     quarter: '2024',
     year: '2024',
     title: '2024',
     items: [
-      'Q1 - Expansión a 10+ universidades en la región',
-      'Q2 - Lanzamiento de programas especializados en DeFi y NFTs',
-      'Q3 - Integración con protocolos DeFi para incentivos',
-      'Q4 - Desarrollo de marketplace de oportunidades laborales'
+      'Q1 - Preparación y desarrollo inicial de la plataforma',
+      'Q2 - Desarrollo de la plataforma beta con certificados verificables en blockchain',
+      'Q3 - Campus On Chain se constituye oficialmente como organización sin fines de lucro bajo la regulación chilena',
+      'Q4 - Integración con universidades piloto en Chile y América Latina'
     ]
   },
   {
@@ -38,10 +27,10 @@ const roadmapData: RoadmapItem[] = [
     year: '2025',
     title: '2025',
     items: [
-      'Q1 - Plataforma de hackathons y competencias blockchain',
-      'Q2 - Sistema de mentoría con expertos de la industria',
-      'Q3 - Integración con DAOs para gobernanza estudiantil',
-      'Q4 - Lanzamiento de certificaciones avanzadas'
+      'Q1 - Obtiene apoyo oficial de Stellar Foundation para el desarrollo de la plataforma',
+      'Q2 - Alianza estratégica con la Pontificia Universidad Católica de Chile',
+      'Q3 - Campus On Chain se convierte en partner oficial de ETH Chile Conference y ETH Chile Hackathon 2025',
+      'Q4 - Expansión a 5 universidades en la región con programas activos'
     ]
   },
   {
@@ -49,10 +38,21 @@ const roadmapData: RoadmapItem[] = [
     year: '2026',
     title: '2026',
     items: [
-      'Q1 - Expansión global a Europa y Asia',
-      'Q2 - Plataforma de investigación colaborativa Web3',
-      'Q3 - Sistema de financiamiento descentralizado para estudiantes',
-      'Q4 - Lanzamiento de la versión 2.0 con IA integrada'
+      'Q1 - Alcanza el apoyo de 10 universidades en América Latina',
+      'Q2 - Establecimiento de programa permanente de educación Web3',
+      'Q3 - Sistema de mentoría para identificar y formar builders Web3',
+      'Q4 - Plataforma de hackathons y competencias blockchain interuniversitarias'
+    ]
+  },
+  {
+    quarter: '2027',
+    year: '2027',
+    title: '2027',
+    items: [
+      'Q1 - Go-to-market global como plataforma interuniversitaria',
+      'Q2 - Herramienta de campus para encontrar equipos de hackathons y amigos',
+      'Q3 - Sistema de logros on-chain y credenciales verificables',
+      'Q4 - Campus On Chain se convierte en la app principal para todas las universidades del país y busca expansión por toda América Latina'
     ]
   }
 ];
@@ -60,6 +60,9 @@ const roadmapData: RoadmapItem[] = [
 export default function RoadmapSection() {
   const [activeQuarter, setActiveQuarter] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMobileTapped, setIsMobileTapped] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   
   // GSAP-like motion values for shapes
   const shape1X = useMotionValue(0);
@@ -78,8 +81,40 @@ export default function RoadmapSection() {
   const shape3SpringX = useSpring(shape3X, springConfig);
   const shape3SpringY = useSpring(shape3Y, springConfig);
 
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Initialize circles to center position
+  useEffect(() => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      setMousePosition({ x: centerX, y: centerY });
+      
+      // Set initial positions
+      shape1X.set(centerX - 700);
+      shape1Y.set(centerY - 700);
+      shape2X.set(centerX - 550);
+      shape2Y.set(centerY - 550);
+      shape3X.set(centerX - 400);
+      shape3Y.set(centerY - 400);
+    }
+  }, [shape1X, shape1Y, shape2X, shape2Y, shape3X, shape3Y]);
+
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
+      if (isMobile) return; // Don't track mouse on mobile
+      
       const mouseX = event.clientX;
       const mouseY = event.clientY;
       
@@ -101,25 +136,97 @@ export default function RoadmapSection() {
       }, 100);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [shape1X, shape1Y, shape2X, shape2Y, shape3X, shape3Y]);
+    const handleTouchStart = (event: TouchEvent) => {
+      if (!isMobile) return;
+      
+      const touch = event.touches[0];
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      
+      setMousePosition({ x: touchX, y: touchY });
+      setIsMobileTapped(true);
+      
+      // Center circles on touch position
+      shape1X.set(touchX - 700);
+      shape1Y.set(touchY - 700);
+      
+      setTimeout(() => {
+        shape2X.set(touchX - 550);
+        shape2Y.set(touchY - 550);
+      }, 50);
+      
+      setTimeout(() => {
+        shape3X.set(touchX - 400);
+        shape3Y.set(touchY - 400);
+      }, 100);
+    };
+
+    const handleTouchEnd = () => {
+      if (!isMobile) return;
+      
+      // Return circles to center after touch ends
+      setTimeout(() => {
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          
+          setMousePosition({ x: centerX, y: centerY });
+          
+          shape1X.set(centerX - 700);
+          shape1Y.set(centerY - 700);
+          
+          setTimeout(() => {
+            shape2X.set(centerX - 550);
+            shape2Y.set(centerY - 550);
+          }, 50);
+          
+          setTimeout(() => {
+            shape3X.set(centerX - 400);
+            shape3Y.set(centerY - 400);
+          }, 100);
+        }
+        setIsMobileTapped(false);
+      }, 1000); // Return to center after 1 second
+    };
+
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove);
+    } else {
+      window.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isMobile, shape1X, shape1Y, shape2X, shape2Y, shape3X, shape3Y]);
 
   const handleQuarterHover = (quarterIndex: number) => {
     setActiveQuarter(quarterIndex);
   };
 
   return (
-    <section className="relative min-h-screen bg-transparent -mt-32" style={{ overflowX: 'hidden', overflowY: 'visible' }}>
+    <section ref={sectionRef} className="relative min-h-screen bg-transparent" style={{ 
+      overflowX: 'hidden', 
+      overflowY: 'visible',
+      clipPath: 'none',
+      isolation: 'isolate',
+      marginTop: '-400px' // Increased overlap with ValuePropSection
+    }}>
       {/* Background Shapes with GSAP-like movement */}
       <div className="absolute z-1" style={{ 
-        top: '-100vh', 
+        top: '0px', // Extend above the section to allow overflow
         left: '0', 
         right: '0', 
         bottom: '0',
         overflowX: 'hidden', 
         overflowY: 'visible',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        clipPath: 'none',
+        isolation: 'isolate'
       }}>
         <motion.div 
           className="absolute"
@@ -129,10 +236,11 @@ export default function RoadmapSection() {
             borderRadius: '50%',
             background: '#071129',
             boxShadow: 'inset -25px -25px 50px #ff6b35, inset 25px 25px 50px #000000',
-            opacity: 0.8,
+            opacity: 0.6,
             filter: 'blur(20px)',
             x: shape1SpringX,
-            y: shape1SpringY
+            y: shape1SpringY,
+            clipPath: 'none'
           }}
         />
         <motion.div 
@@ -143,10 +251,11 @@ export default function RoadmapSection() {
             borderRadius: '50%',
             background: '#071129',
             boxShadow: 'inset -25px -25px 50px #ff6b35, inset 25px 25px 50px #000000',
-            opacity: 0.8,
+            opacity: 0.5,
             filter: 'blur(10px)',
             x: shape2SpringX,
-            y: shape2SpringY
+            y: shape2SpringY,
+            clipPath: 'none'
           }}
         />
         <motion.div 
@@ -157,10 +266,11 @@ export default function RoadmapSection() {
             borderRadius: '50%',
             background: '#071129',
             boxShadow: 'inset -25px -25px 50px #ff6b35, inset 25px 25px 50px #000000',
-            opacity: 0.8,
+            opacity: 0.4,
             filter: 'blur(0px)',
             x: shape3SpringX,
-            y: shape3SpringY
+            y: shape3SpringY,
+            clipPath: 'none'
           }}
         />
       </div>
@@ -171,7 +281,7 @@ export default function RoadmapSection() {
         style={{
           boxShadow: 'inset -25px -25px 50px #ff6b35, inset 25px 25px 50px #000000',
           userSelect: 'none',
-          opacity: 0.8,
+          opacity: 0.3,
           filter: 'blur(0px)',
           x: mousePosition.x - 250, // Center the 500px circle (500/2 = 250)
           y: mousePosition.y - 250 // Center the cursor circle

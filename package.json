@@ -1,4 +1,13 @@
 {
+  "name": "campus-on-chain",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm run start",
+    "lint": "cd frontend && npm run lint",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
   "dependencies": {
     "@privy-io/react-auth": "^2.13.6",
     "@reactour/tour": "^3.8.0",

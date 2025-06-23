@@ -60,20 +60,20 @@ export default function ValuePropSection() {
                   />
                 </div>
                 
-                {/* Darker overlay for mobile */}
-                <div className="absolute inset-0 bg-black/40 lg:hidden rounded-[2.5rem]"></div>
+                {/* Darker overlay for mobile only */}
+                <div className="absolute inset-0 bg-black/40 sm:hidden rounded-[2.5rem]"></div>
                 
-                {/* Title Overlay - Centered on mobile, right-aligned on desktop */}
-                <div className="absolute inset-0 flex flex-col items-center lg:items-end justify-center z-10 px-8 lg:pr-16 pointer-events-none">
-                  <div className="space-y-6 text-center lg:text-right pointer-events-none max-w-md lg:max-w-lg">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight drop-shadow-lg pointer-events-none">
+                {/* Title Overlay - Centered on mobile, right-aligned on tablet and desktop */}
+                <div className="absolute inset-0 flex flex-col items-center md:items-end justify-center z-10 px-8 md:pr-16 pointer-events-none">
+                  <div className="space-y-6 text-center md:text-right pointer-events-none max-w-md md:max-w-lg">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight drop-shadow-lg pointer-events-none">
                       Construye el futuro del{' '}
-                      <span className="bg-gradient-to-r from-orange-500 to-cyan-500 bg-clip-text text-transparent">
+                      <span className="text-orange-500">
                         Web3
                       </span>
                     </h2>
                     
-                    <p className="text-lg lg:text-xl text-white leading-relaxed drop-shadow-lg pointer-events-none">
+                    <p className="text-lg md:text-xl text-white leading-relaxed drop-shadow-lg pointer-events-none">
                       Únete a la revolución blockchain con Campus On Chain. Aprende, construye y conecta con una comunidad global de builders que están definiendo el futuro de la tecnología descentralizada.
                     </p>
                     

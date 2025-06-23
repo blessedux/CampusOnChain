@@ -1,9 +1,9 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
-import { TiltedCard } from './about/TiltedCard';
 import { FaXTwitter, FaLinkedin } from "react-icons/fa6";
 import { useState } from 'react';
+import Image from 'next/image';
 
 const teamMembers = [
   {
@@ -56,11 +56,16 @@ export const TeamSection = () => {
 
   const [expandedCards, setExpandedCards] = useState<{ [key: string]: boolean }>({});
 
-  const toggleCard = (memberName: string) => {
-    setExpandedCards(prev => ({
-      ...prev,
-      [memberName]: !prev[memberName]
-    }));
+  const handleCardClick = (memberName: string) => {
+    console.log('🎯 Card clicked:', memberName);
+    setExpandedCards(prev => {
+      const newState = {
+        ...prev,
+        [memberName]: !prev[memberName]
+      };
+      console.log('New state:', newState);
+      return newState;
+    });
   };
 
   return (
@@ -71,89 +76,130 @@ export const TeamSection = () => {
             Nuestro Equipo
           </h2>
           
+          {/* Debug Panel */}
+          <div className="mb-8 p-4 bg-black/50 rounded-lg border border-orange-500/30">
+            <h3 className="text-orange-500 font-semibold mb-2">Debug: Card States</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              {teamMembers.map((member) => (
+                <div key={member.name} className="flex justify-between">
+                  <span className="text-white">{member.name}:</span>
+                  <span className={expandedCards[member.name] ? 'text-green-400' : 'text-red-400'}>
+                    {expandedCards[member.name] ? 'Social' : 'Bio'}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 flex gap-2">
+              <button 
+                onClick={() => setExpandedCards({})}
+                className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+              >
+                Reset All
+              </button>
+              <button 
+                onClick={() => {
+                  const allExpanded = teamMembers.reduce((acc, member) => {
+                    acc[member.name] = true;
+                    return acc;
+                  }, {} as { [key: string]: boolean });
+                  setExpandedCards(allExpanded);
+                }}
+                className="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600"
+              >
+                Expand All
+              </button>
+            </div>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
-              <div key={member.name} className="flex flex-col items-center relative">
-                {/* Primary Backdrop Light Effect */}
+              <div key={member.name} className="flex flex-col items-center relative group">
+                {/* Backdrop Light Effects */}
                 <div className="absolute inset-0 -z-10 translate-y-6 blur-3xl">
                   <div className="h-full w-full bg-gradient-to-b from-white/40 via-white/20 to-transparent rounded-[2.5rem] opacity-30" />
                 </div>
-                {/* Secondary Light Effect */}
                 <div className="absolute inset-0 -z-10 translate-y-4 blur-2xl">
                   <div className="h-full w-full bg-gradient-to-b from-orange-500/20 via-white/30 to-transparent rounded-[2.5rem] opacity-25" />
                 </div>
                 
-                <TiltedCard
-                  imageSrc={member.image}
-                  altText={`${member.name} - ${member.role}`}
-                  containerHeight="300px"
-                  containerWidth="100%"
-                  imageHeight="300px"
-                  imageWidth="100%"
-                  showMobileWarning={false}
-                  showTooltip={false}
-                  displayOverlayContent={true}
-                  overlayContent={
-                    <div 
-                      className="absolute inset-0 w-full h-full cursor-pointer"
-                      onClick={() => toggleCard(member.name)}
-                    >
-                      {/* Dark gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                      
-                      {/* Content container */}
-                      <div className="absolute inset-x-0 bottom-0 p-4">
-                        {/* Name and Role */}
-                        <div className="space-y-1 mb-2">
-                          <h3 className="text-xl font-bold text-white">{member.name}</h3>
-                          <p className="text-sm text-orange-500">{member.role}</p>
-                        </div>
-                        
-                        {/* Bio with smooth fade transition */}
-                        <div 
-                          className={`transition-all duration-700 ease-in-out ${
-                            expandedCards[member.name] 
-                              ? 'opacity-0 transform translate-y-4 pointer-events-none' 
-                              : 'opacity-100 transform translate-y-0'
-                          }`}
-                        >
-                          <p className="text-sm text-neutral-300 leading-relaxed mb-4">
-                            {member.bio}
-                          </p>
-                        </div>
-
-                        {/* Social Icons with smooth fade transition */}
-                        <div 
-                          className={`flex justify-end space-x-3 transition-all duration-700 ease-in-out ${
-                            expandedCards[member.name] 
-                              ? 'opacity-100 transform translate-y-0' 
-                              : 'opacity-0 transform translate-y-4 pointer-events-none'
-                          }`}
-                        >
-                          <a 
-                            href={member.socials.twitter} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors duration-300"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <FaXTwitter size={20} />
-                          </a>
-                          <a 
-                            href={member.socials.linkedin} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-orange-500 transition-colors duration-300"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <FaLinkedin size={20} />
-                          </a>
-                        </div>
-                      </div>
+                {/* Card Container */}
+                <div className="relative w-full h-[300px] rounded-[2.5rem] overflow-hidden">
+                  {/* Background Image - Always visible */}
+                  <Image
+                    src={member.image}
+                    alt={`${member.name} - ${member.role}`}
+                    fill
+                    className="object-cover"
+                  />
+                  
+                  {/* Dark gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                  
+                  {/* Clickable overlay for the entire card */}
+                  <div 
+                    className="absolute inset-0 cursor-pointer z-10"
+                    onClick={() => handleCardClick(member.name)}
+                  />
+                  
+                  {/* Status indicator */}
+                  <div className={`absolute top-4 right-4 z-20 transition-all duration-300 ${
+                    expandedCards[member.name] ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
+                      Social
                     </div>
-                  }
-                  className="group"
-                />
+                  </div>
+                  
+                  {/* Content container */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 z-20">
+                    {/* Name and Role - Always visible */}
+                    <div className="space-y-1 mb-2">
+                      <h3 className="text-xl font-bold text-white">{member.name}</h3>
+                      <p className="text-sm text-orange-500">{member.role}</p>
+                    </div>
+                    
+                    {/* Bio text - fades out when expanded */}
+                    <div 
+                      className={`transition-all duration-700 ease-in-out ${
+                        expandedCards[member.name] 
+                          ? 'opacity-0 transform translate-y-4 max-h-0 overflow-hidden' 
+                          : 'opacity-100 transform translate-y-0 max-h-32'
+                      }`}
+                    >
+                      <p className="text-sm text-neutral-300 leading-relaxed mb-4">
+                        {member.bio}
+                      </p>
+                    </div>
+
+                    {/* Social Icons - fades in when expanded */}
+                    <div 
+                      className={`flex justify-end space-x-3 transition-all duration-700 ease-in-out ${
+                        expandedCards[member.name] 
+                          ? 'opacity-100 transform translate-y-0' 
+                          : 'opacity-0 transform translate-y-4'
+                      }`}
+                    >
+                      <a 
+                        href={member.socials.twitter} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-white hover:text-orange-500 transition-colors duration-300 p-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <FaXTwitter size={20} />
+                      </a>
+                      <a 
+                        href={member.socials.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-white hover:text-orange-500 transition-colors duration-300 p-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <FaLinkedin size={20} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

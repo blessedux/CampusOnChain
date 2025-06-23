@@ -34,8 +34,8 @@ const footerLinks: FooterSection[] = [
 		links: [
 			{ title: 'Inicio', href: '#hero' },
 			{ title: 'Sobre Nosotros', href: '#about' },
-			{ title: 'Características', href: '#features' },
 			{ title: 'Equipo', href: '#team' },
+			{ title: 'Características', href: '#features' },
 			{ title: 'Roadmap', href: '#roadmap' },
 		],
 	},
@@ -89,7 +89,14 @@ function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationPr
 const scrollToSection = (sectionId: string) => {
 	const element = document.getElementById(sectionId);
 	if (element) {
-		element.scrollIntoView({ behavior: 'smooth' });
+		const offset = 80; // Account for header height
+		const elementPosition = element.getBoundingClientRect().top;
+		const offsetPosition = elementPosition + window.pageYOffset - offset;
+		
+		window.scrollTo({
+			top: offsetPosition,
+			behavior: 'smooth'
+		});
 	}
 };
 
@@ -102,13 +109,18 @@ export function Footer() {
 			viewport={{ once: true }}
 			transition={{ duration: 0.8 }}
 		>
-			<div className="w-full md:rounded-t-3xl rounded-t-2xl border-t bg-gradient-to-b from-black to-[#1a1a1a] px-6 py-28 lg:py-36 shadow-xl">
+			<div className="w-full md:rounded-t-3xl rounded-t-2xl border-t bg-gradient-to-b from-black to-[#1a1a1a] px-6 py-20 lg:py-24 shadow-xl">
 				<div className="bg-foreground/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 				<div className="flex flex-col lg:flex-row items-start justify-between gap-12">
 					{/* Left Side - Campus on Chain Logo */}
 					<AnimatedContainer className="flex-shrink-0">
 						<div className="space-y-4">
-							<img src="/logos/campus_logo.png" alt="Campus on Chain" className="h-24 w-auto" />
+							<button 
+								onClick={() => scrollToSection('hero')}
+								className="hover:opacity-80 transition-opacity duration-300"
+							>
+								<img src="/logos/campus_logo.png" alt="Campus on Chain" className="h-24 w-auto" />
+							</button>
 							<p className="text-muted-foreground text-sm max-w-xs">
 								La plataforma definitiva para estudiantes y builders del ecosistema blockchain.
 							</p>
@@ -155,12 +167,12 @@ export function Footer() {
 						))}
 					</div>
 				</div>
-				<div className="w-full flex justify-center mt-12">
-					<p className="text-muted-foreground text-center text-sm bottom-0">
+				<div className="w-full flex justify-center pt-4">
+					<p className="text-muted-foreground text-center text-sm">
 						© {new Date().getFullYear()} Campus On Chain. All rights reserved.
 					</p>
-          </div>
-        </div>
+				</div>
+			</div>
 		</motion.footer>
 	);
 } 

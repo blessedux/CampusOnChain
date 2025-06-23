@@ -82,16 +82,26 @@ export default function LandingPage() {
         onWalletClick={handleWalletClick}
       />
 
-      <HeroSection 
-        authenticated={authenticated}
-        ready={ready}
-        onCampusEntry={handleCampusEntry}
-      />
+      <div id="hero">
+        <HeroSection 
+          authenticated={authenticated}
+          ready={ready}
+          onCampusEntry={handleCampusEntry}
+        />
+      </div>
       <InfiniteLogosSlider />
-      <AboutSection />  
-      <TeamSection />
-      <ValuePropSection />
-      <RoadmapSection />
+      <div id="about">
+        <AboutSection />  
+      </div>
+      <div id="team">
+        <TeamSection />
+      </div>
+      <div id="features">
+        <ValuePropSection />
+      </div>
+      <div id="roadmap">
+        <RoadmapSection />
+      </div>
       <Footer />
     </div>
   )

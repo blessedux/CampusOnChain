@@ -8,13 +8,60 @@ export default function ValuePropSection() {
   const [splineLoaded, setSplineLoaded] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('🔍 ValuePropSection: Component mounted');
+    console.log('🔍 ValuePropSection: Initial state - splineLoaded:', splineLoaded, 'iframeLoaded:', iframeLoaded);
+  }, []);
+
+  useEffect(() => {
+    console.log('🔍 ValuePropSection: State changed - splineLoaded:', splineLoaded, 'iframeLoaded:', iframeLoaded);
+  }, [splineLoaded, iframeLoaded]);
+
   // Handle iframe load
   const handleIframeLoad = () => {
+    console.log('🔍 ValuePropSection: Iframe load event triggered');
     setIframeLoaded(true);
     // Add a small delay to ensure smooth transition
     setTimeout(() => {
+      console.log('🔍 ValuePropSection: Setting splineLoaded to true after delay');
       setSplineLoaded(true);
     }, 500);
+  };
+
+  // Handle iframe error
+  const handleIframeError = (error: any) => {
+    console.error('❌ ValuePropSection: Iframe error:', error);
+  };
+
+  // Test Spline URL accessibility
+  useEffect(() => {
+    const testSplineUrl = async () => {
+      try {
+        console.log('🔍 ValuePropSection: Testing Spline URL accessibility...');
+        const response = await fetch('https://my.spline.design/cutecomputerfollowcursor-AT0SxKGRYhXCNQXCt30IFFgA/', {
+          method: 'HEAD',
+          mode: 'no-cors' // This will still show if the URL is reachable
+        });
+        console.log('🔍 ValuePropSection: Spline URL test response:', response);
+      } catch (error) {
+        console.error('❌ ValuePropSection: Spline URL test failed:', error);
+      }
+    };
+    
+    testSplineUrl();
+  }, []);
+
+  // Handle mouse events for debugging
+  const handleMouseEnter = () => {
+    console.log('🔍 ValuePropSection: Mouse entered Spline container');
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    // Only log occasionally to avoid spam
+    if (Math.random() < 0.01) {
+      console.log('🔍 ValuePropSection: Mouse move in Spline container', { x: e.clientX, y: e.clientY });
+    }
   };
 
   return (
@@ -26,7 +73,11 @@ export default function ValuePropSection() {
           <div className="text-center mb-16 lg:mb-24">
             <div className="relative w-full h-[400px] mb-16">
               {/* Spline Animation Container */}
-              <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-neutral-800/30 bg-neutral-800/20 backdrop-blur-sm shadow-2xl">
+              <div 
+                className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-neutral-800/30 bg-neutral-800/20 backdrop-blur-sm shadow-2xl"
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+              >
                 {/* Placeholder Image (shown while Spline loads) */}
                 {!splineLoaded && (
                   <div className="absolute inset-0 transition-opacity duration-1000 ease-in-out">
@@ -36,6 +87,8 @@ export default function ValuePropSection() {
                       fill
                       className="object-cover rounded-[2.5rem]"
                       priority
+                      onLoad={() => console.log('🔍 ValuePropSection: Placeholder image loaded')}
+                      onError={(e) => console.error('❌ ValuePropSection: Placeholder image error:', e)}
                     />
                   </div>
                 )}
@@ -56,7 +109,9 @@ export default function ValuePropSection() {
                     width='100%' 
                     height='100%'
                     onLoad={handleIframeLoad}
+                    onError={handleIframeError}
                     className="rounded-[2.5rem]"
+                    style={{ pointerEvents: 'auto' }}
                   />
                 </div>
                 

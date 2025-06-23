@@ -85,19 +85,19 @@ export default function RoadmapSection() {
       
       setMousePosition({ x: mouseX, y: mouseY });
       
-      // Center the circles on the mouse cursor with adjusted Y positioning
+      // Center all circles on the mouse cursor
       shape1X.set(mouseX - 700); // Center the 1400px circle (1400/2 = 700)
-      shape1Y.set(mouseY - 700 + 200); // Lower the circles by 200px
+      shape1Y.set(mouseY - 700);
       
       // Stagger delay of -0.05 seconds (50ms)
       setTimeout(() => {
         shape2X.set(mouseX - 550); // Center the 1100px circle (1100/2 = 550)
-        shape2Y.set(mouseY - 550 + 200); // Lower the circles by 200px
+        shape2Y.set(mouseY - 550);
       }, 50);
       
       setTimeout(() => {
         shape3X.set(mouseX - 400); // Center the 800px circle (800/2 = 400)
-        shape3Y.set(mouseY - 400 + 200); // Lower the circles by 200px
+        shape3Y.set(mouseY - 400);
       }, 100);
     };
 
@@ -174,7 +174,7 @@ export default function RoadmapSection() {
           opacity: 0.8,
           filter: 'blur(0px)',
           x: mousePosition.x - 250, // Center the 500px circle (500/2 = 250)
-          y: mousePosition.y - 250 + 200 // Lower the cursor by 200px to match circles
+          y: mousePosition.y - 250 // Center the cursor circle
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15 }}
       />

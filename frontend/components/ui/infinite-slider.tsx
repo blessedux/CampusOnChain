@@ -115,7 +115,10 @@ export default function InfiniteLogosSlider() {
       <div className="group relative m-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col items-center md:flex-row">
           <div className="md:max-w-44 md:pr-6">
-            <p className="text-center md:text-end text-sm text-gray-400">Nuestros <br />partners</p>
+            <p className="text-center text-sm text-gray-400">
+              Colaboramos<br />
+              <span className="block w-full text-center">con</span>
+            </p>
           </div>
           <div className="relative py-4 md:py-6 w-full md:w-[calc(100%-11rem)]">
             <InfiniteSlider duration={40} durationOnHover={120} gap={48} className="md:gap-[112px]">

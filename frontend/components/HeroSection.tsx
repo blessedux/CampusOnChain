@@ -2,22 +2,10 @@
 
 import React, { useState } from 'react'
 import { GradientButton } from '@/components/ui/gradient-button'
-import { InfiniteSlider } from '@/components/ui/infinite-slider'
-import { ProgressiveBlur } from '@/components/ui/progressive-blur'
-import { SplineScene } from '@/components/ui/spline-scene'
-import { MaskedTextCarousel } from '@/components/ui/masked-text-carousel'
 import { motion, AnimatePresence } from 'framer-motion'
 import '@/styles/hero.css'
 import { BackgroundVideo } from '@/components/ui/background-video'
 import { AuroraBackground } from '@/components/ui/aurora-background'
-
-// Define the carousel images
-const carouselImages = [
-  '/logos/charla-abogado-Yanqpp98arUvPNJW.jpg_1.jpeg',
-  '/logos/charla-world-mxBMpVgWQDh2pjWj.jpg.jpeg',
-  '/logos/meetup-en-la-uc-Yg2qppO7NPUGVRwM.jpg.jpeg',
-  '/logos/paintball-on-chain-AE0aZZ4lVyta7kRl.jpg.jpeg'
-]
 
 interface HeroSectionProps {
   authenticated: boolean
@@ -43,13 +31,10 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-black">
         <div className="text-center">
-          <div className="text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-2">
-            CAMPUS
-          </div>
-          <MaskedTextCarousel 
-            text="ON CHAIN"
-            images={carouselImages}
-            interval={2000}
+          <img 
+            src="/logos/campus1.webp" 
+            alt="Campus On Chain Logo" 
+            className="w-auto h-32 md:h-40 lg:h-48 mx-auto mb-4"
           />
         </div>
       </div>
@@ -97,16 +82,11 @@ export default function HeroSection({ authenticated, ready, onCampusEntry }: Her
             <div className="flex flex-col justify-center h-full text-center max-w-4xl mx-auto relative z-10">
               <div className="mb-6 relative max-w-[90%] mx-auto">
                 <div className="relative flex flex-col items-center">
-                  {/* CAMPUS text in white */}
-                  <div className="w-full text-center text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-2">
-                    CAMPUS
-                  </div>
-                  
-                  {/* ON CHAIN masked text container */}
-                  <MaskedTextCarousel 
-                    text="ON CHAIN"
-                    images={carouselImages}
-                    interval={2000}
+                  {/* Campus On Chain Logo */}
+                  <img 
+                    src="/logos/campus1.webp" 
+                    alt="Campus On Chain Logo" 
+                    className="w-auto h-32 md:h-40 lg:h-48 mx-auto mb-4"
                   />
                 </div>
               </div>

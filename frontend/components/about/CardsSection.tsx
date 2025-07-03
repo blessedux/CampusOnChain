@@ -23,9 +23,9 @@ interface Card {
 const cards: Card[] = [
   {
     icon: "🎯",
-    title: "Aprende haciendo",
+    title: "Workshops",
     description:
-      "Participa en hackathons, meetups y workshops prácticos para explorar el mundo Web3 y construir proyectos reales desde el primer día.",
+      "Talleres técnicos donde desarrollas habilidades reales para crear proyectos Web3 desde cero. Ideal para quienes quieren construir, programar y emprender con tecnología de vanguardia.",
     image: "/IMG_5835.webp",
     primaryCTA: {
       label: "Próximos eventos",
@@ -38,9 +38,9 @@ const cards: Card[] = [
   },
   {
     icon: "📚",
-    title: "Conviértete en experto Web3",
+    title: "Charlas",
     description:
-      "Pasa de ser un estudiante curioso a un profesional blockchain con nuestra plataforma de aprendizaje gamificada, certificaciones on-chain y una ruta educativa pensada para ti.",
+      "Conversaciones con referentes del mundo cripto y blockchain que comparten sus experiencias, desafíos y las últimas tendencias del sector.",
     image: "/IMG_4675-2.webp",
     primaryCTA: {
       label: "Próximos eventos",
@@ -53,9 +53,9 @@ const cards: Card[] = [
   },
   {
     icon: "🤝",
-    title: "Conecta con otros builders",
+    title: "Meetups",
     description:
-      "Conoce estudiantes de todo Chile que están construyendo el futuro de Web3. Encuentra compañeros para hackathons, únete a comunidades y crezcan juntos.",
+      "Espacios de encuentro donde estudiantes, desarrolladores y profesionales se conocen, colaboran y amplían su red de contactos en un ambiente distendido y lleno de oportunidades.",
     image: "/IMG_5859-3.webp",
     primaryCTA: {
       label: "Próximos eventos",

@@ -115,7 +115,10 @@ export default function InfiniteLogosSlider() {
       <div className="group relative m-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col items-center md:flex-row">
           <div className="md:max-w-44 md:pr-6">
-            <p className="text-center md:text-end text-sm text-gray-400">Nuestros <br />partners</p>
+            <p className="text-center text-sm text-gray-400">
+              Colaboramos<br />
+              <span className="block w-full text-center">con</span>
+            </p>
           </div>
           <div className="relative py-4 md:py-6 w-full md:w-[calc(100%-11rem)]">
             <InfiniteSlider duration={40} durationOnHover={120} gap={48} className="md:gap-[112px]">
@@ -123,7 +126,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/avalanche.svg"
+                  src="/logos/avalanche.png"
                   alt="Avalanche Logo"
                   height={48}
                   width={150}
@@ -133,7 +136,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/stellar.svg"
+                  src="/logos/stellar.png"
                   alt="Stellar Logo"
                   height={48}
                   width={150}
@@ -143,7 +146,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/Polkadot_Logo.svg"
+                  src="/logos/Polkadot.png"
                   alt="Polkadot Logo"
                   height={48}
                   width={150}
@@ -153,7 +156,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/worldcoin.svg"
+                  src="/logos/Worldc.png"
                   alt="Worldcoin Logo"
                   height={48}
                   width={150}
@@ -163,7 +166,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/Chainlink-Logo-White.png"
+                  src="/logos/Chainlink.png"
                   alt="Chainlink Logo"
                   height={48}
                   width={150}
@@ -183,7 +186,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/hub_providencia_white.png"
+                  src="/logos/soy_providencia.png"
                   alt="Hub Providencia Logo"
                   height={48}
                   width={150}
@@ -204,7 +207,7 @@ export default function InfiniteLogosSlider() {
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto opacity-70 hover:opacity-100 transition-opacity md:h-12"
                   src="/logos/mono-dark.png"
-                  alt="Tellus Logo"
+                  alt="Intmax Logo"
                   height={48}
                   width={150}
                 />

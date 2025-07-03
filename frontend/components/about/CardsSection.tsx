@@ -23,13 +23,13 @@ interface Card {
 const cards: Card[] = [
   {
     icon: "🎯",
-    title: "Aprende haciendo",
+    title: "Workshops",
     description:
-      "Participa en hackathons, meetups y workshops prácticos para explorar el mundo Web3 y construir proyectos reales desde el primer día.",
+      "Talleres técnicos donde desarrollas habilidades reales para crear proyectos Web3 desde cero. Ideal para quienes quieren construir, programar y emprender con tecnología de vanguardia.",
     image: "/IMG_5835.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -38,13 +38,13 @@ const cards: Card[] = [
   },
   {
     icon: "📚",
-    title: "Conviértete en experto Web3",
+    title: "Charlas",
     description:
-      "Pasa de ser un estudiante curioso a un profesional blockchain con nuestra plataforma de aprendizaje gamificada, certificaciones on-chain y una ruta educativa pensada para ti.",
+      "Conversaciones con referentes del mundo cripto y blockchain que comparten sus experiencias, desafíos y las últimas tendencias del sector.",
     image: "/IMG_4675-2.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -53,13 +53,13 @@ const cards: Card[] = [
   },
   {
     icon: "🤝",
-    title: "Conecta con otros builders",
+    title: "Meetups",
     description:
-      "Conoce estudiantes de todo Chile que están construyendo el futuro de Web3. Encuentra compañeros para hackathons, únete a comunidades y crezcan juntos.",
+      "Espacios de encuentro donde estudiantes, desarrolladores y profesionales se conocen, colaboran y amplían su red de contactos en un ambiente distendido y lleno de oportunidades.",
     image: "/IMG_5859-3.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -119,18 +119,15 @@ export const CardsSection = () => {
                             {card.description}
                           </p>
                           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                            <Link 
+                            {/* Botón 'Próximos eventos' como <a> externo */}
+                            <a 
                               href={card.primaryCTA.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30"
                             >
                               {card.primaryCTA.label}
-                            </Link>
-                            <Link 
-                              href={card.secondaryCTA.href}
-                              className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl border border-neutral-700 text-neutral-200 font-medium hover:bg-neutral-800/50 transition-all duration-200"
-                            >
-                              {card.secondaryCTA.label}
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </FadeInCard>

@@ -1,43 +1,50 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 const teamMembers = [
   {
     name: "Kaream Badillo",
-    title: "Community Lead & Web Developer",
-    bio: "Desarrolladora web con foco en HTML, CSS y JavaScript. Activa en comunidades Web3 en Latinoamérica, donde impulsa la inclusión y participación de nuevos talentos en tecnología y blockchain.",
+    title: "Community Lead",
     avatar: "/team/kareambadillo.webp",
+    linkedin: "https://linkedin.com/in/kaream-s-badillo-1725a4325",
+    twitter: "https://x.com/kaream_badillo",
   },
   {
     name: "Carlos Concha",
     title: "Cultural Programs Lead",
-    bio: "Músico y productor cultural. Fundador y vocalista de la banda chilena Cleaver. Enfocado en conectar arte, música y nuevas tecnologías para fortalecer comunidades creativas.",
     avatar: "/team/carlosconcha.webp",
+    linkedin: "https://linkedin.com/in/carlosconchabilla",
+    twitter: "https://x.com/campusonchain",
   },
   {
     name: "Simón Espínola",
     title: "University Partnerships & Product Manager",
-    bio: "Ingeniero comercial. Forma parte del equipo de Dob Protocol, desarrollando productos Web3 centrados en la experiencia del usuario. Conecta el mundo académico con la innovación digital.",
     avatar: "/team/simonespinola.webp",
+    linkedin: "https://linkedin.com/in/simon-espinola-marin-06a78b86",
+    twitter: "https://x.com/Cryptosadhu1",
   },
   {
     name: "Mauro Ojeda",
     title: "Co-founder & Global Strategy",
-    bio: "Ingeniero en computación. Especialista en educación tecnológica y desarrollo de ecosistemas blockchain en universidades. Diseña estrategias para la expansión regional de proyectos Web3.",
     avatar: "/team/mauroojeda.webp",
+    linkedin: "https://linkedin.com/in/sr-mauro",
+    twitter: "https://x.com/campusonchain",
   },
   {
     name: "Joseph Sánchez",
     title: "Co-founder & Executive Director",
-    bio: "Comunicador y organizador de comunidades tecnológicas. Dirige iniciativas educativas y gremiales enfocadas en la adopción y comprensión de tecnologías descentralizadas.",
     avatar: "/team/josephsanchez.webp",
+    linkedin: "https://linkedin.com/in/josephhsv",
+    twitter: "https://x.com/campusonchain",
   },
   {
     name: "Fabio Buscio",
     title: "Co-founder & Marketing Director",
-    bio: "Publicista con experiencia en estrategia, comunicación y crecimiento de comunidades Web3. Enfocado en educación, storytelling y adopción de nuevas tecnologías desde una perspectiva creativa y humana.",
     avatar: "/team/fabiobuscio.webp",
+    linkedin: "https://linkedin.com/in/fabio-buscio",
+    twitter: "https://x.com/campusonchain",
   },
 ];
 
@@ -49,19 +56,30 @@ export default function TeamSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {teamMembers.map((member, idx) => (
             <div key={idx} className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-white/20">
-              <Avatar className="w-20 h-20 mb-4 border-2 border-orange-500">
-                <AvatarImage src={member.avatar} />
-                <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">
-                  {member.name[0]}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="text-xl font-bold text-orange-300 mb-1">{member.name}</h3>
+              <a href={member.twitter} target="_blank" rel="noopener noreferrer">
+                <Avatar className="w-20 h-20 mb-4 border-2 border-orange-500 cursor-pointer hover:border-orange-400 transition">
+                  <AvatarImage src={member.avatar} />
+                  <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">
+                    {member.name[0]}
+                  </AvatarFallback>
+                </Avatar>
+              </a>
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                <h3 className="text-xl font-bold text-orange-300 mb-1 hover:underline cursor-pointer">{member.name}</h3>
+              </a>
               <div className="text-sm text-orange-100 mb-2 font-semibold">{member.title}</div>
-              <p className="text-sm text-white/90 mb-2">{member.bio}</p>
+              <div className="flex gap-4 justify-center mt-2">
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  <FaLinkedin size={24} />
+                </a>
+                <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  <FaXTwitter size={24} />
+                </a>
+              </div>
             </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 } 

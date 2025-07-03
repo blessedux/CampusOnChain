@@ -1,21 +1,25 @@
 import { useInView } from 'react-intersection-observer';
 import { AnimatedText } from './AnimatedText';
 import { GradientText } from './GradientText';
-import { BackgroundVideo } from '@/components/ui/background-video';
+// import { BackgroundVideo } from '@/components/ui/background-video';
 import { useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 export const IntroSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.2,
     triggerOnce: false
   });
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const controls = useAnimation();
 
   useEffect(() => {
     if (inView) {
-      console.log('Intro section is in view');
+      controls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start({ opacity: 0, y: 40 });
     }
-  }, [inView]);
+  }, [inView, controls]);
 
   return (
     <div ref={ref} className="min-h-[80vh] flex items-center mb-12">
@@ -41,15 +45,19 @@ export const IntroSection = () => {
             </div>
           </div>
 
-          {/* Video Background */}
+          {/* Imagen con fade in on scroll */}
           <div className="col-span-12 md:col-span-6 relative overflow-hidden">
             <div className="aspect-square w-full relative rounded-[2.5rem] overflow-hidden border border-neutral-800/30 bg-neutral-950/20 backdrop-blur-sm shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-10" />
-              <BackgroundVideo 
-                src="/videos/chain2_optimized_loop.webm"
-                className="scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8"
-                opacity={0.8}
-                onLoadStateChange={setIsVideoLoaded}
+              <motion.img
+                src="/IMG_5351-2.webp"
+                alt="Campus On Chain"
+                className="scale-[1.35] md:scale-125 md:translate-y-0 translate-y-8 object-cover w-full h-full"
+                style={{ opacity: isImageLoaded ? 1 : 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={controls}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                onLoad={() => setIsImageLoaded(true)}
               />
             </div>
           </div>

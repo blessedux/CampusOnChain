@@ -29,7 +29,7 @@ const cards: Card[] = [
     image: "/IMG_5835.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -44,7 +44,7 @@ const cards: Card[] = [
     image: "/IMG_4675-2.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -59,7 +59,7 @@ const cards: Card[] = [
     image: "/IMG_5859-3.webp",
     primaryCTA: {
       label: "Próximos eventos",
-      href: "/events"
+      href: "https://lu.ma/campusonchain"
     },
     secondaryCTA: {
       label: "Certificaciones",
@@ -119,18 +119,15 @@ export const CardsSection = () => {
                             {card.description}
                           </p>
                           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                            <Link 
+                            {/* Botón 'Próximos eventos' como <a> externo */}
+                            <a 
                               href={card.primaryCTA.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30"
                             >
                               {card.primaryCTA.label}
-                            </Link>
-                            <Link 
-                              href={card.secondaryCTA.href}
-                              className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl border border-neutral-700 text-neutral-200 font-medium hover:bg-neutral-800/50 transition-all duration-200"
-                            >
-                              {card.secondaryCTA.label}
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </FadeInCard>

@@ -60,8 +60,6 @@ const roadmapData: RoadmapItem[] = [
 export default function RoadmapSection() {
   const [activeQuarter, setActiveQuarter] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isMobile, setIsMobile] = useState(false);
-  const [isMobileTapped, setIsMobileTapped] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   
   // GSAP-like motion values for shapes
@@ -80,17 +78,6 @@ export default function RoadmapSection() {
   const shape2SpringY = useSpring(shape2Y, springConfig);
   const shape3SpringX = useSpring(shape3X, springConfig);
   const shape3SpringY = useSpring(shape3Y, springConfig);
-
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Initialize circles to center position
   useEffect(() => {
@@ -113,8 +100,6 @@ export default function RoadmapSection() {
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      if (isMobile) return; // Don't track mouse on mobile
-      
       const mouseX = event.clientX;
       const mouseY = event.clientY;
       
@@ -137,14 +122,11 @@ export default function RoadmapSection() {
     };
 
     const handleTouchStart = (event: TouchEvent) => {
-      if (!isMobile) return;
-      
       const touch = event.touches[0];
       const touchX = touch.clientX;
       const touchY = touch.clientY;
       
       setMousePosition({ x: touchX, y: touchY });
-      setIsMobileTapped(true);
       
       // Center circles on touch position
       shape1X.set(touchX - 700);
@@ -162,8 +144,6 @@ export default function RoadmapSection() {
     };
 
     const handleTouchEnd = () => {
-      if (!isMobile) return;
-      
       // Return circles to center after touch ends
       setTimeout(() => {
         if (sectionRef.current) {
@@ -186,23 +166,19 @@ export default function RoadmapSection() {
             shape3Y.set(centerY - 400);
           }, 100);
         }
-        setIsMobileTapped(false);
       }, 1000); // Return to center after 1 second
     };
 
-    if (!isMobile) {
-      window.addEventListener('mousemove', handleMouseMove);
-    } else {
-      window.addEventListener('touchstart', handleTouchStart);
-      window.addEventListener('touchend', handleTouchEnd);
-    }
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [isMobile, shape1X, shape1Y, shape2X, shape2Y, shape3X, shape3Y]);
+  }, [shape1X, shape1Y, shape2X, shape2Y, shape3X, shape3Y]);
 
   const handleQuarterHover = (quarterIndex: number) => {
     setActiveQuarter(quarterIndex);

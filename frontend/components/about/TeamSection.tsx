@@ -16,7 +16,7 @@ const teamMembers = [
     title: "Cultural Programs Lead",
     avatar: "/team/carlosconcha.webp",
     linkedin: "https://linkedin.com/in/carlosconchabilla",
-    twitter: "#",
+    twitter: "https://x.com/campusonchain",
   },
   {
     name: "Simón Espínola",
@@ -56,13 +56,17 @@ export default function TeamSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {teamMembers.map((member, idx) => (
             <div key={idx} className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-white/20">
-              <Avatar className="w-20 h-20 mb-4 border-2 border-orange-500">
-                <AvatarImage src={member.avatar} />
-                <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">
-                  {member.name[0]}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="text-xl font-bold text-orange-300 mb-1">{member.name}</h3>
+              <a href={member.twitter} target="_blank" rel="noopener noreferrer">
+                <Avatar className="w-20 h-20 mb-4 border-2 border-orange-500 cursor-pointer hover:border-orange-400 transition">
+                  <AvatarImage src={member.avatar} />
+                  <AvatarFallback className="bg-gray-700 text-gray-300 text-2xl">
+                    {member.name[0]}
+                  </AvatarFallback>
+                </Avatar>
+              </a>
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                <h3 className="text-xl font-bold text-orange-300 mb-1 hover:underline cursor-pointer">{member.name}</h3>
+              </a>
               <div className="text-sm text-orange-100 mb-2 font-semibold">{member.title}</div>
               <div className="flex gap-4 justify-center mt-2">
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
@@ -73,9 +77,9 @@ export default function TeamSection() {
                 </a>
               </div>
             </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 } 

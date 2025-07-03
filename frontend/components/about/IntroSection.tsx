@@ -42,6 +42,13 @@ export const IntroSection = () => {
                   con <GradientText text="oportunidades" type="orange" /> reales en <GradientText text="Web3" type="blue" />.
                 </AnimatedText>
               </div>
+              {/* Botón Sobre Nosotros */}
+              <a
+                href="/nosotros"
+                className="mt-8 inline-flex items-center justify-center px-8 py-3 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 text-lg"
+              >
+                Sobre Nosotros
+              </a>
             </div>
           </div>
 

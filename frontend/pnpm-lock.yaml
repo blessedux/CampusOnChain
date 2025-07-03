@@ -155,6 +155,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.54.1
     version: 7.59.0(react@18.3.1)
+  react-icons:
+    specifier: ^5.5.0
+    version: 5.5.0(react@18.3.1)
   react-intersection-observer:
     specifier: ^9.16.0
     version: 9.16.0(react-dom@18.3.1)(react@18.3.1)
@@ -8952,6 +8955,14 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+    dependencies:
+      react: 18.3.1
+    dev: false
+
+  /react-icons@5.5.0(react@18.3.1):
+    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
+    peerDependencies:
+      react: '*'
     dependencies:
       react: 18.3.1
     dev: false

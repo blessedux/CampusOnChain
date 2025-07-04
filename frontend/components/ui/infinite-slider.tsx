@@ -122,13 +122,13 @@ export default function InfiniteLogosSlider() {
           </div>
           <div className="relative py-4 md:py-6 w-full md:w-[calc(100%-11rem)]">
             <InfiniteSlider duration={40} durationOnHover={120} gap={48} className="md:gap-[112px]">
-              <div className="flex">
+              <div className="flex items-start h-12 overflow-visible">
                 <Image
-                  style={{height: '32px', width: 'auto'}}
+                  style={{height: '30px', width: 'auto', transform: 'translateY(-1px)'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/avalanche.png"
+                  src="/logos/AvalancheLogo_Horizontal_1C_White 6.svg"
                   alt="Avalanche Logo"
-                  height={48}
+                  height={30}
                   width={150}
                 />
               </div>
@@ -136,7 +136,7 @@ export default function InfiniteLogosSlider() {
                 <Image
                   style={{height: '32px', width: 'auto'}}
                   className="mx-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity md:h-12"
-                  src="/logos/stellar.png"
+                  src="/logos/Stellar Logo Final RGB 2.svg"
                   alt="Stellar Logo"
                   height={48}
                   width={150}
